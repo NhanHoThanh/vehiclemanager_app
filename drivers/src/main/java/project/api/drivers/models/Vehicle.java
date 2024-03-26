@@ -3,10 +3,34 @@ package project.api.drivers.models;
 import jakarta.persistence.*;
 import java.util.List;
 
-public class Vehicle {
+public abstract class Vehicle {
     private String Id;
     private List<Driver> driverList;
     private int capacity;
+    private String fuelType;
+    private String status;
+    private String route;
+    private String vehicleType;
+
+    public Vehicle(String id, List<Driver> driverList, int capacity, String fuelType, String status, String route, String vehicleType) {
+        Id = id;
+        this.driverList = driverList;
+        this.capacity = capacity;
+        this.fuelType = fuelType;
+        this.status = status;
+        this.route = route;
+        this.vehicleType = vehicleType;
+        if (vehicleType.equals("Coach")) {
+            new Coach();
+        } else if (vehicleType.equals("Container")) {
+            new Container();
+        }
+        else {
+            System.out.println("không có loại xe");
+        }
+    }
+    public Vehicle() {
+    }
 
     public String getId() {
         return Id;
@@ -62,24 +86,14 @@ public class Vehicle {
 
     public void setVehicleType(String vehicleType) {
         this.vehicleType = vehicleType;
+        if (vehicleType.equals("Coach")) {
+            new Coach();
+        } else if (vehicleType.equals("Container")) {
+            new Container();
+        }
+        else {
+            System.out.println("không có loại xe");
+        }
     }
-
-    public Vehicle(String id, List<Driver> driverList, int capacity, String fuelType, String status, String route, String vehicleType) {
-        Id = id;
-        this.driverList = driverList;
-        this.capacity = capacity;
-        this.fuelType = fuelType;
-        this.status = status;
-        this.route = route;
-        this.vehicleType = vehicleType;
-    }
-
-    public Vehicle() {
-    }
-
-    private String fuelType;
-    private String status;
-    private String route;
-    private String vehicleType;
 
 }

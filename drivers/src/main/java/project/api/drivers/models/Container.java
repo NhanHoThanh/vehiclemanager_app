@@ -1,23 +1,25 @@
 package project.api.drivers.models;
 import java.util.List;
-
-
 import java.util.Date;
 
 
-public class Container {
+public class Container extends Vehicle{
     private String cargoType;
     private Date previousMaintenanceDate;
     private Date nextMaintenanceDate;
+    private int currentLoad;
+    private int maxLoad;
+    private Cargo cargo;
 
-    public Container(String cargoType, Date previousMaintenanceDate, Date nextMaintenanceDate, int currentLoad, int maxLoad) {
+    public Container(String id, List<Driver> driverList, int capacity, String fuelType, String status, String route, String vehicleType, String cargoType, Date previousMaintenanceDate, Date nextMaintenanceDate, int currentLoad, int maxLoad, Cargo cargo) {
+        super(id, driverList, capacity, fuelType, status, route, vehicleType);
         this.cargoType = cargoType;
         this.previousMaintenanceDate = previousMaintenanceDate;
         this.nextMaintenanceDate = nextMaintenanceDate;
         this.currentLoad = currentLoad;
         this.maxLoad = maxLoad;
+        this.cargo = cargo;
     }
-
     public Container() {
     }
 
@@ -61,6 +63,11 @@ public class Container {
         this.maxLoad = maxLoad;
     }
 
-    private int currentLoad;
-    private int maxLoad;
+    public Cargo getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(Cargo cargo) {
+        this.cargo = cargo;
+    }
 }

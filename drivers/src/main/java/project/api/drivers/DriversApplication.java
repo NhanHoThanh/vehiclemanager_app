@@ -27,18 +27,12 @@ import java.util.concurrent.ExecutionException;
 public class DriversApplication {
 	public DriversApplication() throws IOException {
 	}
-	private static String getAccessToken() throws IOException {
-		GoogleCredential googleCredential = GoogleCredential
-				.fromStream(new FileInputStream("service-account.json"))
-				.createScoped(Arrays.asList(SCOPES));
-		googleCredential.refreshToken();
-		return googleCredential.getAccessToken();
-	}
+
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
 
 
 		FileInputStream serviceAccount =
-				new FileInputStream("D:\\Code\\drivers\\drivers\\src\\main\\resources\\serviceAccount.json");
+				new FileInputStream("C:\\Users\\nguye\\OneDrive\\Documents\\vehiclemanager_app\\drivers\\src\\main\\resources\\serviceAccount.json");
 
 		FirebaseOptions options = new FirebaseOptions.Builder()
 				.setCredentials(GoogleCredentials.fromStream(serviceAccount))

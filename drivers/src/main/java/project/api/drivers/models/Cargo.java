@@ -1,9 +1,29 @@
 package project.api.drivers.models;
 
 
+import java.util.List;
+
 public class Cargo extends Vehicle{
     private String IDCargo;
     private int mass;
+    private String receiver;
+    private String sender;
+    private String sendingPlace;
+    private String recipients;
+    private String phoneNumber;
+    private String nameCargo;
+
+    public Cargo(String id, List<Driver> driverList, int capacity, String fuelType, String status, String route, String vehicleType, String IDCargo, int mass, String receiver, String sender, String sendingPlace, String recipients, String phoneNumber, String nameCargo) {
+        super(id, driverList, capacity, fuelType, status, route, vehicleType);
+        this.IDCargo = IDCargo;
+        this.mass = mass;
+        this.receiver = receiver;
+        this.sender = sender;
+        this.sendingPlace = sendingPlace;
+        this.recipients = recipients;
+        this.phoneNumber = phoneNumber;
+        this.nameCargo = nameCargo;
+    }
 
     public Cargo(String IDCargo, int mass, String receiver, String sender, String sendingPlace, String recipients, String phoneNumber, String nameCargo) {
         this.IDCargo = IDCargo;
@@ -83,10 +103,5 @@ public class Cargo extends Vehicle{
         this.nameCargo = nameCargo;
     }
 
-    private String receiver;
-    private String sender;
-    private String sendingPlace;
-    private String recipients;
-    private String phoneNumber;
-    private String nameCargo;
+
 }

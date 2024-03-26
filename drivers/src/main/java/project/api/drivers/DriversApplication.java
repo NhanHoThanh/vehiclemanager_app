@@ -27,13 +27,13 @@ import java.util.concurrent.ExecutionException;
 public class DriversApplication {
 	public DriversApplication() throws IOException {
 	}
-	private static String getAccessToken() throws IOException {
-		GoogleCredential googleCredential = GoogleCredential
-				.fromStream(new FileInputStream("service-account.json"))
-				.createScoped(Arrays.asList(SCOPES));
-		googleCredential.refreshToken();
-		return googleCredential.getAccessToken();
-	}
+//	private static String getAccessToken() throws IOException {
+//		GoogleCredential googleCredential = GoogleCredential
+//				.fromStream(new FileInputStream("service-account.json"))
+//				.createScoped(Arrays.asList(SCOPES));
+//		googleCredential.refreshToken();
+//		return googleCredential.getAccessToken();
+//	}
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
 
 

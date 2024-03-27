@@ -1,5 +1,6 @@
 package project.api.drivers.models;
 
+import com.google.api.client.util.Data;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -9,10 +10,15 @@ public abstract class Vehicle {
     private int capacity;
     private String fuelType;
     private String status;
-    private String route;
+    private Route route;
     private String vehicleType;
+    private Data timeStart;
+    private Data timeEnd;
 
-    public Vehicle(String id, List<Driver> driverList, int capacity, String fuelType, String status, String route, String vehicleType) {
+    public Vehicle() {
+    }
+
+    public Vehicle(String id, List<Driver> driverList, int capacity, String fuelType, String status, Route route, String vehicleType, Data timeStart, Data timeEnd) {
         Id = id;
         this.driverList = driverList;
         this.capacity = capacity;
@@ -20,16 +26,8 @@ public abstract class Vehicle {
         this.status = status;
         this.route = route;
         this.vehicleType = vehicleType;
-        if (vehicleType.equals("Coach")) {
-            new Coach();
-        } else if (vehicleType.equals("Container")) {
-            new Container();
-        }
-        else {
-            System.out.println("không có loại xe");
-        }
-    }
-    public Vehicle() {
+        this.timeStart = timeStart;
+        this.timeEnd = timeEnd;
     }
 
     public String getId() {
@@ -72,11 +70,11 @@ public abstract class Vehicle {
         this.status = status;
     }
 
-    public String getRoute() {
+    public Route getRoute() {
         return route;
     }
 
-    public void setRoute(String route) {
+    public void setRoute(Route route) {
         this.route = route;
     }
 
@@ -86,14 +84,21 @@ public abstract class Vehicle {
 
     public void setVehicleType(String vehicleType) {
         this.vehicleType = vehicleType;
-        if (vehicleType.equals("Coach")) {
-            new Coach();
-        } else if (vehicleType.equals("Container")) {
-            new Container();
-        }
-        else {
-            System.out.println("không có loại xe");
-        }
     }
 
+    public Data getTimeStart() {
+        return timeStart;
+    }
+
+    public void setTimeStart(Data timeStart) {
+        this.timeStart = timeStart;
+    }
+
+    public Data getTimeEnd() {
+        return timeEnd;
+    }
+
+    public void setTimeEnd(Data timeEnd) {
+        this.timeEnd = timeEnd;
+    }
 }

@@ -16,4 +16,7 @@ public class CoachService {
     public Coach getCoachById(String id) throws ExecutionException, InterruptedException {
         return coachRepository.getCoachById(id);
     }
+    public String deleteCoachById(String id) throws ExecutionException, InterruptedException {
+        return coachRepository.deleteCoachById(id);
+    }
 }

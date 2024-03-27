@@ -10,19 +10,18 @@ public class Coach extends Vehicle{
     private Date previousMaintenanceDate;
     private Date nextMaintenanceDate;
     private List<Integer> emptySeat;
-    private Passenger Passenger;
+    private List<Passenger> passengerList;
 
-    public Coach(String id, List<Driver> driverList, int capacity, String fuelType, String status, String route, String vehicleType, int numberOfSeats, int numberOfPassenger, Date previousMaintenanceDate, Date nextMaintenanceDate, List<Integer> emptySeat, project.api.drivers.models.Passenger passenger) {
-        super(id, driverList, capacity, fuelType, status, route, vehicleType);
+    public Coach() {
+    }
+
+    public Coach(int numberOfSeats, int numberOfPassenger, Date previousMaintenanceDate, Date nextMaintenanceDate, List<Integer> emptySeat, List<Passenger> passengerList) {
         this.numberOfSeats = numberOfSeats;
         this.numberOfPassenger = numberOfPassenger;
         this.previousMaintenanceDate = previousMaintenanceDate;
         this.nextMaintenanceDate = nextMaintenanceDate;
         this.emptySeat = emptySeat;
-        Passenger = passenger;
-    }
-
-    public Coach() {
+        this.passengerList = passengerList;
     }
 
     public int getNumberOfSeats() {
@@ -65,11 +64,11 @@ public class Coach extends Vehicle{
         this.emptySeat = emptySeat;
     }
 
-    public project.api.drivers.models.Passenger getPassenger() {
-        return Passenger;
+    public List<Passenger> getPassengerList() {
+        return passengerList;
     }
 
-    public void setPassenger(project.api.drivers.models.Passenger passenger) {
-        Passenger = passenger;
+    public void setPassengerList(List<Passenger> passengerList) {
+        this.passengerList = passengerList;
     }
 }

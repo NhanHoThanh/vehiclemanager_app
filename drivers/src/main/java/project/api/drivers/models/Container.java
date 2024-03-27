@@ -9,18 +9,18 @@ public class Container extends Vehicle{
     private Date nextMaintenanceDate;
     private int currentLoad;
     private int maxLoad;
-    private Cargo cargo;
+    private List<Cargo> cargoList;
 
-    public Container(String id, List<Driver> driverList, int capacity, String fuelType, String status, String route, String vehicleType, String cargoType, Date previousMaintenanceDate, Date nextMaintenanceDate, int currentLoad, int maxLoad, Cargo cargo) {
-        super(id, driverList, capacity, fuelType, status, route, vehicleType);
+    public Container() {
+    }
+
+    public Container(String cargoType, Date previousMaintenanceDate, Date nextMaintenanceDate, int currentLoad, int maxLoad, List<Cargo> cargoList) {
         this.cargoType = cargoType;
         this.previousMaintenanceDate = previousMaintenanceDate;
         this.nextMaintenanceDate = nextMaintenanceDate;
         this.currentLoad = currentLoad;
         this.maxLoad = maxLoad;
-        this.cargo = cargo;
-    }
-    public Container() {
+        this.cargoList = cargoList;
     }
 
     public String getCargoType() {
@@ -63,11 +63,11 @@ public class Container extends Vehicle{
         this.maxLoad = maxLoad;
     }
 
-    public Cargo getCargo() {
-        return cargo;
+    public List<Cargo> getCargoList() {
+        return cargoList;
     }
 
-    public void setCargo(Cargo cargo) {
-        this.cargo = cargo;
+    public void setCargoList(List<Cargo> cargoList) {
+        this.cargoList = cargoList;
     }
 }

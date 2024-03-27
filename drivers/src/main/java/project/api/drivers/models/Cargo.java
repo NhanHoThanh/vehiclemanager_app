@@ -3,18 +3,22 @@ package project.api.drivers.models;
 
 import java.util.List;
 
-public class Cargo extends Vehicle{
+public class Cargo{
     private String IDCargo;
-    private int mass;
+    private double mass;
     private String receiver;
     private String sender;
     private String sendingPlace;
     private String receivingPlace;
     private String phoneNumber;
     private String nameCargo;
+    private double size;
+    private double costCargo;
 
-    public Cargo(String id, List<Driver> driverList, int capacity, String fuelType, String status, String route, String vehicleType, String IDCargo, int mass, String receiver, String sender, String sendingPlace, String receivingPlace, String phoneNumber, String nameCargo) {
-        super(id, driverList, capacity, fuelType, status, route, vehicleType);
+    public Cargo() {
+    }
+
+    public Cargo(String IDCargo, double mass, String receiver, String sender, String sendingPlace, String receivingPlace, String phoneNumber, String nameCargo, double size, double costCargo) {
         this.IDCargo = IDCargo;
         this.mass = mass;
         this.receiver = receiver;
@@ -23,9 +27,8 @@ public class Cargo extends Vehicle{
         this.receivingPlace = receivingPlace;
         this.phoneNumber = phoneNumber;
         this.nameCargo = nameCargo;
-    }
-
-    public Cargo() {
+        this.size = size;
+        this.costCargo = costCargo;
     }
 
     public String getIDCargo() {
@@ -36,11 +39,11 @@ public class Cargo extends Vehicle{
         this.IDCargo = IDCargo;
     }
 
-    public int getMass() {
+    public double getMass() {
         return mass;
     }
 
-    public void setMass(int mass) {
+    public void setMass(double mass) {
         this.mass = mass;
     }
 
@@ -68,11 +71,11 @@ public class Cargo extends Vehicle{
         this.sendingPlace = sendingPlace;
     }
 
-    public String getreceivingPlace() {
+    public String getReceivingPlace() {
         return receivingPlace;
     }
 
-    public void setreceivingPlace(String receivingPlace) {
+    public void setReceivingPlace(String receivingPlace) {
         this.receivingPlace = receivingPlace;
     }
 
@@ -92,5 +95,19 @@ public class Cargo extends Vehicle{
         this.nameCargo = nameCargo;
     }
 
+    public double getSize() {
+        return size;
+    }
 
+    public void setSize(double size) {
+        this.size = size;
+    }
+
+    public double getCostCargo() {
+        return costCargo;
+    }
+
+    public void setCostCargo(double costCargo) {
+        this.costCargo = costCargo;
+    }
 }

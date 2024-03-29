@@ -9,12 +9,13 @@ public class Container extends Vehicle{
     private Date nextMaintenanceDate;
     private int currentLoad;
     private int maxLoad;
-    private List<Cargo> cargoList;
+    private List<String> cargoList;
 
     public Container() {
     }
 
-    public Container(String cargoType, Date previousMaintenanceDate, Date nextMaintenanceDate, int currentLoad, int maxLoad, List<Cargo> cargoList) {
+    public Container(String idVehicle, List<Integer> driverList, int capacity, String fuelType, String status, String route, String vehicleType, Date timeStart, Date timeEnd, String cargoType, Date previousMaintenanceDate, Date nextMaintenanceDate, int currentLoad, int maxLoad, List<String> cargoList) {
+        super(idVehicle, driverList, capacity, fuelType, status, route, vehicleType, timeStart, timeEnd);
         this.cargoType = cargoType;
         this.previousMaintenanceDate = previousMaintenanceDate;
         this.nextMaintenanceDate = nextMaintenanceDate;
@@ -63,11 +64,24 @@ public class Container extends Vehicle{
         this.maxLoad = maxLoad;
     }
 
-    public List<Cargo> getCargoList() {
+    public List<String> getCargoList() {
         return cargoList;
     }
 
-    public void setCargoList(List<Cargo> cargoList) {
+    public void setCargoList(List<String> cargoList) {
         this.cargoList = cargoList;
+    }
+
+    public void setVehicle(Vehicle vehicle) {
+        // Set properties inherited from Vehicle class
+        this.setIdVehicle(vehicle.getIdVehicle());
+        this.setDriverList(vehicle.getDriverList());
+        this.setCapacity(vehicle.getCapacity());
+        this.setFuelType(vehicle.getFuelType());
+        this.setStatus(vehicle.getStatus());
+        this.setRoute(vehicle.getRoute());
+        this.setVehicleType(vehicle.getVehicleType());
+        this.setTimeStart(vehicle.getTimeStart());
+        this.setTimeEnd(vehicle.getTimeEnd());
     }
 }

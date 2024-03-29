@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import project.api.drivers.models.Cargo;
 import project.api.drivers.repositories.CargoRepository;
-
 import java.util.concurrent.ExecutionException;
 
 @Service

@@ -1,8 +1,5 @@
 package project.api.drivers.models;
 
-
-import java.util.List;
-
 public class Cargo{
     private String idCargo;
     private double mass;

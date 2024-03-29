@@ -1,25 +1,25 @@
 package project.api.drivers.models;
-
 import com.google.api.client.util.Data;
-import jakarta.persistence.*;
+import java.util.Date;
 import java.util.List;
 
-public abstract class Vehicle {
-    private String Id;
-    private List<Driver> driverList;
+
+public class Vehicle {
+    private String idVehicle;
+    private List<Integer> driverList;
     private int capacity;
     private String fuelType;
     private String status;
-    private Route route;
+    private String route;
     private String vehicleType;
-    private Data timeStart;
-    private Data timeEnd;
+    private Date timeStart;
+    private Date timeEnd;
 
     public Vehicle() {
     }
 
-    public Vehicle(String id, List<Driver> driverList, int capacity, String fuelType, String status, Route route, String vehicleType, Data timeStart, Data timeEnd) {
-        Id = id;
+    public Vehicle(String idVehicle, List<Integer> driverList, int capacity, String fuelType, String status, String route, String vehicleType, Date timeStart, Date timeEnd) {
+        this.idVehicle = idVehicle;
         this.driverList = driverList;
         this.capacity = capacity;
         this.fuelType = fuelType;
@@ -30,19 +30,19 @@ public abstract class Vehicle {
         this.timeEnd = timeEnd;
     }
 
-    public String getId() {
-        return Id;
+    public String getIdVehicle() {
+        return idVehicle;
     }
 
-    public void setId(String id) {
-        Id = id;
+    public void setIdVehicle(String idVehicle) {
+        this.idVehicle = idVehicle;
     }
 
-    public List<Driver> getDriverList() {
+    public List<Integer> getDriverList() {
         return driverList;
     }
 
-    public void setDriverList(List<Driver> driverList) {
+    public void setDriverList(List<Integer> driverList) {
         this.driverList = driverList;
     }
 
@@ -70,11 +70,11 @@ public abstract class Vehicle {
         this.status = status;
     }
 
-    public Route getRoute() {
+    public String getRoute() {
         return route;
     }
 
-    public void setRoute(Route route) {
+    public void setRoute(String route) {
         this.route = route;
     }
 
@@ -86,19 +86,19 @@ public abstract class Vehicle {
         this.vehicleType = vehicleType;
     }
 
-    public Data getTimeStart() {
+    public Date getTimeStart() {
         return timeStart;
     }
 
-    public void setTimeStart(Data timeStart) {
+    public void setTimeStart(Date timeStart) {
         this.timeStart = timeStart;
     }
 
-    public Data getTimeEnd() {
+    public Date getTimeEnd() {
         return timeEnd;
     }
 
-    public void setTimeEnd(Data timeEnd) {
+    public void setTimeEnd(Date timeEnd) {
         this.timeEnd = timeEnd;
     }
 }

@@ -15,7 +15,7 @@ import java.util.concurrent.ExecutionException;
 public class PassengerRepository {
     public String createPassenger(Passenger passenger) throws ExecutionException, InterruptedException {
         Firestore dbFileStore = FirestoreClient.getFirestore();
-        ApiFuture<WriteResult> collectionApiFuture = dbFileStore.collection("Passenger").document(passenger.getIDPassenger()).set(passenger);
+        ApiFuture<WriteResult> collectionApiFuture = dbFileStore.collection("Passenger").document(passenger.getIdPassenger()).set(passenger);
         return collectionApiFuture.get().getUpdateTime().toString();
     }
     public Passenger getPassengerById(String id) throws ExecutionException, InterruptedException {

@@ -6,17 +6,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import project.api.drivers.models.Coach;
-import project.api.drivers.services.CoachService;
+import project.api.drivers.models.Vehicle;
+import project.api.drivers.services.VehicleService;
 
 import java.util.concurrent.ExecutionException;
 
 @RestController
-@RequestMapping("/api/coach")
-public class CoachController {
-    public CoachService coachService;
-    public CoachController(CoachService coachService) {
-        this.coachService = coachService;
+@RequestMapping("/api/vehicle")
+public class VehicleController {
+    public VehicleService vehicleService;
+
+    public VehicleController(VehicleService vehicleService) {
+        this.vehicleService = vehicleService;
     }
     @GetMapping("/test")
     public String test() {
@@ -24,13 +25,12 @@ public class CoachController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Coach> getCoach(@PathVariable String id) throws ExecutionException, InterruptedException {
-        Coach coach = coachService.getCoachById(id);
-        if (coach != null) {
-            return ResponseEntity.ok(coach);
+    public ResponseEntity<Vehicle> getVehicle(@PathVariable String id) throws ExecutionException, InterruptedException {
+        Vehicle vehicle = vehicleService.getVehicleById(id);
+        if (vehicle != null) {
+            return ResponseEntity.ok(vehicle);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
-
 }

@@ -4,7 +4,7 @@ package project.api.drivers.models;
 import java.util.List;
 
 public class Cargo{
-    private String IDCargo;
+    private String idCargo;
     private double mass;
     private String receiver;
     private String sender;
@@ -18,8 +18,8 @@ public class Cargo{
     public Cargo() {
     }
 
-    public Cargo(String IDCargo, double mass, String receiver, String sender, String sendingPlace, String receivingPlace, String phoneNumber, String nameCargo, double size, double costCargo) {
-        this.IDCargo = IDCargo;
+    public Cargo(String idCargo, double mass, String receiver, String sender, String sendingPlace, String receivingPlace, String phoneNumber, String nameCargo, double size, double costCargo) {
+        this.idCargo = idCargo;
         this.mass = mass;
         this.receiver = receiver;
         this.sender = sender;
@@ -31,12 +31,12 @@ public class Cargo{
         this.costCargo = costCargo;
     }
 
-    public String getIDCargo() {
-        return IDCargo;
+    public String getIdCargo() {
+        return idCargo;
     }
 
-    public void setIDCargo(String IDCargo) {
-        this.IDCargo = IDCargo;
+    public void setIdCargo(String idCargo) {
+        this.idCargo = idCargo;
     }
 
     public double getMass() {

@@ -10,21 +10,22 @@ import org.springframework.stereotype.Repository;
 import project.api.drivers.models.Coach;
 
 import java.util.concurrent.ExecutionException;
-
 @Repository
 public class CoachRepository {
     public String createCoach(Coach coach) throws ExecutionException, InterruptedException {
         Firestore dbFileStore = FirestoreClient.getFirestore();
-        ApiFuture<WriteResult> collectionApiFuture = dbFileStore.collection("Container").document(coach.getId()).set(coach);
+        ApiFuture<WriteResult> collectionApiFuture = dbFileStore.collection("Coach").document(coach.getIdVehicle()).set(coach);
         return collectionApiFuture.get().getUpdateTime().toString();
     }
+
     public Coach getCoachById(String id) throws ExecutionException, InterruptedException {
         Firestore db = FirestoreClient.getFirestore();
-        DocumentReference docRef = db.collection("Container").document(id);
-        ApiFuture<DocumentSnapshot> future = docRef.get();
-        DocumentSnapshot document = future.get();
-        if (document.exists()) {
-            return document.toObject(Coach.class);
+        DocumentReference coachRef = db.collection("Coach").document(id);
+        ApiFuture<DocumentSnapshot> coachFuture = coachRef.get();
+        DocumentSnapshot coachDocument = coachFuture.get();
+        if (coachDocument.exists()) {
+            System.out.println(Coach.class);
+            return coachDocument.toObject(Coach.class);
         } else {
             System.out.println("No such document!");
             return null;
@@ -35,7 +36,7 @@ public class CoachRepository {
     }
     public String deleteCoachById(String id){
         Firestore db = FirestoreClient.getFirestore();
-        ApiFuture<WriteResult> WriteResult = db.collection("Container").document(id).delete();
+        ApiFuture<WriteResult> WriteResult = db.collection("Coach").document(id).delete();
         return "delete" + id;
     }
 }

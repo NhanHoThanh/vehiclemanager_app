@@ -15,7 +15,7 @@ import project.api.drivers.models.Cargo;
 public class CargoRepository {
     public String createCargo(Cargo cargo) throws ExecutionException, InterruptedException {
         Firestore dbFileStore = FirestoreClient.getFirestore();
-        ApiFuture<WriteResult> collectionApiFuture = dbFileStore.collection("Container").document(cargo.getIDCargo()).set(cargo);
+        ApiFuture<WriteResult> collectionApiFuture = dbFileStore.collection("Container").document(cargo.getIdCargo()).set(cargo);
         return collectionApiFuture.get().getUpdateTime().toString();
     }
     public Cargo getCargoById(String id) throws ExecutionException, InterruptedException {

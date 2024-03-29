@@ -2,7 +2,7 @@ package project.api.drivers.models;
 
 
 public class Passenger {
-    private String IDPassenger;
+    private String idPassenger;
     private String destination;
     private String departure;
     private String name;
@@ -12,8 +12,8 @@ public class Passenger {
     public Passenger() {
     }
 
-    public Passenger(String IDPassenger, String destination, String departure, String name, int seatingPosition, double cosPassenger) {
-        this.IDPassenger = IDPassenger;
+    public Passenger(String idPassenger, String destination, String departure, String name, int seatingPosition, double cosPassenger) {
+        this.idPassenger = idPassenger;
         this.destination = destination;
         this.departure = departure;
         this.name = name;
@@ -21,12 +21,12 @@ public class Passenger {
         this.cosPassenger = cosPassenger;
     }
 
-    public String getIDPassenger() {
-        return IDPassenger;
+    public String getIdPassenger() {
+        return idPassenger;
     }
 
-    public void setIDPassenger(String IDPassenger) {
-        this.IDPassenger = IDPassenger;
+    public void setIdPassenger(String idPassenger) {
+        this.idPassenger = idPassenger;
     }
 
     public String getDestination() {

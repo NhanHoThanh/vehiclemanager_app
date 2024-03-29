@@ -15,7 +15,7 @@ import java.util.concurrent.ExecutionException;
 public class ContainerRepository {
     public String createContainer(@org.jetbrains.annotations.NotNull Container container) throws ExecutionException, InterruptedException {
     Firestore dbFileStore = FirestoreClient.getFirestore();
-    ApiFuture<WriteResult> collectionApiFuture = dbFileStore.collection("Container").document(container.getId()).set(container);
+    ApiFuture<WriteResult> collectionApiFuture = dbFileStore.collection("Container").document(container.getIdVehicle()).set(container);
     return collectionApiFuture.get().getUpdateTime().toString();
 }
     public Container getContainerById(String id) throws ExecutionException, InterruptedException {

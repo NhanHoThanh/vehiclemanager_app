@@ -27,18 +27,12 @@ import java.util.concurrent.ExecutionException;
 public class DriversApplication {
 	public DriversApplication() throws IOException {
 	}
-//	private static String getAccessToken() throws IOException {
-//		GoogleCredential googleCredential = GoogleCredential
-//				.fromStream(new FileInputStream("service-account.json"))
-//				.createScoped(Arrays.asList(SCOPES));
-//		googleCredential.refreshToken();
-//		return googleCredential.getAccessToken();
-//	}
+
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
 
 
 		FileInputStream serviceAccount =
-				new FileInputStream("D:\\Code\\drivers\\drivers\\src\\main\\resources\\serviceAccount.json");
+				new FileInputStream("drivers/src/main/resources/serviceAccount.json");
 
 		FirebaseOptions options = new FirebaseOptions.Builder()
 				.setCredentials(GoogleCredentials.fromStream(serviceAccount))
@@ -52,11 +46,11 @@ public class DriversApplication {
 		ApiFuture<DocumentSnapshot> future = docRef.get();
 		DocumentSnapshot document = future.get();
 		if (document.exists()) {
-			System.out.println("Document data: " + document.getData());
+			System.out.println(STR."Document data: \{document.getData()}");
 		} else {
 			System.out.println("No such document!");
 		}
-		System.out.println("FirebaseOptions: " + options);
+		System.out.println(STR."FirebaseOptions: \{options}");
 		System.out.println(FirebaseApp.getApps());
 		SpringApplication.run(DriversApplication.class, args);
 	}

@@ -1,26 +1,48 @@
 package project.api.drivers.models;
-
-import jakarta.persistence.*;
+import com.google.api.client.util.Data;
+import java.util.Date;
 import java.util.List;
 
+
 public class Vehicle {
-    private String Id;
-    private List<Driver> driverList;
+    private String idVehicle;
+    private List<Integer> driverList;
     private int capacity;
+    private String fuelType;
+    private String status;
+    private String route;
+    private String vehicleType;
+    private Date timeStart;
+    private Date timeEnd;
 
-    public String getId() {
-        return Id;
+    public Vehicle() {
     }
 
-    public void setId(String id) {
-        Id = id;
+    public Vehicle(String idVehicle, List<Integer> driverList, int capacity, String fuelType, String status, String route, String vehicleType, Date timeStart, Date timeEnd) {
+        this.idVehicle = idVehicle;
+        this.driverList = driverList;
+        this.capacity = capacity;
+        this.fuelType = fuelType;
+        this.status = status;
+        this.route = route;
+        this.vehicleType = vehicleType;
+        this.timeStart = timeStart;
+        this.timeEnd = timeEnd;
     }
 
-    public List<Driver> getDriverList() {
+    public String getIdVehicle() {
+        return idVehicle;
+    }
+
+    public void setIdVehicle(String idVehicle) {
+        this.idVehicle = idVehicle;
+    }
+
+    public List<Integer> getDriverList() {
         return driverList;
     }
 
-    public void setDriverList(List<Driver> driverList) {
+    public void setDriverList(List<Integer> driverList) {
         this.driverList = driverList;
     }
 
@@ -64,22 +86,19 @@ public class Vehicle {
         this.vehicleType = vehicleType;
     }
 
-    public Vehicle(String id, List<Driver> driverList, int capacity, String fuelType, String status, String route, String vehicleType) {
-        Id = id;
-        this.driverList = driverList;
-        this.capacity = capacity;
-        this.fuelType = fuelType;
-        this.status = status;
-        this.route = route;
-        this.vehicleType = vehicleType;
+    public Date getTimeStart() {
+        return timeStart;
     }
 
-    public Vehicle() {
+    public void setTimeStart(Date timeStart) {
+        this.timeStart = timeStart;
     }
 
-    private String fuelType;
-    private String status;
-    private String route;
-    private String vehicleType;
+    public Date getTimeEnd() {
+        return timeEnd;
+    }
 
+    public void setTimeEnd(Date timeEnd) {
+        this.timeEnd = timeEnd;
+    }
 }

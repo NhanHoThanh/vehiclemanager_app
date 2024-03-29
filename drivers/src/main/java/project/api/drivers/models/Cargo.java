@@ -1,57 +1,46 @@
 package project.api.drivers.models;
 
-
-import java.util.List;
-
-public class Cargo extends Vehicle{
-    private String IDCargo;
-    private int mass;
+public class Cargo{
+    private String idCargo;
+    private double mass;
     private String receiver;
     private String sender;
     private String sendingPlace;
-    private String recipients;
+    private String receivingPlace;
     private String phoneNumber;
     private String nameCargo;
-
-    public Cargo(String id, List<Driver> driverList, int capacity, String fuelType, String status, String route, String vehicleType, String IDCargo, int mass, String receiver, String sender, String sendingPlace, String recipients, String phoneNumber, String nameCargo) {
-        super(id, driverList, capacity, fuelType, status, route, vehicleType);
-        this.IDCargo = IDCargo;
-        this.mass = mass;
-        this.receiver = receiver;
-        this.sender = sender;
-        this.sendingPlace = sendingPlace;
-        this.recipients = recipients;
-        this.phoneNumber = phoneNumber;
-        this.nameCargo = nameCargo;
-    }
-
-    public Cargo(String IDCargo, int mass, String receiver, String sender, String sendingPlace, String recipients, String phoneNumber, String nameCargo) {
-        this.IDCargo = IDCargo;
-        this.mass = mass;
-        this.receiver = receiver;
-        this.sender = sender;
-        this.sendingPlace = sendingPlace;
-        this.recipients = recipients;
-        this.phoneNumber = phoneNumber;
-        this.nameCargo = nameCargo;
-    }
+    private double size;
+    private double costCargo;
 
     public Cargo() {
     }
 
-    public String getIDCargo() {
-        return IDCargo;
+    public Cargo(String idCargo, double mass, String receiver, String sender, String sendingPlace, String receivingPlace, String phoneNumber, String nameCargo, double size, double costCargo) {
+        this.idCargo = idCargo;
+        this.mass = mass;
+        this.receiver = receiver;
+        this.sender = sender;
+        this.sendingPlace = sendingPlace;
+        this.receivingPlace = receivingPlace;
+        this.phoneNumber = phoneNumber;
+        this.nameCargo = nameCargo;
+        this.size = size;
+        this.costCargo = costCargo;
     }
 
-    public void setIDCargo(String IDCargo) {
-        this.IDCargo = IDCargo;
+    public String getIdCargo() {
+        return idCargo;
     }
 
-    public int getMass() {
+    public void setIdCargo(String idCargo) {
+        this.idCargo = idCargo;
+    }
+
+    public double getMass() {
         return mass;
     }
 
-    public void setMass(int mass) {
+    public void setMass(double mass) {
         this.mass = mass;
     }
 
@@ -79,12 +68,12 @@ public class Cargo extends Vehicle{
         this.sendingPlace = sendingPlace;
     }
 
-    public String getRecipients() {
-        return recipients;
+    public String getReceivingPlace() {
+        return receivingPlace;
     }
 
-    public void setRecipients(String recipients) {
-        this.recipients = recipients;
+    public void setReceivingPlace(String receivingPlace) {
+        this.receivingPlace = receivingPlace;
     }
 
     public String getPhoneNumber() {
@@ -103,5 +92,19 @@ public class Cargo extends Vehicle{
         this.nameCargo = nameCargo;
     }
 
+    public double getSize() {
+        return size;
+    }
 
+    public void setSize(double size) {
+        this.size = size;
+    }
+
+    public double getCostCargo() {
+        return costCargo;
+    }
+
+    public void setCostCargo(double costCargo) {
+        this.costCargo = costCargo;
+    }
 }

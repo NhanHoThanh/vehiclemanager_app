@@ -1,24 +1,27 @@
 package project.api.drivers.models;
 import java.util.List;
-
-
 import java.util.Date;
 
 
-public class Container {
+public class Container extends Vehicle{
     private String cargoType;
     private Date previousMaintenanceDate;
     private Date nextMaintenanceDate;
+    private int currentLoad;
+    private int maxLoad;
+    private List<String> cargoList;
 
-    public Container(String cargoType, Date previousMaintenanceDate, Date nextMaintenanceDate, int currentLoad, int maxLoad) {
+    public Container() {
+    }
+
+    public Container(String idVehicle, List<Integer> driverList, int capacity, String fuelType, String status, String route, String vehicleType, Date timeStart, Date timeEnd, String cargoType, Date previousMaintenanceDate, Date nextMaintenanceDate, int currentLoad, int maxLoad, List<String> cargoList) {
+        super(idVehicle, driverList, capacity, fuelType, status, route, vehicleType, timeStart, timeEnd);
         this.cargoType = cargoType;
         this.previousMaintenanceDate = previousMaintenanceDate;
         this.nextMaintenanceDate = nextMaintenanceDate;
         this.currentLoad = currentLoad;
         this.maxLoad = maxLoad;
-    }
-
-    public Container() {
+        this.cargoList = cargoList;
     }
 
     public String getCargoType() {
@@ -61,6 +64,24 @@ public class Container {
         this.maxLoad = maxLoad;
     }
 
-    private int currentLoad;
-    private int maxLoad;
+    public List<String> getCargoList() {
+        return cargoList;
+    }
+
+    public void setCargoList(List<String> cargoList) {
+        this.cargoList = cargoList;
+    }
+
+    public void setVehicle(Vehicle vehicle) {
+        // Set properties inherited from Vehicle class
+        this.setIdVehicle(vehicle.getIdVehicle());
+        this.setDriverList(vehicle.getDriverList());
+        this.setCapacity(vehicle.getCapacity());
+        this.setFuelType(vehicle.getFuelType());
+        this.setStatus(vehicle.getStatus());
+        this.setRoute(vehicle.getRoute());
+        this.setVehicleType(vehicle.getVehicleType());
+        this.setTimeStart(vehicle.getTimeStart());
+        this.setTimeEnd(vehicle.getTimeEnd());
+    }
 }

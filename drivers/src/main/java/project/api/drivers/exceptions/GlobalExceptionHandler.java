@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import project.api.drivers.models.ResponseObject;
+import project.api.drivers.ultis.ResponseObject;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {

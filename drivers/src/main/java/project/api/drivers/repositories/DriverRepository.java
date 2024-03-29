@@ -1,11 +1,27 @@
 package project.api.drivers.repositories;
-import org.springframework.data.jpa.repository.JpaRepository;
+
 import org.springframework.stereotype.Repository;
 import project.api.drivers.models.Driver;
 
 import java.util.concurrent.ExecutionException;
 
-public interface DriverRepository {
-    Driver getDriverById(String id) throws ExecutionException, InterruptedException;
+@Repository
+public class DriverRepository extends GenericRepositoryImpl {
 
+    public Driver createDriver(Driver driver) throws ExecutionException, InterruptedException {
+        createDocument("Drivers", driver.getId(), driver);
+        return driver;
+    }
+
+    public Driver getDriverById(String id) throws ExecutionException, InterruptedException {
+        return getDocument("Drivers", id, Driver.class);
+    }
+
+    public void updateDriver(Driver driver) throws ExecutionException, InterruptedException {
+        updateDocument("Drivers", driver.getId(), driver);
+    }
+
+    public void deleteDriverById(String id) throws ExecutionException, InterruptedException {
+        deleteDocument("Drivers", id);
+    }
 }

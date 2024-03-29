@@ -32,7 +32,7 @@ public class DriversApplication {
 
 
 		FileInputStream serviceAccount =
-				new FileInputStream("C:\\Users\\nguye\\OneDrive\\Documents\\vehiclemanager_app\\drivers\\src\\main\\resources\\serviceAccount.json");
+				new FileInputStream("drivers/src/main/resources/serviceAccount.json");
 
 		FirebaseOptions options = new FirebaseOptions.Builder()
 				.setCredentials(GoogleCredentials.fromStream(serviceAccount))
@@ -46,11 +46,11 @@ public class DriversApplication {
 		ApiFuture<DocumentSnapshot> future = docRef.get();
 		DocumentSnapshot document = future.get();
 		if (document.exists()) {
-			System.out.println("Document data: " + document.getData());
+			System.out.println(STR."Document data: \{document.getData()}");
 		} else {
 			System.out.println("No such document!");
 		}
-		System.out.println("FirebaseOptions: " + options);
+		System.out.println(STR."FirebaseOptions: \{options}");
 		System.out.println(FirebaseApp.getApps());
 		SpringApplication.run(DriversApplication.class, args);
 	}

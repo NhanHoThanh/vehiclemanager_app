@@ -19,42 +19,45 @@ public class CoachService {
     @Autowired
     private VehicleRepository vehicleRepository;
 
-//    public Coach getCoachById(String id) throws ExecutionException, InterruptedException {
+    //    public Coach getCoachById(String id) throws ExecutionException, InterruptedException {
 //        Coach coach = coachRepository.getCoachById(id);
 //        Vehicle vehicle = vehicleRepository.getVehicleById(id);
 //        coach.setVehicle(vehicle);
 //        System.out.println(coach);
 //        return coach;
 //    }
-public ResponseObject<List<Coach>> getAllCoach() {
-    ResponseObject<List<Coach>> responseObject = new ResponseObject<>();
-    try {
-        List<Coach> coach = coachRepository.getAllDocuments("Coach", Coach.class);
-
-        if (coach.isEmpty()) {
+    public ResponseObject<List<Coach>> getAllCoach() {
+        ResponseObject<List<Coach>> responseObject = new ResponseObject<>();
+        try {
+            List<Coach> coach = coachRepository.getAllDocuments("Coach", Coach.class);
+            List<Vehicle> vehicle = vehicleRepository.getAllDocuments("Vehicle", Vehicle.class);
+            if (coach.isEmpty() || vehicle.isEmpty()) {
+                responseObject.setStatus("success");
+                responseObject.setMessage("No coach found");
+                return responseObject;
+            }
+            for(int i = 0; i < coach.size(); i++) {
+                coach.get(i).setVehicle(vehicle.get(i));
+            }
             responseObject.setStatus("success");
-            responseObject.setMessage("No coach found");
-            return responseObject;
-        }
-        responseObject.setStatus("success");
-        responseObject.setMessage("Get all coach successfully");
-        responseObject.setData(coach);
-    } catch (Exception e) {
-        responseObject.setStatus("error");
+            responseObject.setMessage("Get all coach successfully");
+            responseObject.setData(coach);
+        } catch (Exception e) {
+            responseObject.setStatus("error");
 //            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
+        }
+        return responseObject;
     }
-    return responseObject;
-}
 
     public ResponseObject<Coach> getCoachById(String id) {
         ResponseObject<Coach> responseObject = new ResponseObject<>();
         try {
             Coach coach = coachRepository.getCoachById(id);
             Vehicle vehicle = vehicleRepository.getVehicleById(id);
-            coach.setVehicle(vehicle);
-            if (coach != null) {
+            if (coach != null && vehicle != null) {
                 responseObject.setStatus("success");
                 responseObject.setMessage("Get coach by id successfully");
+                coach.setVehicle(vehicle);
                 responseObject.setData(coach);
             } else {
                 responseObject.setStatus("fail");
@@ -107,7 +110,9 @@ public ResponseObject<List<Coach>> getAllCoach() {
         try {
             Coach coach = coachRepository.getCoachById(id);
             if (coach != null) {
-                coachRepository.deleteCoachById(coach.getIdVehicle());
+                String idDelete = coach.getIdVehicle();
+                vehicleRepository.deleteVehicleById(idDelete);
+                coachRepository.deleteCoachById(idDelete);
                 responseObject.setStatus("success");
                 responseObject.setMessage("Delete coach successfully");
                 responseObject.setData(coach);
@@ -128,7 +133,7 @@ public ResponseObject<List<Coach>> getAllCoach() {
             List<Coach> coach = coachRepository.getDocumentsByMultipleAttributes("Coach", allParams, Coach.class);
             if (coach != null && !coach.isEmpty()) {
                 responseObject.setStatus("success");
-                responseObject.setMessage("Get Coach successfully");
+                responseObject.setMessage("Get coach successfully");
                 responseObject.setData(coach);
             } else {
                 responseObject.setStatus("fail");

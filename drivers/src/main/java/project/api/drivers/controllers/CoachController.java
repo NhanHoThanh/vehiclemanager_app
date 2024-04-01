@@ -25,27 +25,27 @@ public class CoachController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ResponseObject<Coach>> getCoach(@PathVariable String id) throws ExecutionException, InterruptedException {
-        ResponseObject<Coach> driver = coachService.getCoachById(id);
-        if (driver != null) {
-            return ResponseEntity.ok(driver);
+        ResponseObject<Coach> coach = coachService.getCoachById(id);
+        if (coach != null) {
+            return ResponseEntity.ok(coach);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
     @GetMapping()
     public ResponseEntity<ResponseObject<List<Coach>>> getAllCoach() {
-        ResponseObject<List<Coach>> driverList = coachService.getAllCoach();
-        if (driverList != null) {
-            return ResponseEntity.ok(driverList);
+        ResponseObject<List<Coach>> coachList = coachService.getAllCoach();
+        if (coachList != null) {
+            return ResponseEntity.ok(coachList);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
     @GetMapping("/search")
     public ResponseEntity<ResponseObject<List<Coach>>> getCoachByAttributes(@RequestParam Map<String, String> allParams) {
-        ResponseObject<List<Coach>> driverList = coachService.getCoachByAttributes(allParams);
-        if (driverList != null) {
-            return ResponseEntity.ok(driverList);
+        ResponseObject<List<Coach>> coachList = coachService.getCoachByAttributes(allParams);
+        if (coachList != null) {
+            return ResponseEntity.ok(coachList);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
@@ -53,8 +53,9 @@ public class CoachController {
 
     @PostMapping
 
-    public ResponseEntity<ResponseObject<Coach>> createCoach(@RequestBody Coach driver) {
-        ResponseObject<Coach> responseObject = coachService.createCoach(driver);
+    public ResponseEntity<ResponseObject<Coach>> createCoach(@RequestBody Coach coach) {
+        //validate: check for duplicate in field, check for valid input, check for required field, unknown field and such. (ongoing)
+        ResponseObject<Coach> responseObject = coachService.createCoach(coach);
         if ("error".equals(responseObject.getStatus())) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseObject);
         }
@@ -62,8 +63,9 @@ public class CoachController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ResponseObject> updateCoach(@PathVariable String id,  @RequestBody Coach driver) {
-        ResponseObject responseObject = coachService.updateCoach(id, driver);
+    //validate: check for duplicate in field, check for valid input, check for required field, unknown field and such. (ongoing)
+    public ResponseEntity<ResponseObject> updateCoach(@PathVariable String id,  @RequestBody Coach coach) {
+        ResponseObject responseObject = coachService.updateCoach(id, coach);
         if ("error".equals(responseObject.getStatus())) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseObject);
         }

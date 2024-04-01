@@ -28,10 +28,14 @@ public ResponseObject<List<Container>> getAllContainer() {
     ResponseObject<List<Container>> responseObject = new ResponseObject<>();
     try {
         List<Container> container = containerRepository.getAllDocuments("Container", Container.class);
-        if (container.isEmpty()) {
+        List<Vehicle> vehicle = vehicleRepository.getAllDocuments("Vehicle", Vehicle.class);
+        if (container.isEmpty() || vehicle.isEmpty()) {
             responseObject.setStatus("success");
             responseObject.setMessage("No container found");
             return responseObject;
+        }
+        for(int i = 0; i < container.size(); i++) {
+            container.get(i).setVehicle(vehicle.get(i));
         }
         responseObject.setStatus("success");
         responseObject.setMessage("Get all container successfully");
@@ -48,10 +52,10 @@ public ResponseObject<List<Container>> getAllContainer() {
         try {
             Container container = containerRepository.getContainerById(id);
             Vehicle vehicle = vehicleRepository.getVehicleById(id);
-            container.setVehicle(vehicle);
-            if (container != null) {
+            if (container != null && vehicle != null) {
                 responseObject.setStatus("success");
                 responseObject.setMessage("Get container by id successfully");
+                container.setVehicle(vehicle);
                 responseObject.setData(container);
             } else {
                 responseObject.setStatus("fail");
@@ -82,13 +86,13 @@ public ResponseObject<List<Container>> getAllContainer() {
     public ResponseObject<Container> updateContainer(String id, Container container) {
         ResponseObject<Container> responseObject = new ResponseObject<>();
         try {
-            Container driverUpdate = containerRepository.getContainerById(id);
-            if (driverUpdate != null) {
-                // BeanUtils.copyProperties(driverUpdate, container);
+            Container containerUpdate = containerRepository.getContainerById(id);
+            if (containerUpdate != null) {
+                // BeanUtils.copyProperties(containerUpdate, container);
                 containerRepository.updateContainer(container);
                 responseObject.setStatus("success");
                 responseObject.setMessage("Update container successfully");
-                responseObject.setData(driverUpdate);
+                responseObject.setData(containerUpdate);
             } else {
                 responseObject.setStatus("error");
                 responseObject.setMessage("Container not found");
@@ -105,6 +109,8 @@ public ResponseObject<List<Container>> getAllContainer() {
             Container container = containerRepository.getContainerById(id);
             if (container != null) {
                 containerRepository.deleteContainerById(container.getIdVehicle());
+                String idDelete = container.getIdVehicle();
+                vehicleRepository.deleteVehicleById(idDelete);
                 responseObject.setStatus("success");
                 responseObject.setMessage("Delete container successfully");
                 responseObject.setData(container);

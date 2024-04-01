@@ -47,7 +47,7 @@ public class DriverService {
             responseObject.setData(drivers);
         } catch (Exception e) {
             responseObject.setStatus("error");
-            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
+//            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
         }
         return responseObject;
     }
@@ -66,7 +66,7 @@ public class DriverService {
             }
         } catch (Exception e) {
             responseObject.setStatus("error");
-            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
+//            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
         }
         return responseObject;
     }
@@ -80,7 +80,7 @@ public class DriverService {
             responseObject.setData(newDriver);
         } catch (Exception e) {
             responseObject.setStatus("error");
-            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
+//            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
         }
         return responseObject;
     }
@@ -102,7 +102,7 @@ public class DriverService {
             }
         } catch (Exception e) {
             responseObject.setStatus("error");
-            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
+//            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
         }
         return responseObject;
     }
@@ -121,7 +121,7 @@ public class DriverService {
             }
         } catch (Exception e) {
             responseObject.setStatus("error");
-            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
+//            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
         }
         return responseObject;
     }
@@ -140,7 +140,7 @@ public class DriverService {
             }
         } catch (Exception e) {
             responseObject.setStatus("error");
-            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
+//            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
         }
         return responseObject;
     }

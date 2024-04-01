@@ -46,12 +46,12 @@ public class DriversApplication {
 		ApiFuture<DocumentSnapshot> future = docRef.get();
 		DocumentSnapshot document = future.get();
 		if (document.exists()) {
-			System.out.println(STR."Document data: \{document.getData()}");
+//			System.out.println(STR."Document data: \{document.getData()}");
 //			System.out.println("test"); // them vo de test
 		} else {
 			System.out.println("No such document!");
 		}
-		System.out.println(STR."FirebaseOptions: \{options}");
+//		System.out.println(STR."FirebaseOptions: \{options}");
 		System.out.println(FirebaseApp.getApps());
 		SpringApplication.run(DriversApplication.class, args);
 	}

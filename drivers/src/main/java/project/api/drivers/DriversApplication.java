@@ -47,6 +47,7 @@ public class DriversApplication {
 		DocumentSnapshot document = future.get();
 		if (document.exists()) {
 			System.out.println(STR."Document data: \{document.getData()}");
+//			System.out.println("test"); // them vo de test
 		} else {
 			System.out.println("No such document!");
 		}

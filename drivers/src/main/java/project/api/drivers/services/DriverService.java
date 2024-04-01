@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
+//import static java.lang.StringTemplate.STR;
+//
 @Service
 public class DriverService {
 
@@ -43,7 +45,7 @@ public class DriverService {
             responseObject.setData(drivers);
         } catch (Exception e) {
             responseObject.setStatus("error");
-            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
+//            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
         }
         return responseObject;
     }
@@ -62,7 +64,7 @@ public class DriverService {
             }
         } catch (Exception e) {
             responseObject.setStatus("error");
-            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
+//            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
         }
         return responseObject;
     }
@@ -76,7 +78,7 @@ public class DriverService {
             responseObject.setData(newDriver);
         } catch (Exception e) {
             responseObject.setStatus("error");
-            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
+//            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
         }
         return responseObject;
     }
@@ -98,7 +100,7 @@ public class DriverService {
             }
         } catch (Exception e) {
             responseObject.setStatus("error");
-            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
+//            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
         }
         return responseObject;
     }
@@ -117,7 +119,7 @@ public class DriverService {
             }
         } catch (Exception e) {
             responseObject.setStatus("error");
-            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
+//            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
         }
         return responseObject;
     }
@@ -136,7 +138,7 @@ public class DriverService {
             }
         } catch (Exception e) {
             responseObject.setStatus("error");
-            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
+//            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
         }
         return responseObject;
     }

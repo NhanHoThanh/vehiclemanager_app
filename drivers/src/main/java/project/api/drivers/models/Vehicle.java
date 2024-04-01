@@ -1,5 +1,4 @@
 package project.api.drivers.models;
-import com.google.api.client.util.Data;
 import java.util.Date;
 import java.util.List;
 

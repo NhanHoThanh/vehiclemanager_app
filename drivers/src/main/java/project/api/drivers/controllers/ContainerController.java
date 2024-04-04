@@ -3,7 +3,9 @@ package project.api.drivers.controllers;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import project.api.drivers.models.Cargo;
 import project.api.drivers.models.Container;
+import project.api.drivers.services.CargoService;
 import project.api.drivers.services.ContainerService;
 import project.api.drivers.ultis.ResponseObject;
 
@@ -16,10 +18,13 @@ import java.util.concurrent.ExecutionException;
 @RequestMapping("/api/container")
 public class ContainerController {
     public ContainerService containerService;
+    public CargoService cargoService;
 
-    public ContainerController(ContainerService containerService) {
+    public ContainerController(ContainerService containerService, CargoService cargoService) {
         this.containerService = containerService;
+        this.cargoService = cargoService;
     }
+
     @GetMapping("/test")
     public String test() {
         return "Test";
@@ -38,6 +43,15 @@ public class ContainerController {
         ResponseObject<java.util.List<Container>> driverList = containerService.getAllContainer();
         if (driverList != null) {
             return ResponseEntity.ok(driverList);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+    @GetMapping("/cargo")
+    public ResponseEntity<ResponseObject<List<Cargo>>> getAllCargo() {
+        ResponseObject<List<Cargo>> cargoList = cargoService.getAllCargo();
+        if (cargoList != null) {
+            return ResponseEntity.ok(cargoList);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }

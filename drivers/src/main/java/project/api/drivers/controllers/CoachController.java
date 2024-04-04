@@ -4,7 +4,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import project.api.drivers.models.Coach;
+import project.api.drivers.models.Passenger;
 import project.api.drivers.services.CoachService;
+import project.api.drivers.services.PassengerService;
 import project.api.drivers.ultis.ResponseObject;
 
 import java.util.List;
@@ -15,9 +17,13 @@ import java.util.concurrent.ExecutionException;
 @RequestMapping("/api/coach")
 public class CoachController {
     public CoachService coachService;
-    public CoachController(CoachService coachService) {
+    public PassengerService passengerService;
+
+    public CoachController(CoachService coachService, PassengerService passengerService) {
         this.coachService = coachService;
+        this.passengerService = passengerService;
     }
+
     @GetMapping("/test")
     public String test() {
         return "Test";
@@ -37,6 +43,15 @@ public class CoachController {
         ResponseObject<List<Coach>> coachList = coachService.getAllCoach();
         if (coachList != null) {
             return ResponseEntity.ok(coachList);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+    @GetMapping("/passenger")
+    public ResponseEntity<ResponseObject<List<Passenger>>> getAllPassenger() {
+        ResponseObject<List<Passenger>> driverList = passengerService.getAllPassenger();
+        if (driverList != null) {
+            return ResponseEntity.ok(driverList);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }

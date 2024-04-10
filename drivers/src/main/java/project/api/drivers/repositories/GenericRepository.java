@@ -18,5 +18,5 @@ public interface GenericRepository {
 
     void deleteDocument(String collectionName, String documentId) throws ExecutionException, InterruptedException;
 
-    <T> void updateDocument(String collectionName, String documentId, T updatedObject) throws ExecutionException, InterruptedException;
+    <T> void updateDocument(String collectionName, String documentId, T updatedObject) throws ExecutionException, InterruptedException, IllegalAccessException;
 }

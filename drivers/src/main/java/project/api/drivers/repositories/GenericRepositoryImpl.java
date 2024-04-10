@@ -5,7 +5,9 @@ import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.stereotype.Repository;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -87,10 +89,21 @@ public class GenericRepositoryImpl implements GenericRepository {
         future.get();
     }
 
-    public <T> void updateDocument(String collectionName, String documentId, T updatedObject) throws ExecutionException, InterruptedException {
+    public <T> void updateDocument(String collectionName, String documentId, T updatedObject) throws ExecutionException, InterruptedException, IllegalAccessException {
         Firestore db = FirestoreClient.getFirestore();
         DocumentReference docRef = db.collection(collectionName).document(documentId);
-        ApiFuture<WriteResult> future = docRef.set(updatedObject, SetOptions.merge());
-        future.get();
+        ApiFuture<DocumentSnapshot> future = docRef.get();
+        DocumentSnapshot document = future.get();
+        if (document.exists()) {
+            Map<String, Object> updatedFields = new HashMap<>();
+            for (Field field : updatedObject.getClass().getDeclaredFields()) {
+                field.setAccessible(true);
+                if (field.get(updatedObject) != null) {
+                    updatedFields.put(field.getName(), field.get(updatedObject));
+                }
+            }
+            ApiFuture<WriteResult> updateFuture = docRef.update(updatedFields);
+            updateFuture.get();
+        }
     }
 }

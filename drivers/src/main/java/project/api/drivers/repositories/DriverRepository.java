@@ -17,8 +17,8 @@ public class DriverRepository extends GenericRepositoryImpl {
         return getDocument("Drivers", id, Driver.class);
     }
 
-    public void updateDriver(Driver driver) throws ExecutionException, InterruptedException {
-        updateDocument("Drivers", driver.getId(), driver);
+    public void updateDriver(String Id, Driver driver) throws ExecutionException, InterruptedException, IllegalAccessException {
+        updateDocument("Drivers", Id, driver);
     }
 
     public void deleteDriverById(String id) throws ExecutionException, InterruptedException {

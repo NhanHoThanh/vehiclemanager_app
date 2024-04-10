@@ -1,12 +1,13 @@
 package project.api.drivers.services;
 
+import org.springframework.stereotype.Service;
 import project.api.drivers.models.Income;
 import project.api.drivers.repositories.IncomeRepository;
 
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
-
+@Service
 public class IncomeService {
     private IncomeRepository incomeRepository = new IncomeRepository();
 

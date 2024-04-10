@@ -11,15 +11,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
 //import static java.lang.StringTemplate.STR;
 //
-=======
+//=======
 
 
 
 
->>>>>>> route_income_update
+//>>>>>>> route_income_update
 @Service
 public class DriverService {
 

@@ -17,7 +17,7 @@ public class ContainerRepository extends GenericRepositoryImpl {
         return getDocument("Container", id, Container.class);
     }
 
-    public void updateContainer(Container container) throws ExecutionException, InterruptedException {
+    public void updateContainer(Container container) throws ExecutionException, InterruptedException, IllegalAccessException {
         updateDocument("Container", container.getIdVehicle(), container);
     }
 

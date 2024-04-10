@@ -16,7 +16,7 @@ public class PassengerRepository extends GenericRepositoryImpl {
         return getDocument("Passenger", id, Passenger.class);
     }
 
-    public void updatePassenger(Passenger passenger) throws ExecutionException, InterruptedException {
+    public void updatePassenger(Passenger passenger) throws ExecutionException, InterruptedException, IllegalAccessException {
         updateDocument("Drivers", passenger.getIdPassenger(), passenger);
     }
 

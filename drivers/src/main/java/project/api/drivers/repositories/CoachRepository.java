@@ -16,7 +16,7 @@ public class CoachRepository extends GenericRepositoryImpl {
         return getDocument("Coach", id, Coach.class);
     }
 
-    public void updateCoach(Coach coach) throws ExecutionException, InterruptedException {
+    public void updateCoach(Coach coach) throws ExecutionException, InterruptedException, IllegalAccessException {
         updateDocument("Coach", coach.getIdVehicle(), coach);
     }
 

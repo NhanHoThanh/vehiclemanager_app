@@ -17,7 +17,7 @@ public class CargoRepository extends GenericRepositoryImpl {
         return getDocument("Cargo", id, Cargo.class);
     }
 
-    public void updateCargo(Cargo cargo) throws ExecutionException, InterruptedException {
+    public void updateCargo(Cargo cargo) throws ExecutionException, InterruptedException, IllegalAccessException{
         updateDocument("Cargo", cargo.getIdCargo(), cargo);
     }
 

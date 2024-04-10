@@ -16,7 +16,7 @@ public class VehicleRepository extends GenericRepositoryImpl {
         return getDocument("Vehicle", id, Vehicle.class);
     }
 
-    public void updateVehicle(Vehicle vehicle) throws ExecutionException, InterruptedException {
+    public void updateVehicle(Vehicle vehicle) throws ExecutionException, InterruptedException, IllegalAccessException {
         updateDocument("Vehicle", vehicle.getIdVehicle(), vehicle);
     }
 

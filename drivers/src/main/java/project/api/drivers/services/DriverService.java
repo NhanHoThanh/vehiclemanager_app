@@ -46,7 +46,7 @@ public class DriverService {
             responseObject.setData(drivers);
         } catch (Exception e) {
             responseObject.setStatus("error");
-            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
+            responseObject.setMessage("An error occurred: " + e.getMessage());
         }
         return responseObject;
     }
@@ -65,7 +65,7 @@ public class DriverService {
             }
         } catch (Exception e) {
             responseObject.setStatus("error");
-            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
+            responseObject.setMessage("An error occurred: " + e.getMessage());
         }
         return responseObject;
     }
@@ -74,10 +74,14 @@ public ResponseObject<Driver> createDriver(Driver driver) {
     ResponseObject<Driver> responseObject = new ResponseObject<>();
     try {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-        String id = LocalDateTime.now().format(formatter);
+        final String id = LocalDateTime.now().format(formatter);
         driver.setId(id);
 
-        Driver newDriver = driverRepository.createDriver(driver);
+        DateTimeFormatter createdFormatter = DateTimeFormatter.ofPattern("HH-mm-ss dd-MM-yyyy");
+        final String createdDate = LocalDateTime.now().format(createdFormatter);
+        driver.setCreatedAt(createdDate);
+
+        final Driver newDriver = driverRepository.createDriver(driver);
         responseObject.setStatus("success");
         responseObject.setMessage("Create driver successfully");
         responseObject.setData(newDriver);
@@ -105,7 +109,7 @@ public ResponseObject<Driver> createDriver(Driver driver) {
             }
         } catch (Exception e) {
             responseObject.setStatus("error");
-            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
+            responseObject.setMessage("An error occurred: " + e.getMessage());
         }
         return responseObject;
     }
@@ -124,7 +128,7 @@ public ResponseObject<Driver> createDriver(Driver driver) {
             }
         } catch (Exception e) {
             responseObject.setStatus("error");
-            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
+            responseObject.setMessage("An error occurred: " + e.getMessage());
         }
         return responseObject;
     }
@@ -143,7 +147,7 @@ public ResponseObject<Driver> createDriver(Driver driver) {
             }
         } catch (Exception e) {
             responseObject.setStatus("error");
-            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
+            responseObject.setMessage("An error occurred: " + e.getMessage());
         }
         return responseObject;
     }

@@ -2,6 +2,7 @@ package project.api.drivers.models;
 
 //use jakarta instead of javax
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import org.checkerframework.common.value.qual.StringVal;
 import org.jetbrains.annotations.NotNull;
 
@@ -15,7 +16,7 @@ public class Driver {
     private String name;
 
     private String address;
-
+    @NotBlank(message = "Phone number is required")
     private String phone_number;
 
     private String license;
@@ -29,10 +30,11 @@ public class Driver {
     private String vehicleId;
     private String vehicleType;
     private String email;
+    private String createdAt;
     public Driver() {
     }
 
-    public Driver(String id, String name, String address, String phone_number, String license, String cccd, String routeId, String status, String vehicleId, String vehicleType, String email){
+    public Driver(String id, String name, String address, String phone_number, String license, String cccd, String routeId, String status, String vehicleId, String vehicleType, String email, String createdAt){
         this.id=id;
         this.name = name;
         this.address = address;
@@ -44,6 +46,15 @@ public class Driver {
         this.vehicleId = vehicleId;
         this.vehicleType = vehicleType;
         this.email = email;
+        this.createdAt = createdAt;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
     public String getVehicleType() {

@@ -28,7 +28,8 @@ public class DriversApplication {
 	public DriversApplication() throws IOException {
 	}
 
-    public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
+    @SuppressWarnings("deprecation")
+	public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
 
 
 		FileInputStream serviceAccount =
@@ -45,12 +46,8 @@ public class DriversApplication {
 		DocumentReference docRef = db.collection("Drivers").document("rYxQ1ytPcrNXVbMKj6lF");
 		ApiFuture<DocumentSnapshot> future = docRef.get();
 		DocumentSnapshot document = future.get();
-		if (document.exists()) {
-			System.out.println("Document data: " + document.getData());
-		} else {
-			System.out.println("No such document!");
-		}
-		System.out.println("FirebaseOptions: " + options);
+
+//		System.out.println(STR."FirebaseOptions: \{options}");
 		System.out.println(FirebaseApp.getApps());
 		SpringApplication.run(DriversApplication.class, args);
 	}

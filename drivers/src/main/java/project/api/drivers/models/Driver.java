@@ -27,11 +27,13 @@ public class Driver {
     private String status;
 
     private String vehicleId;
+    private String vehicleType;
+    private String email;
     public Driver() {
     }
 
-    public Driver(String id, String name, String address, String phone_number, String license, String cccd, String routeId, String status, String vehicleId) {
-        this.id = id;
+    public Driver(String id, String name, String address, String phone_number, String license, String cccd, String routeId, String status, String vehicleId, String vehicleType, String email){
+        this.id=id;
         this.name = name;
         this.address = address;
         this.phone_number = phone_number;
@@ -40,8 +42,25 @@ public class Driver {
         this.routeId = routeId;
         this.status = status;
         this.vehicleId = vehicleId;
+        this.vehicleType = vehicleType;
+        this.email = email;
     }
 
+    public String getVehicleType() {
+        return vehicleType;
+    }
+
+    public void setVehicleType(String vehicleType) {
+        this.vehicleType = vehicleType;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getCccd() {
         return cccd;

@@ -7,8 +7,11 @@ import project.api.drivers.models.Driver;
 import project.api.drivers.ultis.ResponseObject;
 import project.api.drivers.repositories.DriverRepository;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 //<<<<<<< HEAD
@@ -76,19 +79,25 @@ public class DriverService {
         return responseObject;
     }
 
-    public ResponseObject<Driver> createDriver(Driver driver) {
-        ResponseObject<Driver> responseObject = new ResponseObject<>();
-        try {
-            Driver newDriver = driverRepository.createDriver(driver);
-            responseObject.setStatus("success");
-            responseObject.setMessage("Create driver successfully");
-            responseObject.setData(newDriver);
-        } catch (Exception e) {
-            responseObject.setStatus("error");
-//            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
-        }
-        return responseObject;
+
+public ResponseObject<Driver> createDriver(Driver driver) {
+    ResponseObject<Driver> responseObject = new ResponseObject<>();
+    try {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+        String id = LocalDateTime.now().format(formatter);
+        driver.setId(id);
+
+        Driver newDriver = driverRepository.createDriver(driver);
+        responseObject.setStatus("success");
+        responseObject.setMessage("Create driver successfully");
+        responseObject.setData(newDriver);
+    } catch (Exception e) {
+        responseObject.setStatus("error");
+        responseObject.setMessage("An error occurred: " + e.getMessage());
+
     }
+    return responseObject;
+}
 //
 //
     public ResponseObject<Driver> updateDriver(String id, Driver driver) {
@@ -97,7 +106,7 @@ public class DriverService {
             Driver driverUpdate = driverRepository.getDriverById(id);
             if (driverUpdate != null) {
                 // BeanUtils.copyProperties(driverUpdate, driver);
-                driverRepository.updateDriver(driver);
+                driverRepository.updateDriver(id, driver);
                 responseObject.setStatus("success");
                 responseObject.setMessage("Update driver successfully");
                 responseObject.setData(driverUpdate);

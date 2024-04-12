@@ -1,6 +1,6 @@
 
 
-GET http://localhost:8080/api/drivers/{id}
+GET http://localhost:8080/api/drivers/search?name=Ho%20Thanh%20Nhan&license=C2
 Content-Type: application/json
 
 
@@ -10,15 +10,15 @@ Content-Type: application/json
 
 {
     "address":"124 Vo Thi Sau, Quan 10, TP.HCM",
-    "cccd":"54865484654",
+    "cccd":"154206003408",
     "license":"C2",
     "name":"Ho Thanh Nhan",
-    "phone_number":"0976481171",
+    "phone_number":"2976881171",
     "routeId":"TP.HCM - BaRiaVungTau",
     "status":"available",
     "vehicleId":"1",
     "vehicleType":"Truck",
-    "email":"hothanhnhanhot@gmail.com"
+    "email":"hotanhhanhot@gmail.com"
 }
 ###
 PUT  http://localhost:8080/api/drivers/20240410230323

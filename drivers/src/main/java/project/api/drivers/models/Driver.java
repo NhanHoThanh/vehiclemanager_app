@@ -16,7 +16,7 @@ public class Driver {
     private String name;
 
     private String address;
-    @NotBlank(message = "Phone number is required")
+
     private String phone_number;
 
     private String license;

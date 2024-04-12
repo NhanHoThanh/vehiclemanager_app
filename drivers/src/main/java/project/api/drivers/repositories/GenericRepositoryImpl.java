@@ -14,6 +14,13 @@ import java.util.concurrent.ExecutionException;
 
 @Repository
 public class GenericRepositoryImpl implements GenericRepository {
+    public boolean checkValueExits(String collectionName, String attributeName, String attributeValue) throws ExecutionException, InterruptedException {
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference collectionRef = db.collection(collectionName);
+        ApiFuture<QuerySnapshot> future = collectionRef.whereEqualTo(attributeName, attributeValue).get();
+        QuerySnapshot querySnapshot = future.get();
+        return !querySnapshot.isEmpty();
+    }
 
     public <T> void createDocument(String collectionName, String documentId, T newObject) throws ExecutionException, InterruptedException {
         Firestore db = FirestoreClient.getFirestore();

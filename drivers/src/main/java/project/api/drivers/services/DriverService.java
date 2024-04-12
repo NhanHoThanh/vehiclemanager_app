@@ -1,17 +1,13 @@
 package project.api.drivers.services;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import project.api.drivers.models.Driver;
-import project.api.drivers.ultis.ResponseObject;
 import project.api.drivers.repositories.DriverRepository;
+import project.api.drivers.ultis.ResponseObject;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 @Service
@@ -73,13 +69,7 @@ public class DriverService {
 public ResponseObject<Driver> createDriver(Driver driver) {
     ResponseObject<Driver> responseObject = new ResponseObject<>();
     try {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-        final String id = LocalDateTime.now().format(formatter);
-        driver.setId(id);
 
-        DateTimeFormatter createdFormatter = DateTimeFormatter.ofPattern("HH-mm-ss dd-MM-yyyy");
-        final String createdDate = LocalDateTime.now().format(createdFormatter);
-        driver.setCreatedAt(createdDate);
 
         final Driver newDriver = driverRepository.createDriver(driver);
         responseObject.setStatus("success");
@@ -143,7 +133,7 @@ public ResponseObject<Driver> createDriver(Driver driver) {
                 responseObject.setData(drivers);
             } else {
                 responseObject.setStatus("fail");
-                responseObject.setMessage("Loi o day");
+                responseObject.setMessage("Internal server error");
             }
         } catch (Exception e) {
             responseObject.setStatus("error");
@@ -151,4 +141,47 @@ public ResponseObject<Driver> createDriver(Driver driver) {
         }
         return responseObject;
     }
+
+    public boolean checkDriverValueExists(String attributeName, String attributeValue) {
+        try {
+            return driverRepository.checkDriverValueExists(attributeName, attributeValue);
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean existsByCccd(String cccd) {
+        // Implement Firebase query to check if a Driver with the given cccd exists
+        DriverRepository driverRepository = new DriverRepository();
+        try {
+            return driverRepository.checkDriverValueExists("cccd", cccd);
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
+    public boolean existsByPhoneNumber(String phoneNumber) {
+        // Implement Firebase query to check if a Driver with the given phoneNumber exists
+
+        try {
+            return driverRepository.checkDriverValueExists("phone_number", phoneNumber);
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return true;
+    }
+
+    public boolean existsByEmail(String email) {
+        // Implement Firebase query to check if a Driver with the given email exists
+        try {
+            return driverRepository.checkDriverValueExists("email", email);
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
 }

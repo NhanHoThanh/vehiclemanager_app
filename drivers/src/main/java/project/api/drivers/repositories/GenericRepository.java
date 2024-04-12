@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public interface GenericRepository {
+    public boolean checkValueExits(String collectionName, String attributeName, String attributeValue) throws ExecutionException, InterruptedException;
 
     <T> void createDocument(String collectionName, String documentId, T newObject) throws ExecutionException, InterruptedException;
 

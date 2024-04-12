@@ -14,7 +14,7 @@ Get ALL drivers
 
 -   `Content-Type: application/json`
 
-Example of return data:
+**Example of return data**:
 
 ```json
 {
@@ -67,7 +67,7 @@ Get a driver by ID.
 
 -   `Content-Type: application/json`
 
-Example of return data:
+**Example of return data**:
 
 ```json
 {
@@ -92,28 +92,66 @@ Example of return data:
 
 ---
 
-### POST /api/drivers
+### GET /api/drivers?attribute=value
 
-Create a new driver.
+Search drivers by attribute.
 
-**URL**: `http://localhost:8080/api/drivers`
+**URL**: `http://localhost:8080/api/drivers/search?attribute=value`
 
-**Method**: `POST`
+**Method**: `GET`
 
 **Headers**:
 
 -   `Content-Type: application/json`
 
-**Body**: _Must_ include all these field:
+**Query Parameters**:
+
+-   `attribute`: The attribute to search by (e.g., name, address, phone_number)
+
+-   `value`: The value to search for
+
+**Example**:
+
+-   To search drivers by multiple attributes: `http://localhost:8080/api/drivers/search?age=Ho%20Thanh%20Nhan&license=C2`
+
+-   To search drivers by one attribute: `http://localhost:8080/api/drivers/search?phone_number=0976481171`
+
+**Example of return data**:
 
 ```json
 {
-    "address": "124 Vo Thi Sau, Quan 10, TP.HCM",
-    "cccd": "54865484654",
-    "license": "C2",
-    "name": "Ho Thanh Nhan",
-    "phone_number": "0976481171",
-    "email": "hothanhnhanhot@gmail.com"
+    "status": "success",
+    "message": "Get drivers successfully",
+    "data": [
+        {
+            "id": "20240410121021",
+            "name": "Ho Thanh Nhan",
+            "address": "124 Vo Thi Sau, Quan 10, TP.HCM",
+            "phone_number": "0976481171",
+            "license": "C2",
+            "cccd": "54865484654",
+            "routeId": "TP.HCM - BaRiaVungTau",
+            "status": "available",
+            "vehicleId": "1",
+            "vehicleType": "Truck",
+            "email": "hothanhnhanhot@gmail.com",
+            "createdAt": null
+        },
+        {
+            "id": "20240412230817",
+            "name": "Ho Thanh Nhan",
+            "address": "124 Vo Thi Sau, Quan 10, TP.HCM",
+            "phone_number": "0976481171",
+            "license": "C2",
+            "cccd": "054204003408",
+            "routeId": null,
+            "status": "available",
+            "vehicleId": null,
+            "vehicleType": null,
+            "email": "hothanhnhanhot@gmail.com",
+            "createdAt": "23-08-17 12-04-2024"
+        }
+    ]
 }
 ```
 
@@ -144,7 +182,7 @@ Update a new driver with id.
 }
 ```
 
-**Return data**:
+**Example of return data**:
 
 ```json
 {
@@ -190,25 +228,7 @@ Update vehicle for a driver with id.
 }
 ```
 
-**Interaction**
-
-This API endpoint also interacts with the Vehicle Service API to add the driver to the vehicle. The Vehicle Service API is called with the following details:
-
-URL: `URL ben phia Tam cung cap`
-
-Method: `???`
-
-Headers: `Content-Type: application/json`
-
-Body: _Must_ include these fields:
-
-```json
-{
-    "driverId": "1234"
-}
-```
-
-**Return data**:
+**Example of return data**:
 
 ```json
 {
@@ -228,6 +248,24 @@ Body: _Must_ include these fields:
         "email": "hothanhnhanhot@gmail.com",
         "createdAt": "23-03-23 10-04-2024"
     }
+}
+```
+
+**Post-Processing**
+
+After this API is called, in order to maintain data consistency, another Vehicle Service API need to be called inorder to add the driver to the vehicle. The Vehicle Service API is called with the following details:
+
+URL: `URL ben phia Tam cung cap`
+
+Method: `???`
+
+Headers: `Content-Type: application/json`
+
+Body: _Must_ include these fields:
+
+```json
+{
+    "driverId": "1234"
 }
 ```
 
@@ -253,25 +291,7 @@ Update route for a driver with id.
 }
 ```
 
-**Interaction**
-
-This API endpoint also interacts with the Route Service API to add the driver's vehicle to the route. The Route Service API is called with the following details:
-
-URL: `URL ben phia Thach cung cap`
-
-Method: `???`
-
-Headers: `Content-Type: application/json`
-
-Body: _Must_ include these fields:
-
-```json
-{
-    "driverId": "1234"
-}
-```
-
-**Return data**:
+**Example of return data**:
 
 ```json
 {
@@ -294,6 +314,24 @@ Body: _Must_ include these fields:
 }
 ```
 
+**Post-Processing**
+
+After this API is called, in order to maintain data consistency, another Route Service API need to be called inorder to add the driver's vehicle to the route. The Route Service API is called with the following details:
+
+URL: `URL ben phia Thach cung cap`
+
+Method: `???`
+
+Headers: `Content-Type: application/json`
+
+Body: _Must_ include these fields:
+
+```json
+{
+    "driverId": "1234"
+}
+```
+
 ---
 
 ### DELETE /api/drivers/{id}
@@ -306,7 +344,7 @@ Delete a driver by ID.
 
 **Headers**: `Content-Type: application/json`
 
-**Return data**:
+**Example of return data**:
 
 ```json
 {

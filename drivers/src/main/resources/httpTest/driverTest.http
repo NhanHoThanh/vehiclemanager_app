@@ -1,4 +1,6 @@
-GET http://localhost:8080/api/drivers
+
+
+GET http://localhost:8080/api/drivers/{id}
 Content-Type: application/json
 
 
@@ -31,3 +33,21 @@ Content-Type: application/json
 ### 
 DELETE   http://localhost:8080/api/drivers/20240410230323
 Content-Type: application/json
+
+
+{
+    "id": "20240410230323",
+    "name": "Tran Thi C",
+    "address": "122 Le Van Sy, Quan Tan Binh, TP.HCM",
+    "phone_number": "05418234567",
+    "license": "A2",
+    "cccd": "54865484654",
+    "routeId": "TP.HCM - BaRiaVungTau",
+    "status": "available",
+    "vehicleId": "1",
+    "vehicleType": "Truck",
+    "email": "hothanhnhanhot@gmail.com",
+    "createdAt": "23-03-23 10-04-2024"
+}
+
+

@@ -77,7 +77,6 @@ public class DriverController {
     @PutMapping("/{id}")
     //validate: check for duplicate in field, check for valid input, check for required field, unknown field and such. (ongoing)
     //validation
-
     public ResponseEntity<ResponseObject> updateDriver(@PathVariable String id,  @RequestBody Driver driver) {
         DriverValidation validation = new DriverValidation();
         String validationErrors = validation.updateValidation(driver);

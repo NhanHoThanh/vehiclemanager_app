@@ -33,7 +33,7 @@ public class DriversApplication {
 
 
 		FileInputStream serviceAccount =
-				new FileInputStream("drivers/src/main/resources/serviceAccount.json");
+				new FileInputStream("D:\\Code\\drivers\\drivers\\src\\main\\resources\\serviceAccount.json");
 
 		FirebaseOptions options = new FirebaseOptions.Builder()
 				.setCredentials(GoogleCredentials.fromStream(serviceAccount))
@@ -42,13 +42,6 @@ public class DriversApplication {
 		if (FirebaseApp.getApps().isEmpty()) {
 			FirebaseApp.initializeApp(options);
 		}
-		Firestore db = FirestoreClient.getFirestore();
-		DocumentReference docRef = db.collection("Drivers").document("rYxQ1ytPcrNXVbMKj6lF");
-		ApiFuture<DocumentSnapshot> future = docRef.get();
-		DocumentSnapshot document = future.get();
-
-//		System.out.println(STR."FirebaseOptions: \{options}");
-		System.out.println(FirebaseApp.getApps());
 		SpringApplication.run(DriversApplication.class, args);
 	}
 

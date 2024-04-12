@@ -1,2 +1,33 @@
-GET localhost:8080/api/drivers
-type: aplication/json
+GET http://localhost:8080/api/drivers
+Content-Type: application/json
+
+
+###
+POST  http://localhost:8080/api/drivers
+Content-Type: application/json
+
+{
+    "address":"124 Vo Thi Sau, Quan 10, TP.HCM",
+    "cccd":"54865484654",
+    "license":"C2",
+    "name":"Ho Thanh Nhan",
+    "phone_number":"0976481171",
+    "routeId":"TP.HCM - BaRiaVungTau",
+    "status":"available",
+    "vehicleId":"1",
+    "vehicleType":"Truck",
+    "email":"hothanhnhanhot@gmail.com"
+}
+###
+PUT  http://localhost:8080/api/drivers/20240410230323
+Content-Type: application/json
+
+{
+    "name": "Tran Thi C",
+    "address": "122 Le Van Sy, Quan Tan Binh, TP.HCM",
+    "phone_number": "05418234567",
+    "license": "A2"
+}
+### 
+DELETE   http://localhost:8080/api/drivers/20240410230323
+Content-Type: application/json

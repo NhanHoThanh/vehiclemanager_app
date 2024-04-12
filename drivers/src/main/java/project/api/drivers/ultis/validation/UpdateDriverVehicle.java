@@ -1,4 +1,4 @@
-package project.api.drivers.models;
+package project.api.drivers.ultis.validation;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

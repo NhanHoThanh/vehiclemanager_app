@@ -1,25 +1,23 @@
 package project.api.drivers.controllers;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Pattern;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import project.api.drivers.models.CreateDriver;
+import project.api.drivers.ultis.validation.CreateDriver;
 import project.api.drivers.models.Driver;
-import project.api.drivers.models.UpdateDriver;
+import project.api.drivers.ultis.validation.UpdateDriver;
+import project.api.drivers.ultis.validation.UpdateDriverRoute;
+import project.api.drivers.ultis.validation.UpdateDriverVehicle;
 import project.api.drivers.ultis.ResponseObject;
 import project.api.drivers.services.DriverService;
 
-import javax.tools.Diagnostic;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
-import project.api.drivers.ultis.validation.DriverValidation;
+
 @RestController
 @RequestMapping("/api/drivers")
 public class DriverController {
@@ -117,7 +115,42 @@ public class DriverController {
         return ResponseEntity.ok(responseObject);
     }
 
+    @PutMapping("/{id}/vehicle")
+    public ResponseEntity<ResponseObject<Driver>> updateVehicleV(@PathVariable("id") String id,@Valid @RequestBody UpdateDriverVehicle updateVehicle) {
+        if (!id.matches("\\d{14}")) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseObject<>("error", "ID must be exactly 14 digits", null));
+        }
+        ResponseObject<Driver> findDriver = driverService.getDriverById(id);
+        if ("success".equals(findDriver.getStatus())){
+            Driver driver = new Driver();
+            driver.setVehicleId(updateVehicle.getVehicleId());
+                 driver.setVehicleType(updateVehicle.getVehicleType());
+            ResponseObject<Driver> responseObject = driverService.updateDriver(id, driver);
+            if ("error".equals(responseObject.getStatus())) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseObject);
+            }
+            return ResponseEntity.ok(responseObject);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(findDriver);
+    }
 
+    @PutMapping("/{id}/route")
+    public ResponseEntity<ResponseObject<Driver>> updateRoute(@PathVariable("id") String id,@Valid @RequestBody UpdateDriverRoute updateDriverRoute) {
+        if (!id.matches("\\d{14}")) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseObject<>("error", "ID must be exactly 14 digits", null));
+        }
+        ResponseObject<Driver> findDriver = driverService.getDriverById(id);
+        if ("success".equals(findDriver.getStatus())){
+            Driver driver = new Driver();
+            driver.setRouteId(updateDriverRoute.getRouteId());
+            ResponseObject<Driver> responseObject = driverService.updateDriver(id, driver);
+            if ("error".equals(responseObject.getStatus())) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseObject);
+            }
+            return ResponseEntity.ok(responseObject);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(findDriver);
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ResponseObject<Driver>> deleteDriver(@PathVariable("id") String id) {

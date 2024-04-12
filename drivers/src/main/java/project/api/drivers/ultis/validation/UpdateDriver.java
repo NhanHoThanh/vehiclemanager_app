@@ -1,44 +1,37 @@
-package project.api.drivers.models;
+package project.api.drivers.ultis.validation;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
-import org.checkerframework.common.value.qual.StringVal;
 
-public class CreateDriver{
+public class UpdateDriver {
 
-    @NotBlank(message = "Address is required")
     private String address;
 
-    @NotBlank(message = "CCCD is required")
     @Pattern(regexp = "\\d{12}", message = "CCCD must be exactly 12 digits")
     private String cccd;
 
-    @NotBlank(message = "License is required")
     @Pattern(regexp = "^(A1|A2|B1|B2|C1|C2)$", message = "License must be one of the following: A1, A2, B1, B2, C1, C2")
     private String license;
 
-    @NotBlank(message = "Name is required")
     private String name;
 
-    @NotBlank(message = "Phone number is required")
     @Pattern(regexp = "^\\+?[0-9. ()-]{7,25}$", message = "Phone number is invalid")
     private String phone_number;
 
-    @NotBlank(message = "Email is required")
     @Email(message = "Email is invalid")
     private String email;
 
-    public CreateDriver() {
-    }
-
-    public CreateDriver(String address, String cccd, String license, String name, String phone_number, String email) {
+    public UpdateDriver(String address, String cccd, String license, String name, String phone_number, String email) {
         this.address = address;
         this.cccd = cccd;
         this.license = license;
         this.name = name;
         this.phone_number = phone_number;
         this.email = email;
+    }
+
+    public UpdateDriver() {
     }
 
     public String getAddress() {

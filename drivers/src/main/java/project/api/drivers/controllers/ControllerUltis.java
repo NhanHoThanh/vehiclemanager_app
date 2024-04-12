@@ -1,9 +1,9 @@
 package project.api.drivers.controllers;
 
 import org.jetbrains.annotations.NotNull;
-import project.api.drivers.models.CreateDriver;
+import project.api.drivers.ultis.validation.CreateDriver;
 import project.api.drivers.models.Driver;
-import project.api.drivers.models.UpdateDriver;
+import project.api.drivers.ultis.validation.UpdateDriver;
 
 public class ControllerUltis {
     @NotNull

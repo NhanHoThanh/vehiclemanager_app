@@ -25,11 +25,11 @@ import java.util.concurrent.ExecutionException;
 @SpringBootApplication
 
 public class DriversApplication {
-	public DriversApplication() throws IOException {
+	public DriversApplication() {
 	}
 
     @SuppressWarnings("deprecation")
-	public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
+	public static void main(String[] args) throws IOException {
 
 
 		FileInputStream serviceAccount =

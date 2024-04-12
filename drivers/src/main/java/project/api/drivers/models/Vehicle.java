@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Vehicle {
     private String idVehicle;
-    private List<Integer> driverList;
+    private List<String> driverList;
     private int capacity;
     private String fuelType;
     private String status;
@@ -17,7 +17,7 @@ public class Vehicle {
     public Vehicle() {
     }
 
-    public Vehicle(String idVehicle, List<Integer> driverList, int capacity, String fuelType, String status, String route, String vehicleType, Date timeStart, Date timeEnd) {
+    public Vehicle(String idVehicle, List<String> driverList, int capacity, String fuelType, String status, String route, String vehicleType, Date timeStart, Date timeEnd) {
         this.idVehicle = idVehicle;
         this.driverList = driverList;
         this.capacity = capacity;
@@ -37,12 +37,18 @@ public class Vehicle {
         this.idVehicle = idVehicle;
     }
 
-    public List<Integer> getDriverList() {
+    public List<String> getDriverList() {
         return driverList;
     }
 
-    public void setDriverList(List<Integer> driverList) {
+    public void setDriverList(List<String> driverList) {
         this.driverList = driverList;
+    }
+    public void addDriver(String id) {
+        this.driverList.add(id);
+    }
+    public  void removeDriver(Integer id) {
+        this.driverList.remove(id);
     }
 
     public int getCapacity() {

@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import project.api.drivers.models.Coach;
 import project.api.drivers.models.Passenger;
+import project.api.drivers.models.Vehicle;
 import project.api.drivers.services.CoachService;
 import project.api.drivers.services.PassengerService;
 import project.api.drivers.ultis.ResponseObject;
@@ -47,11 +48,11 @@ public class CoachController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
-    @GetMapping("/passenger")
-    public ResponseEntity<ResponseObject<List<Passenger>>> getAllPassenger() {
-        ResponseObject<List<Passenger>> driverList = passengerService.getAllPassenger();
-        if (driverList != null) {
-            return ResponseEntity.ok(driverList);
+    @GetMapping("/listPassenger/{idVehicle}")
+    public ResponseEntity<ResponseObject<List<Passenger>>> getListPassenger(@PathVariable String idVehicle) {
+        ResponseObject<List<Passenger>> listPassenger = coachService.getListPassenger(idVehicle);
+        if (listPassenger != null) {
+            return ResponseEntity.ok(listPassenger);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
@@ -67,7 +68,6 @@ public class CoachController {
     }
 
     @PostMapping
-
     public ResponseEntity<ResponseObject<Coach>> createCoach(@RequestBody Coach coach) {
         //validate: check for duplicate in field, check for valid input, check for required field, unknown field and such. (ongoing)
         ResponseObject<Coach> responseObject = coachService.createCoach(coach);
@@ -81,6 +81,23 @@ public class CoachController {
     //validate: check for duplicate in field, check for valid input, check for required field, unknown field and such. (ongoing)
     public ResponseEntity<ResponseObject> updateCoach(@PathVariable String id,  @RequestBody Coach coach) {
         ResponseObject responseObject = coachService.updateCoach(id, coach);
+        if ("error".equals(responseObject.getStatus())) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseObject);
+        }
+        return ResponseEntity.ok(responseObject);
+    }
+
+    @PostMapping("/addPassenger/{idVehicle}/{idPassenger}")
+    public ResponseEntity<ResponseObject> addPassenger(@PathVariable String idVehicle, @PathVariable String idPassenger,  @RequestBody Coach coach) {
+        ResponseObject responseObject = coachService.addPassenger(idVehicle, idPassenger,  coach);
+        if ("error".equals(responseObject.getStatus())) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseObject);
+        }
+        return ResponseEntity.ok(responseObject);
+    }
+    @DeleteMapping("/removePassenger/{idVehicle}/{idPassenger}")
+    public ResponseEntity<ResponseObject> removePassenger(@PathVariable String idVehicle, @PathVariable String idPassenger,  @RequestBody Coach coach) {
+        ResponseObject responseObject = coachService.removePassenger(idVehicle, idPassenger, coach);
         if ("error".equals(responseObject.getStatus())) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseObject);
         }

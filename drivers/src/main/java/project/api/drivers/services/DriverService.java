@@ -3,6 +3,7 @@ package project.api.drivers.services;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import project.api.drivers.models.Coach;
 import project.api.drivers.models.Driver;
 import project.api.drivers.ultis.ResponseObject;
 import project.api.drivers.repositories.DriverRepository;
@@ -83,9 +84,11 @@ public class DriverService {
 public ResponseObject<Driver> createDriver(Driver driver) {
     ResponseObject<Driver> responseObject = new ResponseObject<>();
     try {
+//        Coach coach;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
         String id = LocalDateTime.now().format(formatter);
         driver.setId(id);
+//        coach.setPassengerList(driver.setId(id));
 
         Driver newDriver = driverRepository.createDriver(driver);
         responseObject.setStatus("success");
@@ -105,7 +108,6 @@ public ResponseObject<Driver> createDriver(Driver driver) {
         try {
             Driver driverUpdate = driverRepository.getDriverById(id);
             if (driverUpdate != null) {
-                // BeanUtils.copyProperties(driverUpdate, driver);
                 driverRepository.updateDriver(id, driver);
                 responseObject.setStatus("success");
                 responseObject.setMessage("Update driver successfully");

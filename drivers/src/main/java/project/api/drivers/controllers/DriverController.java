@@ -57,6 +57,7 @@ public class DriverController {
     public ResponseEntity<ResponseObject<Driver>> createDriver(@RequestBody Driver driver) {
     //validate: check for duplicate in field, check for valid input, check for required field, unknown field and such. (ongoing)
         ResponseObject<Driver> responseObject = driverService.createDriver(driver);
+//        gọi update vehicle api truyền driver.getVehicleId() driverList
         if ("error".equals(responseObject.getStatus())) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseObject);
         }

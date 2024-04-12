@@ -14,7 +14,7 @@ public class Container extends Vehicle{
     public Container() {
     }
 
-    public Container(String idVehicle, List<Integer> driverList, int capacity, String fuelType, String status, String route, String vehicleType, Date timeStart, Date timeEnd, String cargoType, Date previousMaintenanceDate, Date nextMaintenanceDate, int currentLoad, int maxLoad, List<String> cargoList) {
+    public Container(String idVehicle, List<String> driverList, int capacity, String fuelType, String status, String route, String vehicleType, Date timeStart, Date timeEnd, String cargoType, Date previousMaintenanceDate, Date nextMaintenanceDate, int currentLoad, int maxLoad, List<String> cargoList) {
         super(idVehicle, driverList, capacity, fuelType, status, route, vehicleType, timeStart, timeEnd);
         this.cargoType = cargoType;
         this.previousMaintenanceDate = previousMaintenanceDate;

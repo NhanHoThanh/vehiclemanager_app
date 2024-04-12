@@ -7,6 +7,7 @@ import java.util.Date;
 
 
 public class Coach extends Vehicle{
+
     private int numberOfSeats;
     private int numberOfPassenger;
     private Date previousMaintenanceDate;

@@ -4,19 +4,19 @@ import java.util.Date;
 import java.util.List;
 
 public class Route {
-    private int idRoute;
+    private String idRoute;
     private String departure;
     private String destination;
     private List<String> station;
     private double distance;
     private double duration;
 
-    private Income income;
+    private String income;
 
     public Route(){}
 
-    public Route(int idRoute, String destination, String departure, List<String> station,
-                 double distance, double duration, Income income) {
+    public Route(String idRoute, String destination, String departure, List<String> station,
+                 double distance, double duration, String income) {
         this.idRoute=idRoute;
         this.destination = destination;
         this.departure = departure;
@@ -66,19 +66,19 @@ public class Route {
         this.duration = duration;
     }
 
-    public Income getIncome() {
+    public String getIncome() {
         return income;
     }
 
-    public void setIncome(Income income) {
+    public void setIncome(String income) {
         this.income = income;
     }
 
-    public int getIdRoute() {
+    public String getIdRoute() {
         return idRoute;
     }
 
-    public void setIdRoute(int idRoute) {
+    public void setIdRoute(String idRoute) {
         this.idRoute = idRoute;
     }
 }

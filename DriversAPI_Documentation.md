@@ -6,7 +6,7 @@
 
 Get ALL drivers
 
-**URL**: `http://localhost:8080/api/drivers/{id}`
+**URL**: `http://localhost:8080/api/drivers`
 
 **Method**: `GET`
 
@@ -144,6 +144,29 @@ Update a new driver with id.
 }
 ```
 
+**Return data**:
+
+```json
+{
+    "status": "success",
+    "message": "Update driver successfully",
+    "data": {
+        "id": "20240410230323",
+        "name": "Tran Thi C",
+        "address": "122 Le Van Sy, Quan Tan Binh, TP.HCM",
+        "phone_number": "05418234567",
+        "license": "A2",
+        "cccd": "54865484654",
+        "routeId": "TP.HCM - BaRiaVungTau",
+        "status": "available",
+        "vehicleId": "1",
+        "vehicleType": "Truck",
+        "email": "hothanhnhanhot@gmail.com",
+        "createdAt": "23-03-23 10-04-2024"
+    }
+}
+```
+
 ---
 
 ### PUT /api/drivers/{id}/vehicle
@@ -164,6 +187,47 @@ Update vehicle for a driver with id.
 {
     "vehicleId": "1234",
     "vehicleType": "Truck"
+}
+```
+
+**Interaction**
+
+This API endpoint also interacts with the Vehicle Service API to add the driver to the vehicle. The Vehicle Service API is called with the following details:
+
+URL: `URL ben phia Tam cung cap`
+
+Method: `???`
+
+Headers: `Content-Type: application/json`
+
+Body: _Must_ include these fields:
+
+```json
+{
+    "driverId": "1234"
+}
+```
+
+**Return data**:
+
+```json
+{
+    "status": "success",
+    "message": "Update vehicle successfully",
+    "data": {
+        "id": "20240410230323",
+        "name": "Tran Thi C",
+        "address": "122 Le Van Sy, Quan Tan Binh, TP.HCM",
+        "phone_number": "05418234567",
+        "license": "A2",
+        "cccd": "54865484654",
+        "routeId": "TP.HCM - BaRiaVungTau",
+        "status": "available",
+        "vehicleId": "1",
+        "vehicleType": "Truck",
+        "email": "hothanhnhanhot@gmail.com",
+        "createdAt": "23-03-23 10-04-2024"
+    }
 }
 ```
 
@@ -189,4 +253,79 @@ Update route for a driver with id.
 }
 ```
 
+**Interaction**
+
+This API endpoint also interacts with the Route Service API to add the driver's vehicle to the route. The Route Service API is called with the following details:
+
+URL: `URL ben phia Thach cung cap`
+
+Method: `???`
+
+Headers: `Content-Type: application/json`
+
+Body: _Must_ include these fields:
+
+```json
+{
+    "driverId": "1234"
+}
+```
+
+**Return data**:
+
+```json
+{
+    "status": "success",
+    "message": "Update route successfully",
+    "data": {
+        "id": "20240410230323",
+        "name": "Tran Thi C",
+        "address": "122 Le Van Sy, Quan Tan Binh, TP.HCM",
+        "phone_number": "05418234567",
+        "license": "A2",
+        "cccd": "54865484654",
+        "routeId": "TP.HCM - BaRiaVungTau",
+        "status": "available",
+        "vehicleId": "1",
+        "vehicleType": "Truck",
+        "email": "hothanhnhanhot@gmail.com",
+        "createdAt": "23-03-23 10-04-2024"
+    }
+}
+```
+
 ---
+
+### DELETE /api/drivers/{id}
+
+Delete a driver by ID.
+
+**URL**: `http://localhost:8080/api/drivers/{id}`
+
+**Method**: `DELETE`
+
+**Headers**: `Content-Type: application/json`
+
+**Return data**:
+
+```json
+{
+    "status": "success",
+    "message": "Delete driver successfully",
+    "data": {
+        "id": "20240410230323",
+        "name": "Tran Thi C",
+        "address": "122 Le Van Sy, Quan Tan Binh, TP.HCM",
+        "phone_number": "05418234567",
+        "license": "A2",
+        "cccd": "54865484654",
+        "routeId": "TP.HCM - BaRiaVungTau",
+        "status": "available",
+        "vehicleId": "1",
+        "vehicleType": "Truck",
+        "email": "hothanhnhanhot@gmail.com"
+    }
+}
+```
+
+-- End of file --

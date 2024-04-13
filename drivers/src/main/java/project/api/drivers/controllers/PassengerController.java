@@ -22,27 +22,27 @@ public class PassengerController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ResponseObject<Passenger>> getPassenger(@PathVariable String id) throws ExecutionException, InterruptedException {
-        ResponseObject<Passenger> driver = passengerService.getPassengerById(id);
-        if (driver != null) {
-            return ResponseEntity.ok(driver);
+        ResponseObject<Passenger> container = passengerService.getPassengerById(id);
+        if (container != null) {
+            return ResponseEntity.ok(container);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
     @GetMapping()
     public ResponseEntity<ResponseObject<List<Passenger>>> getAllPassenger() {
-        ResponseObject<List<Passenger>> driverList = passengerService.getAllPassenger();
-        if (driverList != null) {
-            return ResponseEntity.ok(driverList);
+        ResponseObject<List<Passenger>> containerList = passengerService.getAllPassenger();
+        if (containerList != null) {
+            return ResponseEntity.ok(containerList);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
     @GetMapping("/search")
     public ResponseEntity<ResponseObject<List<Passenger>>> getPassengerByAttributes(@RequestParam Map<String, String> allParams) {
-        ResponseObject<List<Passenger>> driverList = passengerService.getPassengerByAttributes(allParams);
-        if (driverList != null) {
-            return ResponseEntity.ok(driverList);
+        ResponseObject<List<Passenger>> containerList = passengerService.getPassengerByAttributes(allParams);
+        if (containerList != null) {
+            return ResponseEntity.ok(containerList);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
@@ -50,8 +50,8 @@ public class PassengerController {
 
     @PostMapping
 
-    public ResponseEntity<ResponseObject<Passenger>> createPassenger(@RequestBody Passenger driver) {
-        ResponseObject<Passenger> responseObject = passengerService.createPassenger(driver);
+    public ResponseEntity<ResponseObject<Passenger>> createPassenger(@RequestBody Passenger container) {
+        ResponseObject<Passenger> responseObject = passengerService.createPassenger(container);
         if ("error".equals(responseObject.getStatus())) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseObject);
         }
@@ -59,8 +59,8 @@ public class PassengerController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ResponseObject> updatePassenger(@PathVariable String id,  @RequestBody Passenger driver) {
-        ResponseObject responseObject = passengerService.updatePassenger(id, driver);
+    public ResponseEntity<ResponseObject> updatePassenger(@PathVariable String id,  @RequestBody Passenger container) {
+        ResponseObject responseObject = passengerService.updatePassenger(id, container);
         if ("error".equals(responseObject.getStatus())) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseObject);
         }

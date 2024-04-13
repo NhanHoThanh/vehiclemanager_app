@@ -82,6 +82,7 @@ public class GenericRepositoryImpl implements GenericRepository {
             return null;
         }
     }
+
     public void deleteDocument(String collectionName, String documentId) throws ExecutionException, InterruptedException {
         Firestore db = FirestoreClient.getFirestore();
         DocumentReference docRef = db.collection(collectionName).document(documentId);

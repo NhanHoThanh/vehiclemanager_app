@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Vehicle {
     private String idVehicle;
-    private List<Integer> driverList;
+    private List<String> driverList;
     private int capacity;
     private String fuelType;
     private String status;
@@ -13,11 +13,13 @@ public class Vehicle {
     private String vehicleType;
     private Date timeStart;
     private Date timeEnd;
+    private  String destination;
+    private String departure;
 
     public Vehicle() {
     }
 
-    public Vehicle(String idVehicle, List<Integer> driverList, int capacity, String fuelType, String status, String route, String vehicleType, Date timeStart, Date timeEnd) {
+    public Vehicle(String idVehicle, List<String> driverList, int capacity, String fuelType, String status, String route, String vehicleType, Date timeStart, Date timeEnd, String destination, String departure) {
         this.idVehicle = idVehicle;
         this.driverList = driverList;
         this.capacity = capacity;
@@ -27,6 +29,24 @@ public class Vehicle {
         this.vehicleType = vehicleType;
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
+        this.destination = destination;
+        this.departure = departure;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
+    public String getDeparture() {
+        return departure;
+    }
+
+    public void setDeparture(String departure) {
+        this.departure = departure;
     }
 
     public String getIdVehicle() {
@@ -37,12 +57,18 @@ public class Vehicle {
         this.idVehicle = idVehicle;
     }
 
-    public List<Integer> getDriverList() {
+    public List<String> getDriverList() {
         return driverList;
     }
 
-    public void setDriverList(List<Integer> driverList) {
+    public void setDriverList(List<String> driverList) {
         this.driverList = driverList;
+    }
+    public void addDriver(String id) {
+        this.driverList.add(id);
+    }
+    public  void removeDriver(Integer id) {
+        this.driverList.remove(id);
     }
 
     public int getCapacity() {

@@ -2,12 +2,13 @@ package project.api.drivers.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import project.api.drivers.models.Container;
-import project.api.drivers.models.Vehicle;
+import project.api.drivers.models.*;
 import project.api.drivers.repositories.ContainerRepository;
 import project.api.drivers.repositories.VehicleRepository;
+import project.api.drivers.repositories.CargoRepository;
 import project.api.drivers.ultis.ResponseObject;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -17,13 +18,9 @@ public class ContainerService {
     private ContainerRepository containerRepository;
     @Autowired
     private VehicleRepository vehicleRepository;
+    @Autowired
+    private CargoRepository cargoRepository;
 
-//    public Container getContainerById(String id) throws ExecutionException, InterruptedException {
-//        Container container = containerRepository.getContainerById(id);
-//        Vehicle vehicle = vehicleRepository.getVehicleById(id);
-//        container.setVehicle(vehicle);
-//        return container;
-//    }
 public ResponseObject<List<Container>> getAllContainer() {
     ResponseObject<List<Container>> responseObject = new ResponseObject<>();
     try {
@@ -137,6 +134,67 @@ public ResponseObject<List<Container>> getAllContainer() {
                 responseObject.setStatus("fail");
                 responseObject.setMessage("Loi o day");
             }
+        } catch (Exception e) {
+            responseObject.setStatus("error");
+//            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
+        }
+        return responseObject;
+    }
+
+    public ResponseObject<Container> addCargo(String idVehicle, String idCargo, Container container) {
+        ResponseObject<Container> responseObject = new ResponseObject<>();
+        try {
+            Container containerUpdate = containerRepository.getContainerById(idVehicle);
+            if (containerUpdate != null) {
+                containerRepository.addPassenger(idVehicle,idCargo, container);
+                responseObject.setStatus("success");
+                responseObject.setMessage("Update vehicle successfully");
+                responseObject.setData(containerUpdate);
+            } else {
+                responseObject.setStatus("error");
+                responseObject.setMessage("Vehicle not found");
+            }
+        } catch (Exception e) {
+            responseObject.setStatus("error");
+        }
+        return responseObject;
+    }
+    public ResponseObject<Container> removeCargo(String idVehicle,String idCargo, Container container) {
+        ResponseObject<Container> responseObject = new ResponseObject<>();
+        try {
+            Container containerUpdate = containerRepository.getContainerById(idVehicle);
+            if (containerUpdate != null) {
+                containerRepository.removeCargo(idVehicle,idCargo, container);
+                responseObject.setStatus("success");
+                responseObject.setMessage("Update vehicle successfully");
+                responseObject.setData(containerUpdate);
+            } else {
+                responseObject.setStatus("error");
+                responseObject.setMessage("Vehicle not found");
+            }
+        } catch (Exception e) {
+            responseObject.setStatus("error");
+        }
+        return responseObject;
+    }
+    public ResponseObject<List<Cargo>> getListCargo(String idVehicle) {
+        ResponseObject<List<Cargo>> responseObject = new ResponseObject<>();
+        try {
+            Container container = containerRepository.getContainerById(idVehicle);
+            List<Cargo> listCargo = new ArrayList<>();
+            if (container == null) {
+                responseObject.setStatus("success");
+                responseObject.setMessage("No coach found");
+                return responseObject;
+            }
+            for(int i = 0; i < container.getCargoList().size(); i++) {
+                String idCargo = container.getCargoList().get(i);
+                Cargo cargo = cargoRepository.getCargoById(idCargo);
+                listCargo.add(cargo);
+            }
+            responseObject.setStatus("success");
+            responseObject.setMessage("Get all container successfully");
+            responseObject.setData(listCargo);
         } catch (Exception e) {
             responseObject.setStatus("error");
 //            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");

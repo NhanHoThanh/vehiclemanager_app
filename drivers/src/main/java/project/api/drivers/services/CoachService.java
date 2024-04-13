@@ -3,11 +3,13 @@ package project.api.drivers.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import project.api.drivers.models.Coach;
+import project.api.drivers.models.Passenger;
 import project.api.drivers.models.Vehicle;
 import project.api.drivers.repositories.CoachRepository;
+import project.api.drivers.repositories.PassengerRepository;
 import project.api.drivers.repositories.VehicleRepository;
 import project.api.drivers.ultis.ResponseObject;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,17 +17,11 @@ import java.util.Map;
 public class CoachService {
     @Autowired
     private CoachRepository coachRepository;
-
     @Autowired
     private VehicleRepository vehicleRepository;
+    @Autowired
+    private PassengerRepository passengerRepository;
 
-    //    public Coach getCoachById(String id) throws ExecutionException, InterruptedException {
-//        Coach coach = coachRepository.getCoachById(id);
-//        Vehicle vehicle = vehicleRepository.getVehicleById(id);
-//        coach.setVehicle(vehicle);
-//        System.out.println(coach);
-//        return coach;
-//    }
     public ResponseObject<List<Coach>> getAllCoach() {
         ResponseObject<List<Coach>> responseObject = new ResponseObject<>();
         try {
@@ -91,7 +87,7 @@ public class CoachService {
             Coach coachUpdate = coachRepository.getCoachById(id);
             if (coachUpdate != null) {
                 // BeanUtils.copyProperties(coachUpdate, coach);
-                coachRepository.updateCoach(coach);
+                coachRepository.updateCoach(id, coach);
                 responseObject.setStatus("success");
                 responseObject.setMessage("Update coach successfully");
                 responseObject.setData(coachUpdate);
@@ -102,6 +98,68 @@ public class CoachService {
         } catch (Exception e) {
             responseObject.setStatus("error");
 //            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
+        }
+        return responseObject;
+    }
+
+    public ResponseObject<List<Passenger>> getListPassenger(String idVehicle) {
+        ResponseObject<List<Passenger>> responseObject = new ResponseObject<>();
+        try {
+            Coach coach = coachRepository.getCoachById(idVehicle);
+            List<Passenger> listPassenger = new ArrayList<>();
+            if (coach == null) {
+                responseObject.setStatus("success");
+                responseObject.setMessage("No coach found");
+                return responseObject;
+            }
+            for(int i = 0; i < coach.getPassengerList().size(); i++) {
+                String idPassenger = coach.getPassengerList().get(i);
+                Passenger passenger = passengerRepository.getPassengerById(idPassenger);
+                listPassenger.add(passenger);
+            }
+            responseObject.setStatus("success");
+            responseObject.setMessage("Get all ListPassenger successfully");
+            responseObject.setData(listPassenger);
+        } catch (Exception e) {
+            responseObject.setStatus("error");
+//            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
+        }
+        return responseObject;
+    }
+
+    public ResponseObject<Coach> addPassenger(String idVehicle,String idPassenger, Coach coach) {
+        ResponseObject<Coach> responseObject = new ResponseObject<>();
+        try {
+            Coach coachUpdate = coachRepository.getCoachById(idVehicle);
+            if (coachUpdate != null) {
+                coachRepository.addPassenger(idVehicle,idPassenger, coach);
+                responseObject.setStatus("success");
+                responseObject.setMessage("addPassenger successfully");
+                responseObject.setData(coachUpdate);
+            } else {
+                responseObject.setStatus("error");
+                responseObject.setMessage("coach not found");
+            }
+        } catch (Exception e) {
+            responseObject.setStatus("error");
+        }
+        return responseObject;
+    }
+    public ResponseObject<Coach> removePassenger(String idVehicle,String idPassenger, Coach coach) {
+        ResponseObject<Coach> responseObject = new ResponseObject<>();
+        try {
+            Coach coachUpdate = coachRepository.getCoachById(idVehicle);
+            if (coachUpdate != null) {
+                coachRepository.removePassenger(idVehicle,idPassenger, coach);
+                responseObject.setStatus("success");
+                responseObject.setMessage("removePassenger successfully");
+                responseObject.setData(coachUpdate);
+            } else {
+                responseObject.setStatus("error");
+                responseObject.setMessage("Coach not found");
+            }
+        } catch (Exception e) {
+            responseObject.setStatus("error");
         }
         return responseObject;
     }

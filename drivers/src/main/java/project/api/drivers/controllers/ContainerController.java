@@ -31,18 +31,18 @@ public class ContainerController {
     }
     @GetMapping("/{id}")
     public ResponseEntity<ResponseObject<Container>> getContainer(@PathVariable String id) throws ExecutionException, InterruptedException {
-        ResponseObject<Container> driver = containerService.getContainerById(id);
-        if (driver != null) {
-            return ResponseEntity.ok(driver);
+        ResponseObject<Container> container = containerService.getContainerById(id);
+        if (container != null) {
+            return ResponseEntity.ok(container);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
     @GetMapping()
     public ResponseEntity<ResponseObject<java.util.List<Container>>> getAllContainer() {
-        ResponseObject<java.util.List<Container>> driverList = containerService.getAllContainer();
-        if (driverList != null) {
-            return ResponseEntity.ok(driverList);
+        ResponseObject<java.util.List<Container>> containerList = containerService.getAllContainer();
+        if (containerList != null) {
+            return ResponseEntity.ok(containerList);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
@@ -56,20 +56,28 @@ public class ContainerController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+    @GetMapping("/listCargo/{idVehicle}")
+    public ResponseEntity<ResponseObject<List<Cargo>>> getListCargo(@PathVariable String idVehicle) {
+        ResponseObject<List<Cargo>> listCargo = containerService.getListCargo(idVehicle);
+        if (listCargo != null) {
+            return ResponseEntity.ok(listCargo);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
     @GetMapping("/search")
     public ResponseEntity<ResponseObject<java.util.List<Container>>> getContainerByAttributes(@RequestParam Map<String, String> allParams) {
-        ResponseObject<List<Container>> driverList = containerService.getContainerByAttributes(allParams);
-        if (driverList != null) {
-            return ResponseEntity.ok(driverList);
+        ResponseObject<List<Container>> containerList = containerService.getContainerByAttributes(allParams);
+        if (containerList != null) {
+            return ResponseEntity.ok(containerList);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 
     @PostMapping
-
-    public ResponseEntity<ResponseObject<Container>> createContainer(@RequestBody Container driver) {
-        ResponseObject<Container> responseObject = containerService.createContainer(driver);
+    public ResponseEntity<ResponseObject<Container>> createContainer(@RequestBody Container container) {
+        ResponseObject<Container> responseObject = containerService.createContainer(container);
         if ("error".equals(responseObject.getStatus())) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseObject);
         }
@@ -77,8 +85,8 @@ public class ContainerController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ResponseObject> updateContainer(@PathVariable String id,  @RequestBody Container driver) {
-        ResponseObject responseObject = containerService.updateContainer(id, driver);
+    public ResponseEntity<ResponseObject> updateContainer(@PathVariable String id,  @RequestBody Container container) {
+        ResponseObject responseObject = containerService.updateContainer(id, container);
         if ("error".equals(responseObject.getStatus())) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseObject);
         }
@@ -88,6 +96,23 @@ public class ContainerController {
     @DeleteMapping("/{id}")
     public ResponseEntity<ResponseObject<Container>> deleteContainer(@PathVariable String id) {
         ResponseObject<Container> responseObject = containerService.deleteContainer(id);
+        if ("error".equals(responseObject.getStatus())) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseObject);
+        }
+        return ResponseEntity.ok(responseObject);
+    }
+
+    @PostMapping("/addCargo/{idVehicle}/{idCargo}")
+    public ResponseEntity<ResponseObject> addCargo(@PathVariable String idVehicle, @PathVariable String idCargo,  @RequestBody Container container) {
+        ResponseObject responseObject = containerService.addCargo(idVehicle, idCargo, container);
+        if ("error".equals(responseObject.getStatus())) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseObject);
+        }
+        return ResponseEntity.ok(responseObject);
+    }
+    @DeleteMapping("/removeCargo/{idVehicle}/{idCargo}")
+    public ResponseEntity<ResponseObject> removeCargo(@PathVariable String idVehicle, @PathVariable String idCargo,  @RequestBody Container container) {
+        ResponseObject responseObject = containerService.removeCargo(idVehicle, idCargo, container);
         if ("error".equals(responseObject.getStatus())) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseObject);
         }

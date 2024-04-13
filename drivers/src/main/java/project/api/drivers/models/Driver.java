@@ -26,7 +26,8 @@ public class Driver {
 
     private String status;
 
-    private String vehicleId;
+
+    private String vehicleId;// Vehicle 1
 
     private String vehicleType;
     private String email;

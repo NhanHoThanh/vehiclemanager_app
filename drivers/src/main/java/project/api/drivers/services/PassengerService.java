@@ -51,6 +51,7 @@ public class PassengerService {
         return responseObject;
     }
 
+
     public ResponseObject<Passenger> createPassenger(Passenger passenger) {
         ResponseObject<Passenger> responseObject = new ResponseObject<>();
         try {
@@ -68,10 +69,12 @@ public class PassengerService {
 //
     public ResponseObject<Passenger> updatePassenger(String id, Passenger passenger) {
         ResponseObject<Passenger> responseObject = new ResponseObject<>();
+//        System.out.println(passenger.getName());
         try {
             Passenger passengerUpdate = passengerRepository.getPassengerById(id);
+//            System.out.println(p);
             if (passengerUpdate != null) {
-                passengerRepository.updatePassenger(passenger);
+                passengerRepository.updatePassenger(id, passenger);
                 responseObject.setStatus("success");
                 responseObject.setMessage("Update Passenger successfully");
                 responseObject.setData(passengerUpdate);

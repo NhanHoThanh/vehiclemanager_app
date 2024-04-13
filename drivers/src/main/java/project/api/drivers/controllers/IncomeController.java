@@ -1,10 +1,16 @@
 package project.api.drivers.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+import project.api.drivers.models.Coach;
 import project.api.drivers.models.Income;
+import project.api.drivers.models.Passenger;
+import project.api.drivers.models.Route;
 import project.api.drivers.services.IncomeService;
 import project.api.drivers.ultis.ResponseObject;
 
@@ -49,6 +55,8 @@ public class IncomeController {
 //    }
    @Autowired
    private IncomeService incomeService;
+    @Autowired
+    private RestTemplate restTemplate;
     @GetMapping("/{id}")
     public ResponseEntity<ResponseObject<Income>> getIncome(@PathVariable String id) throws ExecutionException, InterruptedException {
         ResponseObject<Income> income = incomeService.getIncomeById(id);
@@ -69,7 +77,7 @@ public class IncomeController {
     }
     @PostMapping
     public ResponseEntity<ResponseObject<Income>> createIncome(@RequestBody Income income) {
-        ResponseObject<Income> responseObject = incomeService.createRoute(income);
+        ResponseObject<Income> responseObject = incomeService.createIncome(income);
         if ("error".equals(responseObject.getStatus())) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseObject);
         }
@@ -92,5 +100,42 @@ public class IncomeController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseObject);
         }
         return ResponseEntity.ok(responseObject);
+    }
+    @GetMapping("/{idVehicle}")
+    public ResponseEntity<ResponseObject<Income>> calculateIncomeFormSpecificCoach(@PathVariable String idVehicle) throws ExecutionException, InterruptedException {
+        ResponseEntity<Passenger[]> responseEntity = restTemplate.getForEntity("/api/coach/listPassenger/{idVehicle}",Passenger[].class);
+//        ResponseEntity<ResponseObject<Coach>> coach = restTemplate.getForEntity("/api/coach/{idVehicle}",ResponseObject.class,idVehicle);
+//        ResponseEntity<ResponseObject> coachResponseEntity = restTemplate.getForEntity("/api/coach/{idVehicle}", ResponseObject.class);
+//        ResponseEntity<ResponseObject<Coach>> coachResponseEntity = restTemplate.getForEntity("/api/coach/{idVehicle}", ResponseObject.class, idVehicle);
+        ResponseEntity<ResponseObject<Coach>> coachResponseEntity = restTemplate.exchange(
+                "/api/coach/{idVehicle}",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<ResponseObject<Coach>>() {},
+                idVehicle
+        );
+
+        ResponseObject<Coach> coachResponse = coachResponseEntity.getBody();
+        assert coachResponse != null;
+        Coach coach = (Coach) coachResponse.getData();
+        String idRoute = coach.getRoute();
+        ResponseEntity<ResponseObject<Route>> routeResponseEntity = restTemplate.exchange(
+                "/api/route/{idRoute}",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<ResponseObject<Route>>() {},
+                idVehicle
+        );
+        ResponseObject<Route> routeResponse =routeResponseEntity.getBody();
+        assert routeResponse != null;
+        Route route= (Route) routeResponse.getData();
+
+
+        ResponseObject<Income> income = incomeService.calculateIncomeFromSpecificCoach(responseEntity,coach,route );
+        if (income != null) {
+            return ResponseEntity.ok(income);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 }

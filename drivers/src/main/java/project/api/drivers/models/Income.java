@@ -52,9 +52,9 @@ public class Income {
 //
 //
 //    }
-//    public double set_profit(){
-//        return this.revenue-this.cost;
-//    }
+    public double set_profit(){
+        return this.revenue-this.cost;
+    }
 
     public double getCost() {
         return cost;

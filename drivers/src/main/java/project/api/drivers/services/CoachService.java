@@ -22,13 +22,6 @@ public class CoachService {
     @Autowired
     private PassengerRepository passengerRepository;
 
-    //    public Coach getCoachById(String id) throws ExecutionException, InterruptedException {
-//        Coach coach = coachRepository.getCoachById(id);
-//        Vehicle vehicle = vehicleRepository.getVehicleById(id);
-//        coach.setVehicle(vehicle);
-//        System.out.println(coach);
-//        return coach;
-//    }
     public ResponseObject<List<Coach>> getAllCoach() {
         ResponseObject<List<Coach>> responseObject = new ResponseObject<>();
         try {
@@ -125,7 +118,7 @@ public class CoachService {
                 listPassenger.add(passenger);
             }
             responseObject.setStatus("success");
-            responseObject.setMessage("Get all coach successfully");
+            responseObject.setMessage("Get all ListPassenger successfully");
             responseObject.setData(listPassenger);
         } catch (Exception e) {
             responseObject.setStatus("error");
@@ -141,11 +134,11 @@ public class CoachService {
             if (coachUpdate != null) {
                 coachRepository.addPassenger(idVehicle,idPassenger, coach);
                 responseObject.setStatus("success");
-                responseObject.setMessage("Update vehicle successfully");
+                responseObject.setMessage("addPassenger successfully");
                 responseObject.setData(coachUpdate);
             } else {
                 responseObject.setStatus("error");
-                responseObject.setMessage("Vehicle not found");
+                responseObject.setMessage("coach not found");
             }
         } catch (Exception e) {
             responseObject.setStatus("error");
@@ -159,11 +152,11 @@ public class CoachService {
             if (coachUpdate != null) {
                 coachRepository.removePassenger(idVehicle,idPassenger, coach);
                 responseObject.setStatus("success");
-                responseObject.setMessage("Update vehicle successfully");
+                responseObject.setMessage("removePassenger successfully");
                 responseObject.setData(coachUpdate);
             } else {
                 responseObject.setStatus("error");
-                responseObject.setMessage("Vehicle not found");
+                responseObject.setMessage("Coach not found");
             }
         } catch (Exception e) {
             responseObject.setStatus("error");

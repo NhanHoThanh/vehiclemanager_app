@@ -4,9 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import project.api.drivers.models.Cargo;
-import project.api.drivers.models.Coach;
 import project.api.drivers.models.Container;
-import project.api.drivers.models.Passenger;
 import project.api.drivers.services.CargoService;
 import project.api.drivers.services.ContainerService;
 import project.api.drivers.ultis.ResponseObject;
@@ -33,18 +31,18 @@ public class ContainerController {
     }
     @GetMapping("/{id}")
     public ResponseEntity<ResponseObject<Container>> getContainer(@PathVariable String id) throws ExecutionException, InterruptedException {
-        ResponseObject<Container> driver = containerService.getContainerById(id);
-        if (driver != null) {
-            return ResponseEntity.ok(driver);
+        ResponseObject<Container> container = containerService.getContainerById(id);
+        if (container != null) {
+            return ResponseEntity.ok(container);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
     @GetMapping()
     public ResponseEntity<ResponseObject<java.util.List<Container>>> getAllContainer() {
-        ResponseObject<java.util.List<Container>> driverList = containerService.getAllContainer();
-        if (driverList != null) {
-            return ResponseEntity.ok(driverList);
+        ResponseObject<java.util.List<Container>> containerList = containerService.getAllContainer();
+        if (containerList != null) {
+            return ResponseEntity.ok(containerList);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
@@ -69,17 +67,17 @@ public class ContainerController {
     }
     @GetMapping("/search")
     public ResponseEntity<ResponseObject<java.util.List<Container>>> getContainerByAttributes(@RequestParam Map<String, String> allParams) {
-        ResponseObject<List<Container>> driverList = containerService.getContainerByAttributes(allParams);
-        if (driverList != null) {
-            return ResponseEntity.ok(driverList);
+        ResponseObject<List<Container>> containerList = containerService.getContainerByAttributes(allParams);
+        if (containerList != null) {
+            return ResponseEntity.ok(containerList);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 
     @PostMapping
-    public ResponseEntity<ResponseObject<Container>> createContainer(@RequestBody Container driver) {
-        ResponseObject<Container> responseObject = containerService.createContainer(driver);
+    public ResponseEntity<ResponseObject<Container>> createContainer(@RequestBody Container container) {
+        ResponseObject<Container> responseObject = containerService.createContainer(container);
         if ("error".equals(responseObject.getStatus())) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseObject);
         }
@@ -87,8 +85,8 @@ public class ContainerController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ResponseObject> updateContainer(@PathVariable String id,  @RequestBody Container driver) {
-        ResponseObject responseObject = containerService.updateContainer(id, driver);
+    public ResponseEntity<ResponseObject> updateContainer(@PathVariable String id,  @RequestBody Container container) {
+        ResponseObject responseObject = containerService.updateContainer(id, container);
         if ("error".equals(responseObject.getStatus())) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseObject);
         }

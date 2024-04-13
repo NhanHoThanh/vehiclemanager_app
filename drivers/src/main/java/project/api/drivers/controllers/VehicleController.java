@@ -27,18 +27,18 @@ public class VehicleController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ResponseObject<Vehicle>> getVehicle(@PathVariable String id) throws ExecutionException, InterruptedException {
-        ResponseObject<Vehicle> driver = vehicleService.getVehicleById(id);
-        if (driver != null) {
-            return ResponseEntity.ok(driver);
+        ResponseObject<Vehicle> vehicle = vehicleService.getVehicleById(id);
+        if (vehicle != null) {
+            return ResponseEntity.ok(vehicle);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
     @GetMapping()
     public ResponseEntity<ResponseObject<List<Vehicle>>> getAllVehicle() {
-        ResponseObject<List<Vehicle>> driverList = vehicleService.getAllVehicle();
-        if (driverList != null) {
-            return ResponseEntity.ok(driverList);
+        ResponseObject<List<Vehicle>> vehicleList = vehicleService.getAllVehicle();
+        if (vehicleList != null) {
+            return ResponseEntity.ok(vehicleList);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
@@ -54,17 +54,28 @@ public class VehicleController {
     }
     @GetMapping("/search")
     public ResponseEntity<ResponseObject<List<Vehicle>>> getVehicleByAttributes(@RequestParam Map<String, String> allParams) {
-        ResponseObject<List<Vehicle>> driverList = vehicleService.getVehicleByAttributes(allParams);
-        if (driverList != null) {
-            return ResponseEntity.ok(driverList);
+        ResponseObject<List<Vehicle>> vehicleList = vehicleService.getVehicleByAttributes(allParams);
+        if (vehicleList != null) {
+            return ResponseEntity.ok(vehicleList);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+    @GetMapping("/searchroute")
+    public ResponseEntity<ResponseObject<List<Vehicle>>> getVehicleRoute(@RequestParam Map<String, String> departure, @RequestParam Map<String, String> destination) {
+        ResponseObject<List<Vehicle>> vehicleList = vehicleService.getVehicleRoute(departure, destination);
+        System.out.println("controller");
+        if (vehicleList != null) {
+            return ResponseEntity.ok(vehicleList);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 
+
     @PostMapping
-    public ResponseEntity<ResponseObject<Vehicle>> createVehicle(@RequestBody Vehicle driver) {
-        ResponseObject<Vehicle> responseObject = vehicleService.createVehicle(driver);
+    public ResponseEntity<ResponseObject<Vehicle>> createVehicle(@RequestBody Vehicle vehicle) {
+        ResponseObject<Vehicle> responseObject = vehicleService.createVehicle(vehicle);
         if ("error".equals(responseObject.getStatus())) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseObject);
         }

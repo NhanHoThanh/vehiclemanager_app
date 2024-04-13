@@ -2,8 +2,8 @@ package project.api.drivers.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import project.api.drivers.models.Driver;
-import project.api.drivers.models.Container;
 import project.api.drivers.models.Vehicle;
 import project.api.drivers.repositories.DriverRepository;
 import project.api.drivers.repositories.VehicleRepository;
@@ -19,11 +19,7 @@ public class VehicleService {
     private VehicleRepository vehicleRepository;
     @Autowired
     private DriverRepository driverRepository;
-//    @Autowired
-//    public Vehicle getVehicleById(String id) throws ExecutionException, InterruptedException {
-//        System.out.println(vehicleRepository.getVehicleById(id));
-//        return vehicleRepository.getVehicleById(id);
-//    }
+
 public ResponseObject<List<Vehicle>> getAllVehicle() {
     ResponseObject<List<Vehicle>> responseObject = new ResponseObject<>();
     try {
@@ -103,7 +99,7 @@ public ResponseObject<List<Vehicle>> getAllVehicle() {
             if (vehicleUpdate != null) {
                 vehicleRepository.addDriver(idVehicle,idDriver, vehicle);
                 responseObject.setStatus("success");
-                responseObject.setMessage("Update vehicle successfully");
+                responseObject.setMessage("removeDriver successfully");
                 responseObject.setData(vehicleUpdate);
             } else {
                 responseObject.setStatus("error");
@@ -121,7 +117,7 @@ public ResponseObject<List<Vehicle>> getAllVehicle() {
             if (vehicleUpdate != null) {
                 vehicleRepository.removeDriver(idVehicle,idDriver, vehicle);
                 responseObject.setStatus("success");
-                responseObject.setMessage("Update vehicle successfully");
+                responseObject.setMessage("removeDriver successfully");
                 responseObject.setData(vehicleUpdate);
             } else {
                 responseObject.setStatus("error");
@@ -172,6 +168,27 @@ public ResponseObject<List<Vehicle>> getAllVehicle() {
         return responseObject;
     }
 
+    public ResponseObject<List<Vehicle>> getVehicleRoute(Map<String, String> departure, Map<String, String> destination) {
+        ResponseObject<List<Vehicle>> responseObject = new ResponseObject<>();
+        try {
+//            List<Vehicle> vehicles1 = vehicleRepository.getDocumentsByMultipleAttributes("Vehicle", departure, Vehicle.class);
+//            List<Vehicle> vehicles2 = vehicleRepository.getDocumentsByMultipleAttributes("Vehicle", destination, Vehicle.class);
+            List<Vehicle> vehicles = vehicleRepository.getDocumentsByMultipleAttributes(departure, destination);
+            System.out.println("Service");
+            if (!vehicles.isEmpty()) {
+                responseObject.setStatus("success");
+                responseObject.setMessage("Get vehicles successfully");
+                responseObject.setData(vehicles);
+            } else {
+                responseObject.setStatus("fail");
+                responseObject.setMessage("No vehicles found for the given departure and destination.");
+            }
+        } catch (Exception e) {
+            responseObject.setStatus("error");
+            responseObject.setMessage("An error occurred: " + e.getMessage());
+        }
+        return responseObject;
+    }
     public ResponseObject<List<Driver>> getListDriver(String idVehicle) {
         ResponseObject<List<Driver>> responseObject = new ResponseObject<>();
         try {
@@ -179,7 +196,7 @@ public ResponseObject<List<Vehicle>> getAllVehicle() {
             List<Driver> listDriver = new ArrayList<>();
             if (vehicle == null) {
                 responseObject.setStatus("success");
-                responseObject.setMessage("No coach found");
+                responseObject.setMessage("No vehicle found");
                 return responseObject;
             }
             for(int i = 0; i < vehicle.getDriverList().size(); i++) {
@@ -188,7 +205,7 @@ public ResponseObject<List<Vehicle>> getAllVehicle() {
                 listDriver.add(driver);
             }
             responseObject.setStatus("success");
-            responseObject.setMessage("Get all container successfully");
+            responseObject.setMessage("Get all ListDriver successfully");
             responseObject.setData(listDriver);
         } catch (Exception e) {
             responseObject.setStatus("error");

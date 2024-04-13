@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import project.api.drivers.models.Coach;
 import project.api.drivers.models.Passenger;
-import project.api.drivers.models.Vehicle;
 import project.api.drivers.services.CoachService;
 import project.api.drivers.services.PassengerService;
 import project.api.drivers.ultis.ResponseObject;

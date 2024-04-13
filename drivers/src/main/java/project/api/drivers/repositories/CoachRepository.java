@@ -40,7 +40,7 @@ public class CoachRepository extends GenericRepositoryImpl {
         if (document.exists()) {
             List<String> passengerList = (List<String>) document.get("passengerList");
             if (passengerList != null && passengerList.contains(idPassenger)) {
-                passengerList.remove(idPassenger); // Chuyển đổi từ Integer sang int
+                passengerList.remove(idPassenger);
                 ApiFuture<WriteResult> updateFuture = docRef.update("passengerList", passengerList);
                 updateFuture.get();
                 System.out.println("Đã xóa idpassenger khỏi danh sách passengerList.");
@@ -65,6 +65,5 @@ public class CoachRepository extends GenericRepositoryImpl {
             ApiFuture<WriteResult> updateFuture = docRef.update("passengerList", passengerList);
             updateFuture.get();
         }
-//        vehicle.addDriver(idDriver);
     }
 }

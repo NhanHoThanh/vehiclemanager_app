@@ -22,6 +22,6 @@ public class CargoRepository extends GenericRepositoryImpl {
     }
 
     public void deleteCargoById(String id) throws ExecutionException, InterruptedException {
-        deleteDocument("Drivers", id);
+        deleteDocument("Cargo", id);
     }
 }

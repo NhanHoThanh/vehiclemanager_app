@@ -7,11 +7,7 @@ import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.stereotype.Repository;
-import project.api.drivers.models.Cargo;
-import project.api.drivers.models.Coach;
 import project.api.drivers.models.Container;
-import project.api.drivers.models.Passenger;
-import project.api.drivers.ultis.ResponseObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +66,5 @@ public class ContainerRepository extends GenericRepositoryImpl {
             ApiFuture<WriteResult> updateFuture = docRef.update("cargoList", cargoList);
             updateFuture.get();
         }
-//        vehicle.addDriver(idDriver);
     }
 }

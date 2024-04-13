@@ -21,12 +21,6 @@ public class ContainerService {
     @Autowired
     private CargoRepository cargoRepository;
 
-//    public Container getContainerById(String id) throws ExecutionException, InterruptedException {
-//        Container container = containerRepository.getContainerById(id);
-//        Vehicle vehicle = vehicleRepository.getVehicleById(id);
-//        container.setVehicle(vehicle);
-//        return container;
-//    }
 public ResponseObject<List<Container>> getAllContainer() {
     ResponseObject<List<Container>> responseObject = new ResponseObject<>();
     try {
@@ -183,7 +177,6 @@ public ResponseObject<List<Container>> getAllContainer() {
         }
         return responseObject;
     }
-
     public ResponseObject<List<Cargo>> getListCargo(String idVehicle) {
         ResponseObject<List<Cargo>> responseObject = new ResponseObject<>();
         try {

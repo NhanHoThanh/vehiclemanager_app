@@ -1,17 +1,12 @@
 package project.api.drivers.repositories;
 
 import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.DocumentSnapshot;
-import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.WriteResult;
+import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.stereotype.Repository;
 import project.api.drivers.models.Vehicle;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -26,6 +21,51 @@ public class VehicleRepository extends GenericRepositoryImpl {
     public Vehicle getVehicleById(String id) throws ExecutionException, InterruptedException {
         return getDocument("Vehicle", id, Vehicle.class);
     }
+
+    public List<Vehicle> getVehicleRoute(Map<String, String> departure, Map<String, String> destination) throws ExecutionException, InterruptedException {
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference vehiclesRef = db.collection("Vehicle");
+        List<Vehicle> matchingVehicles = new ArrayList<>();
+
+        Query query = vehiclesRef.whereEqualTo("departure", departure).whereEqualTo("destination", destination);
+        ApiFuture<QuerySnapshot> querySnapshot = query.get();
+        for (DocumentSnapshot document : querySnapshot.get().getDocuments()) {
+            Vehicle foundVehicle = document.toObject(Vehicle.class);
+            matchingVehicles.add(foundVehicle);
+        }
+        System.out.println(matchingVehicles.size());
+        return matchingVehicles;
+    }
+
+    public List<Vehicle> getDocumentsByMultipleAttributes(Map<String, String> departureAttributes, Map<String, String> destinationAttributes) throws ExecutionException, InterruptedException {
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference collectionRef = db.collection("Vehicle");
+        Query query = collectionRef;
+
+        for (Map.Entry<String, String> departureAttribute : departureAttributes.entrySet()) {
+            query = query.whereEqualTo(departureAttribute.getKey(), departureAttribute.getValue());
+        }
+
+        for (Map.Entry<String, String> destinationAttribute : destinationAttributes.entrySet()) {
+            query = query.whereEqualTo(destinationAttribute.getKey(), destinationAttribute.getValue());
+        }
+
+        ApiFuture<QuerySnapshot> future = query.get();
+        QuerySnapshot querySnapshot = future.get();
+
+        if (!querySnapshot.isEmpty()) {
+            List<Vehicle> vehicles = new ArrayList<>();
+
+            for (DocumentSnapshot document : querySnapshot.getDocuments()) {
+                vehicles.add(document.toObject(Vehicle.class));
+            }
+
+            return vehicles;
+        } else {
+            return null;
+        }
+    }
+
 
     public void updateVehicle(Vehicle vehicle) throws ExecutionException, InterruptedException, IllegalAccessException {
         updateDocument("Vehicle", vehicle.getIdVehicle(), vehicle);

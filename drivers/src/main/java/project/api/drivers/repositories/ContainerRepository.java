@@ -33,37 +33,62 @@ public class ContainerRepository extends GenericRepositoryImpl {
         deleteDocument("Container", id);
     }
 
-    public void removeCargo(String idVehicle, String idCargo, Container container) throws ExecutionException, InterruptedException {
+    public void removeCargo(String idVehicle, String idCargo) throws ExecutionException, InterruptedException {
         Firestore db = FirestoreClient.getFirestore();
-        DocumentReference docRef = db.collection("Container").document(idVehicle);
-        ApiFuture<DocumentSnapshot> future = docRef.get();
-        DocumentSnapshot document = future.get();
-        if (document.exists()) {
-            List<String> cargoList = (List<String>) document.get("cargoList");
+        DocumentReference containerDocRef = db.collection("Container").document(idVehicle);
+        DocumentReference cargoDocRef = db.collection("Cargo").document(idCargo);
+        ApiFuture<DocumentSnapshot> containerFuture = containerDocRef.get();
+        ApiFuture<DocumentSnapshot> cargoFuture = cargoDocRef.get();
+        DocumentSnapshot containerDocument = containerFuture.get();
+        DocumentSnapshot cargoDocument = cargoFuture.get();
+        if (containerDocument.exists() && cargoDocument.exists()) {
+            List<String> cargoList = (List<String>) containerDocument.get("cargoList");
+            Double maxLoad = containerDocument.getDouble("maxLoad");
+            Double currentLoad = containerDocument.getDouble("currentLoad");
+            Double mass = cargoDocument.getDouble("mass");
+            if(currentLoad == 0){
+                System.out.println("con gi dau ma xoa");
+                return;
+            }
             if (cargoList != null && cargoList.contains(idCargo)) {
-                cargoList.remove(idCargo); // Chuyển đổi từ Integer sang int
-                ApiFuture<WriteResult> updateFuture = docRef.update("cargoList", cargoList);
+                cargoList.remove(idCargo);
+                currentLoad = currentLoad - mass;
+                ApiFuture<WriteResult> updateFuture = containerDocRef.update(
+                        "cargoList", cargoList,
+                        "currentLoad", currentLoad);
                 updateFuture.get();
                 System.out.println("Đã xóa idCargo khỏi danh sách cargoList.");
             } else {
                 System.out.println("idCargo không tồn tại trong danh sách cargoList.");
             }
         } else {
-            System.out.println("Không tìm thấy tài liệu với id: " + idVehicle);
+            System.out.println("Không tìm thấy xe với id: " + idVehicle);
         }
     }
-    public void addPassenger(String idVehicle, String idCargo, Container container) throws ExecutionException, InterruptedException, IllegalAccessException {
+    public void addPassenger(String idVehicle, String idCargo) throws ExecutionException, InterruptedException, IllegalAccessException {
+        System.out.println("1");
         Firestore db = FirestoreClient.getFirestore();
-        DocumentReference docRef = db.collection("Container").document(idVehicle);
-        ApiFuture<DocumentSnapshot> future = docRef.get();
-        DocumentSnapshot document = future.get();
-        if (document.exists()) {
-            List<String> cargoList = (List<String>) document.get("cargoList");
+        DocumentReference containerDocRef = db.collection("Container").document(idVehicle);
+        DocumentReference cargoDocRef = db.collection("Cargo").document(idCargo);
+        ApiFuture<DocumentSnapshot> containerFuture = containerDocRef.get();
+        ApiFuture<DocumentSnapshot> cargoFuture = cargoDocRef.get();
+        DocumentSnapshot containerDocument = containerFuture.get();
+        DocumentSnapshot cargoDocument = cargoFuture.get();
+        if (containerDocument.exists() && cargoDocument.exists()) {
+            List<String> cargoList = (List<String>) containerDocument.get("cargoList");
+            Double maxLoad = containerDocument.getDouble("maxLoad");
+            Double currentLoad = containerDocument.getDouble("currentLoad");
+            Double mass = cargoDocument.getDouble("mass");
             if (cargoList == null) {
                 cargoList = new ArrayList<>();
             }
-            cargoList.add(idCargo);
-            ApiFuture<WriteResult> updateFuture = docRef.update("cargoList", cargoList);
+            if (!cargoList.contains(idCargo) && (currentLoad + mass <= maxLoad)){
+                cargoList.add(idCargo);
+                currentLoad = currentLoad + mass;
+            }
+            ApiFuture<WriteResult> updateFuture = containerDocRef.update(
+                    "cargoList", cargoList,
+                    "currentLoad", currentLoad);
             updateFuture.get();
         }
     }

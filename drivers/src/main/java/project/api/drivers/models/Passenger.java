@@ -6,13 +6,13 @@ public class Passenger {
     private String destination;
     private String departure;
     private String name;
-    private int seatingPosition;
+    private String seatingPosition;
     private double cosPassenger;
 
     public Passenger() {
     }
 
-    public Passenger(String idPassenger, String destination, String departure, String name, int seatingPosition, double cosPassenger) {
+    public Passenger(String idPassenger, String destination, String departure, String name, String seatingPosition, double cosPassenger) {
         this.idPassenger = idPassenger;
         this.destination = destination;
         this.departure = departure;
@@ -53,11 +53,11 @@ public class Passenger {
         this.name = name;
     }
 
-    public int getSeatingPosition() {
+    public String getSeatingPosition() {
         return seatingPosition;
     }
 
-    public void setSeatingPosition(int seatingPosition) {
+    public void setSeatingPosition(String seatingPosition) {
         this.seatingPosition = seatingPosition;
     }
 

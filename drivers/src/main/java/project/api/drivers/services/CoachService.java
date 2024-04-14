@@ -127,12 +127,12 @@ public class CoachService {
         return responseObject;
     }
 
-    public ResponseObject<Coach> addPassenger(String idVehicle,String idPassenger, Coach coach) {
+    public ResponseObject<Coach> addPassenger(String idVehicle,String idPassenger) {
         ResponseObject<Coach> responseObject = new ResponseObject<>();
         try {
             Coach coachUpdate = coachRepository.getCoachById(idVehicle);
             if (coachUpdate != null) {
-                coachRepository.addPassenger(idVehicle,idPassenger, coach);
+                coachRepository.addPassenger(idVehicle,idPassenger);
                 responseObject.setStatus("success");
                 responseObject.setMessage("addPassenger successfully");
                 responseObject.setData(coachUpdate);
@@ -145,12 +145,12 @@ public class CoachService {
         }
         return responseObject;
     }
-    public ResponseObject<Coach> removePassenger(String idVehicle,String idPassenger, Coach coach) {
+    public ResponseObject<Coach> removePassenger(String idVehicle,String idPassenger) {
         ResponseObject<Coach> responseObject = new ResponseObject<>();
         try {
             Coach coachUpdate = coachRepository.getCoachById(idVehicle);
             if (coachUpdate != null) {
-                coachRepository.removePassenger(idVehicle,idPassenger, coach);
+                coachRepository.removePassenger(idVehicle,idPassenger);
                 responseObject.setStatus("success");
                 responseObject.setMessage("removePassenger successfully");
                 responseObject.setData(coachUpdate);

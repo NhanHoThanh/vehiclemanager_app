@@ -87,22 +87,24 @@ public class CoachController {
     }
 
     @PostMapping("/addPassenger/{idVehicle}/{idPassenger}")
-    public ResponseEntity<ResponseObject> addPassenger(@PathVariable String idVehicle, @PathVariable String idPassenger,  @RequestBody Coach coach) {
-        ResponseObject responseObject = coachService.addPassenger(idVehicle, idPassenger,  coach);
+    public ResponseEntity<ResponseObject> addPassenger(@PathVariable String idVehicle, @PathVariable String idPassenger) {
+        System.out.println("add");
+
+        ResponseObject responseObject = coachService.addPassenger(idVehicle, idPassenger);
         if ("error".equals(responseObject.getStatus())) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseObject);
         }
         return ResponseEntity.ok(responseObject);
     }
     @DeleteMapping("/removePassenger/{idVehicle}/{idPassenger}")
-    public ResponseEntity<ResponseObject> removePassenger(@PathVariable String idVehicle, @PathVariable String idPassenger,  @RequestBody Coach coach) {
-        ResponseObject responseObject = coachService.removePassenger(idVehicle, idPassenger, coach);
+    public ResponseEntity<ResponseObject> removePassenger(@PathVariable String idVehicle, @PathVariable String idPassenger) {
+        ResponseObject responseObject = coachService.removePassenger(idVehicle, idPassenger);
         if ("error".equals(responseObject.getStatus())) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseObject);
         }
         return ResponseEntity.ok(responseObject);
     }
-
+//delete all passenger
     @DeleteMapping("/{id}")
     public ResponseEntity<ResponseObject<Coach>> deleteCoach(@PathVariable String id) {
         ResponseObject<Coach> responseObject = coachService.deleteCoach(id);

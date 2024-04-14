@@ -32,37 +32,75 @@ public class CoachRepository extends GenericRepositoryImpl {
         deleteDocument("Coach", id);
     }
 
-    public void removePassenger(String idVehicle, String idPassenger, Coach coach) throws ExecutionException, InterruptedException {
+    public void removePassenger(String idVehicle, String idPassenger) throws ExecutionException, InterruptedException {
         Firestore db = FirestoreClient.getFirestore();
-        DocumentReference docRef = db.collection("Coach").document(idVehicle);
-        ApiFuture<DocumentSnapshot> future = docRef.get();
-        DocumentSnapshot document = future.get();
-        if (document.exists()) {
+        DocumentReference coachDocRef = db.collection("Coach").document(idVehicle);
+        DocumentReference passengerDocRef = db.collection("Passenger").document(idPassenger);
+        ApiFuture<DocumentSnapshot> coachFuture = coachDocRef.get();
+        ApiFuture<DocumentSnapshot> passengerFuture = passengerDocRef.get();
+        DocumentSnapshot document = coachFuture.get();
+        DocumentSnapshot passengerDocument = passengerFuture.get();
+        if (passengerDocument.exists() && document.exists()) {
+            String seatingPosition = passengerDocument.getString("seatingPosition");
             List<String> passengerList = (List<String>) document.get("passengerList");
-            if (passengerList != null && passengerList.contains(idPassenger)) {
-                passengerList.remove(idPassenger);
-                ApiFuture<WriteResult> updateFuture = docRef.update("passengerList", passengerList);
-                updateFuture.get();
-                System.out.println("Đã xóa idpassenger khỏi danh sách passengerList.");
-            } else {
-                System.out.println("idpassenger không tồn tại trong danh sách passengerList.");
+            List<String> emptySeat = (List<String>) document.get("emptySeat");
+            Long numberOfPassenger = document.getLong("numberOfPassenger");
+            if (passengerList == null) {
+                System.out.println("xe het khach roi");
+                return;
             }
-        } else {
-            System.out.println("Không tìm thấy tài liệu với id: " + idVehicle);
+            if (emptySeat == null) {
+                emptySeat = new ArrayList<>();
+            }
+            if(!emptySeat.contains(seatingPosition) && passengerList.contains(idPassenger)){
+                passengerList.remove(idPassenger);
+                emptySeat.add(seatingPosition);
+                numberOfPassenger = (long) passengerList.size();
+            }
+            else{
+                System.out.println("khach xuong xe roi");
+            }
+            ApiFuture<WriteResult> updateFuture = coachDocRef.update(
+                    "emptySeat", emptySeat,
+                    "passengerList", passengerList,
+                    "numberOfPassenger", numberOfPassenger.intValue()
+            );
+            updateFuture.get();
         }
     }
-    public void addPassenger(String idVehicle, String idPassenger, Coach coach) throws ExecutionException, InterruptedException, IllegalAccessException {
+    public void addPassenger(String idVehicle, String idPassenger) throws ExecutionException, InterruptedException, IllegalAccessException {
         Firestore db = FirestoreClient.getFirestore();
-        DocumentReference docRef = db.collection("Coach").document(idVehicle);
-        ApiFuture<DocumentSnapshot> future = docRef.get();
-        DocumentSnapshot document = future.get();
-        if (document.exists()) {
+        DocumentReference coachDocRef = db.collection("Coach").document(idVehicle);
+        DocumentReference passengerDocRef = db.collection("Passenger").document(idPassenger);
+        ApiFuture<DocumentSnapshot> coachFuture = coachDocRef.get();
+        ApiFuture<DocumentSnapshot> passengerFuture = passengerDocRef.get();
+        DocumentSnapshot document = coachFuture.get();
+        DocumentSnapshot passengerDocument = passengerFuture.get();
+        if (passengerDocument.exists() && document.exists()) {
+            String seatingPosition = passengerDocument.getString("seatingPosition");
             List<String> passengerList = (List<String>) document.get("passengerList");
+            List<String> emptySeat = (List<String>) document.get("emptySeat");
+            Long numberOfPassenger = document.getLong("numberOfPassenger");
             if (passengerList == null) {
                 passengerList = new ArrayList<>();
             }
-            passengerList.add(idPassenger);
-            ApiFuture<WriteResult> updateFuture = docRef.update("passengerList", passengerList);
+            if (emptySeat == null) {
+                System.out.println("ko co ghe trong");
+                return;
+            }
+            if(emptySeat.contains(seatingPosition) && !passengerList.contains(idPassenger)){
+                passengerList.add(idPassenger);
+                emptySeat.remove(seatingPosition);
+                numberOfPassenger = (long) passengerList.size();
+            }
+            else{
+                System.out.println("khach len xe roi");
+            }
+            ApiFuture<WriteResult> updateFuture = coachDocRef.update(
+                    "emptySeat", emptySeat,
+                    "passengerList", passengerList,
+                    "numberOfPassenger", numberOfPassenger.intValue()
+            );
             updateFuture.get();
         }
     }

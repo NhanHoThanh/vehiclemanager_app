@@ -142,7 +142,7 @@ public class IncomeService {
     }
 
 
-    public ResponseObject<Income> calculateIncomeFromSpecificCoach(ResponseEntity<Passenger[]> responseEntity , Coach coach, Route route) {
+    public ResponseObject<Income> calculateIncomeFromSpecificCoach(ResponseEntity<Passenger[]> responseEntity , Route route) {
         ResponseObject<Income> responseObject = new ResponseObject<>();
 
 
@@ -155,7 +155,8 @@ public class IncomeService {
                     revenue+=passenger.getCosPassenger();
 
                 }
-                 Double cost =calculateCost(route.getDistance());
+//                 Double cost =calculateCost(route.getDistance());
+                Double cost =calculateCost(route.getDistance());
 
                 Income income = new Income();
                 income.setRevenue(revenue);

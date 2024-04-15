@@ -3,6 +3,7 @@ package project.api.drivers.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import project.api.drivers.models.Coach;
+import project.api.drivers.models.CoachVehicle;
 import project.api.drivers.models.Passenger;
 import project.api.drivers.models.Vehicle;
 import project.api.drivers.repositories.CoachRepository;
@@ -47,7 +48,9 @@ public class CoachService {
 
     public ResponseObject<Coach> getCoachById(String id) {
         ResponseObject<Coach> responseObject = new ResponseObject<>();
+        System.out.println("service1");
         try {
+            System.out.println("service2");
             Coach coach = coachRepository.getCoachById(id);
             Vehicle vehicle = vehicleRepository.getVehicleById(id);
             if (coach != null && vehicle != null) {
@@ -60,16 +63,17 @@ public class CoachService {
                 responseObject.setMessage("Coach not found");
             }
         } catch (Exception e) {
+            System.out.println("service3");
             responseObject.setStatus("error");
 //            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
         }
         return responseObject;
     }
 
-    public ResponseObject<Coach> createCoach(Coach coach) {
-        ResponseObject<Coach> responseObject = new ResponseObject<>();
+    public ResponseObject<CoachVehicle> createCoach(CoachVehicle coachVehicle) {
+        ResponseObject<CoachVehicle> responseObject = new ResponseObject<>();
         try {
-            Coach newCoach = coachRepository.createCoach(coach);
+            CoachVehicle newCoach = coachRepository.createCoach(coachVehicle);
             responseObject.setStatus("success");
             responseObject.setMessage("Create coach successfully");
             responseObject.setData(newCoach);
@@ -79,8 +83,7 @@ public class CoachService {
         }
         return responseObject;
     }
-    //
-//
+
     public ResponseObject<Coach> updateCoach(String id, Coach coach) {
         ResponseObject<Coach> responseObject = new ResponseObject<>();
         try {

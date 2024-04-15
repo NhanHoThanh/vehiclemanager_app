@@ -17,6 +17,15 @@ public class Coach extends Vehicle{
     public Coach() {
     }
 
+    public Coach(int numberOfSeats, int numberOfPassenger, Date previousMaintenanceDate, Date nextMaintenanceDate, List<String> emptySeat, List<String> passengerList) {
+        this.numberOfSeats = numberOfSeats;
+        this.numberOfPassenger = numberOfPassenger;
+        this.previousMaintenanceDate = previousMaintenanceDate;
+        this.nextMaintenanceDate = nextMaintenanceDate;
+        this.emptySeat = emptySeat;
+        this.passengerList = passengerList;
+    }
+
     public Coach(String idVehicle, List<String> driverList, int capacity, String fuelType, String status, String route, String vehicleType, Date timeStart, Date timeEnd, String destination, String departure, int numberOfSeats, int numberOfPassenger, Date previousMaintenanceDate, Date nextMaintenanceDate, List<String> emptySeat, List<String> passengerList) {
         super(idVehicle, driverList, capacity, fuelType, status, route, vehicleType, timeStart, timeEnd, destination, departure);
         this.numberOfSeats = numberOfSeats;

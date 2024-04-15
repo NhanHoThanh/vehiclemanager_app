@@ -69,9 +69,9 @@ public class CoachController {
     }
 
     @PostMapping
-    public ResponseEntity<ResponseObject<CoachVehicle>> createCoach(@RequestBody CoachVehicle coachVehicle) {
-        //validate: check for duplicate in field, check for valid input, check for required field, unknown field and such. (ongoing)
-        ResponseObject<CoachVehicle> responseObject = coachService.createCoach(coachVehicle);
+    public ResponseEntity<ResponseObject<Coach>> createCoach(@RequestBody Coach coachVehicle) {
+        System.out.println("controller");
+        ResponseObject<Coach> responseObject = coachService.createCoach(coachVehicle);
         if ("error".equals(responseObject.getStatus())) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseObject);
         }

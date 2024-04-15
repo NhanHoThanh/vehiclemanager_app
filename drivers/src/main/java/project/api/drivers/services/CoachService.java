@@ -70,10 +70,10 @@ public class CoachService {
         return responseObject;
     }
 
-    public ResponseObject<CoachVehicle> createCoach(CoachVehicle coachVehicle) {
-        ResponseObject<CoachVehicle> responseObject = new ResponseObject<>();
+    public ResponseObject<Coach> createCoach(Coach coachVehicle) {
+        ResponseObject<Coach> responseObject = new ResponseObject<>();
         try {
-            CoachVehicle newCoach = coachRepository.createCoach(coachVehicle);
+            Coach newCoach = coachRepository.createCoach(coachVehicle);
             responseObject.setStatus("success");
             responseObject.setMessage("Create coach successfully");
             responseObject.setData(newCoach);

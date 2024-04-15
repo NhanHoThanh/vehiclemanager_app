@@ -8,6 +8,7 @@ import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.stereotype.Repository;
 import project.api.drivers.models.Container;
+import project.api.drivers.models.Vehicle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,9 @@ public class ContainerRepository extends GenericRepositoryImpl {
 
     public Container createContainer(Container container) throws ExecutionException, InterruptedException {
         createDocument("Container", container.getIdVehicle(), container);
+        Vehicle vehicle = new Vehicle(container.getIdVehicle(), container.getDriverList(), container.getCapacity(), container.getFuelType(), container.getStatus(), container.getRoute(), container.getVehicleType(), container.getTimeStart(), container.getTimeEnd(), container.getDestination(), container.getDeparture());
+        System.out.println(vehicle.getRoute());
+        createDocument("Vehicle", container.getIdVehicle(), vehicle);
         return container;
     }
 

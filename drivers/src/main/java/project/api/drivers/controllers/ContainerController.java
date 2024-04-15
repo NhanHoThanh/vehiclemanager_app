@@ -103,16 +103,16 @@ public class ContainerController {
     }
 
     @PostMapping("/addCargo/{idVehicle}/{idCargo}")
-    public ResponseEntity<ResponseObject> addCargo(@PathVariable String idVehicle, @PathVariable String idCargo,  @RequestBody Container container) {
-        ResponseObject responseObject = containerService.addCargo(idVehicle, idCargo, container);
+    public ResponseEntity<ResponseObject> addCargo(@PathVariable String idVehicle, @PathVariable String idCargo) {
+        ResponseObject responseObject = containerService.addCargo(idVehicle, idCargo);
         if ("error".equals(responseObject.getStatus())) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseObject);
         }
         return ResponseEntity.ok(responseObject);
     }
     @DeleteMapping("/removeCargo/{idVehicle}/{idCargo}")
-    public ResponseEntity<ResponseObject> removeCargo(@PathVariable String idVehicle, @PathVariable String idCargo,  @RequestBody Container container) {
-        ResponseObject responseObject = containerService.removeCargo(idVehicle, idCargo, container);
+    public ResponseEntity<ResponseObject> removeCargo(@PathVariable String idVehicle, @PathVariable String idCargo) {
+        ResponseObject responseObject = containerService.removeCargo(idVehicle, idCargo);
         if ("error".equals(responseObject.getStatus())) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseObject);
         }

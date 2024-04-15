@@ -12,13 +12,22 @@ public class Coach extends Vehicle{
     private int numberOfPassenger;
     private Date previousMaintenanceDate;
     private Date nextMaintenanceDate;
-    private List<Integer> emptySeat;
+    private List<String> emptySeat;
     private List<String> passengerList;
 
     public Coach() {
     }
 
-    public Coach(String idVehicle, List<String> driverList, int capacity, String fuelType, String status, String route, String vehicleType, Date timeStart, Date timeEnd, String destination, String departure, int numberOfSeats, int numberOfPassenger, Date previousMaintenanceDate, Date nextMaintenanceDate, List<Integer> emptySeat, List<String> passengerList) {
+    public Coach(int numberOfSeats, int numberOfPassenger, Date previousMaintenanceDate, Date nextMaintenanceDate, List<String> emptySeat, List<String> passengerList) {
+        this.numberOfSeats = numberOfSeats;
+        this.numberOfPassenger = numberOfPassenger;
+        this.previousMaintenanceDate = previousMaintenanceDate;
+        this.nextMaintenanceDate = nextMaintenanceDate;
+        this.emptySeat = emptySeat;
+        this.passengerList = passengerList;
+    }
+
+    public Coach(String idVehicle, List<String> driverList, int capacity, String fuelType, String status, String route, String vehicleType, Date timeStart, Date timeEnd, String destination, String departure, int numberOfSeats, int numberOfPassenger, Date previousMaintenanceDate, Date nextMaintenanceDate, List<String> emptySeat, List<String> passengerList) {
         super(idVehicle, driverList, capacity, fuelType, status, route, vehicleType, timeStart, timeEnd, destination, departure);
         this.numberOfSeats = numberOfSeats;
         this.numberOfPassenger = numberOfPassenger;
@@ -60,11 +69,11 @@ public class Coach extends Vehicle{
         this.nextMaintenanceDate = nextMaintenanceDate;
     }
 
-    public List<Integer> getEmptySeat() {
+    public List<String> getEmptySeat() {
         return emptySeat;
     }
 
-    public void setEmptySeat(List<Integer> emptySeat) {
+    public void setEmptySeat(List<String> emptySeat) {
         this.emptySeat = emptySeat;
     }
 

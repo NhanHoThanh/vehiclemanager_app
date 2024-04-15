@@ -1,41 +1,52 @@
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Component;
-//import project.api.drivers.controllers.CoachController;
-//import project.api.drivers.models.Coach;
-//import project.api.drivers.services.CoachService;
-//import java.util.Arrays;
-//import java.util.Date;
-//import java.util.List;
-//@Component
-//public class TestClass {
+//public void removePassenger(String idVehicle, String idPassenger, Coach coach) throws ExecutionException, InterruptedException {
+//        Firestore db = FirestoreClient.getFirestore();
+//        DocumentReference docRef = db.collection("Coach").document(idVehicle);
+//        DocumentReference passengerDocRef = db.collection("Passenger").document(idPassenger);
 //
-//    private CoachService coachService;
-//    private Coach coach;
+//        // Get Passenger's seatingPosition
+//        ApiFuture<DocumentSnapshot> passengerFuture = passengerDocRef.get();
+//        DocumentSnapshot passengerDocument = passengerFuture.get();
+//        if (passengerDocument.exists()) {
+//        Integer seatingPosition = passengerDocument.getLong("seatingPosition").intValue();
 //
-//    public void test(){
-//        coach.setIdVehicle("72s2");
-//        coach.setDriverList(Arrays.asList(1, 2, 3));
-//        coach.setCapacity(50);
-//        coach.setFuelType("Diesel");
-//        coach.setStatus("Running");
-//        coach.setRoute("Route 1");
-//        coach.setVehicleType("Coach");
-//        coach.setTimeStart(new Date());
-//        coach.setTimeEnd(new Date());
-//        coach.setNumberOfSeats(50);
-//        coach.setNumberOfPassenger(30);
-//        coach.setPreviousMaintenanceDate(new Date());
-//        coach.setNextMaintenanceDate(new Date());
-//        coach.setEmptySeat(Arrays.asList(31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50));
-//        coach.setPassengerList(Arrays.asList("Passenger1", "Passenger2", "Passenger3"));
-//    }
+//        // Get Coach's emptySeat
+//        ApiFuture<DocumentSnapshot> future = docRef.get();
+//        DocumentSnapshot document = future.get();
+//        if (document.exists()) {
+//        List<Long> emptySeat = (List<Long>) document.get("emptySeat");
+//        if (emptySeat != null) {
+//        // Remove seatingPosition from emptySeat
+//        emptySeat.remove(seatingPosition.longValue());
 //
+//        // Update Coach's emptySeat
+//        ApiFuture<WriteResult> updateCoachFuture = docRef.update("emptySeat", emptySeat);
+//        updateCoachFuture.get();
+//        }
 //
+//        // Remove passenger from passengerList
+//        List<String> passengerList = (List<String>) document.get("passengerList");
+//        if (passengerList != null && passengerList.contains(idPassenger)) {
+//        passengerList.remove(idPassenger);
 //
-//    public static void main(String[] args) {
-//        CoachService coachService1 = new CoachService();
-//        CoachController coachController = new CoachController();
-//        TestClass test = new TestClass();
-//        test.test();
-//    }
-//}
+//        // Update Coach's passengerList
+//        ApiFuture<WriteResult> updatePassengerListFuture = docRef.update("passengerList", passengerList);
+//        updatePassengerListFuture.get();
+//
+//        // Decrement numberOfPassenger
+//        Long numberOfPassenger = document.getLong("numberOfPassenger");
+//        if (numberOfPassenger == null) {
+//        numberOfPassenger = 0L;
+//        }
+//        numberOfPassenger--;
+//
+//        // Update Coach's numberOfPassenger
+//        ApiFuture<WriteResult> updateNumberOfPassengerFuture = docRef.update("numberOfPassenger", numberOfPassenger.intValue());
+//        updateNumberOfPassengerFuture.get();
+//        } else {
+//        System.out.println("idpassenger không tồn tại trong danh sách passengerList.");
+//        }
+//        } else {
+//        System.out.println("Không tìm thấy tài liệu với id: " + idVehicle);
+//        }
+//        }
+//        }

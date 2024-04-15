@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import project.api.drivers.models.Passenger;
+import project.api.drivers.services.CargoService;
 import project.api.drivers.services.PassengerService;
 import project.api.drivers.ultis.ResponseObject;
 
@@ -49,7 +50,6 @@ public class PassengerController {
     }
 
     @PostMapping
-
     public ResponseEntity<ResponseObject<Passenger>> createPassenger(@RequestBody Passenger container) {
         ResponseObject<Passenger> responseObject = passengerService.createPassenger(container);
         if ("error".equals(responseObject.getStatus())) {

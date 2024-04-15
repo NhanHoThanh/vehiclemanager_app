@@ -141,12 +141,12 @@ public ResponseObject<List<Container>> getAllContainer() {
         return responseObject;
     }
 
-    public ResponseObject<Container> addCargo(String idVehicle, String idCargo, Container container) {
+    public ResponseObject<Container> addCargo(String idVehicle, String idCargo) {
         ResponseObject<Container> responseObject = new ResponseObject<>();
         try {
             Container containerUpdate = containerRepository.getContainerById(idVehicle);
             if (containerUpdate != null) {
-                containerRepository.addPassenger(idVehicle,idCargo, container);
+                containerRepository.addPassenger(idVehicle,idCargo);
                 responseObject.setStatus("success");
                 responseObject.setMessage("Update vehicle successfully");
                 responseObject.setData(containerUpdate);
@@ -159,12 +159,12 @@ public ResponseObject<List<Container>> getAllContainer() {
         }
         return responseObject;
     }
-    public ResponseObject<Container> removeCargo(String idVehicle,String idCargo, Container container) {
+    public ResponseObject<Container> removeCargo(String idVehicle,String idCargo) {
         ResponseObject<Container> responseObject = new ResponseObject<>();
         try {
             Container containerUpdate = containerRepository.getContainerById(idVehicle);
             if (containerUpdate != null) {
-                containerRepository.removeCargo(idVehicle,idCargo, container);
+                containerRepository.removeCargo(idVehicle,idCargo);
                 responseObject.setStatus("success");
                 responseObject.setMessage("Update vehicle successfully");
                 responseObject.setData(containerUpdate);

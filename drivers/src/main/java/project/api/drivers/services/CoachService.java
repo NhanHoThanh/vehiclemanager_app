@@ -188,6 +188,23 @@ public class CoachService {
         return responseObject;
     }
 
+//    public ResponseObject<List<Coach>> getCoachByAttributes(Coach coach) {
+//        ResponseObject<List<Coach>> responseObject = new ResponseObject<>();
+//        try {
+//            List<Coach> listCoach = coachRepository.getCoachByAttributes(coach);
+//            if (listCoach != null && !listCoach.isEmpty()) {
+//                responseObject.setStatus("success");
+//                responseObject.setMessage("Get coach successfully");
+//                responseObject.setData(listCoach);
+//            } else {
+//                responseObject.setStatus("fail");
+//                responseObject.setMessage("Loi o day");
+//            }
+//        } catch (Exception e) {
+//            responseObject.setStatus("error");
+//        }
+//        return responseObject;
+//    }
     public ResponseObject<List<Coach>> getCoachByAttributes(Map<String, String> allParams) {
         ResponseObject<List<Coach>> responseObject = new ResponseObject<>();
         try {

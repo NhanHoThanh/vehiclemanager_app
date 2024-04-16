@@ -58,6 +58,15 @@ public class CoachController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+//    @GetMapping("/search")
+//    public ResponseEntity<ResponseObject<List<Coach>>> getCoachByAttributes(@RequestBody Coach coach) {
+//        ResponseObject<List<Coach>> coachList = coachService.getCoachByAttributes(coach);
+//        if (coachList != null) {
+//            return ResponseEntity.ok(coachList);
+//        } else {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+//        }
+//    }
     @GetMapping("/search")
     public ResponseEntity<ResponseObject<List<Coach>>> getCoachByAttributes(@RequestParam Map<String, String> allParams) {
         ResponseObject<List<Coach>> coachList = coachService.getCoachByAttributes(allParams);
@@ -67,6 +76,7 @@ public class CoachController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+
 
     @PostMapping
     public ResponseEntity<ResponseObject<Coach>> createCoach(@RequestBody Coach coachVehicle) {

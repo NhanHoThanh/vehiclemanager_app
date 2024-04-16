@@ -2,13 +2,14 @@ package project.api.drivers.repositories;
 
 import org.springframework.stereotype.Repository;
 import project.api.drivers.models.Cargo;
-
+import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 @Repository
 public class CargoRepository extends GenericRepositoryImpl {
 
     public Cargo createCargo(Cargo cargo) throws ExecutionException, InterruptedException {
+        cargo.setIdCargo(UUID.randomUUID().toString());
         createDocument("Cargo", cargo.getIdCargo(), cargo);
         return cargo;
     }

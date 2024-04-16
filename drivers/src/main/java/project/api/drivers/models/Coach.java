@@ -5,7 +5,8 @@ import java.util.List;
 
 import java.util.Date;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+//@JsonIgnoreProperties({"capacity", "departure", "destination", "driverList", "fuelType", "idVehicle", "route", "status", "timeEnd", "timeStart", "vehicleType"})
 public class Coach extends Vehicle{
     private int numberOfSeats;
     private int numberOfPassenger;

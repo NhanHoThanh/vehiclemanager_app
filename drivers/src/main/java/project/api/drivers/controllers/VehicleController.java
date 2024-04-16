@@ -53,14 +53,23 @@ public class VehicleController {
         }
     }
     @GetMapping("/search")
-    public ResponseEntity<ResponseObject<List<Vehicle>>> getVehicleByAttributes(@RequestParam Map<String, String> allParams) {
-        ResponseObject<List<Vehicle>> vehicleList = vehicleService.getVehicleByAttributes(allParams);
+    public ResponseEntity<ResponseObject<List<Vehicle>>> getCoachByAttributes(@RequestBody Vehicle vehicle) {
+        ResponseObject<List<Vehicle>> vehicleList = vehicleService.getVehicleByAttributes(vehicle);
         if (vehicleList != null) {
             return ResponseEntity.ok(vehicleList);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+//    @GetMapping("/search")
+//    public ResponseEntity<ResponseObject<List<Vehicle>>> getVehicleByAttributes(@RequestParam Map<String, String> allParams) {
+//        ResponseObject<List<Vehicle>> vehicleList = vehicleService.getVehicleByAttributes(allParams);
+//        if (vehicleList != null) {
+//            return ResponseEntity.ok(vehicleList);
+//        } else {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+//        }
+//    }
     @GetMapping("/searchroute")
     public ResponseEntity<ResponseObject<List<Vehicle>>> getVehicleRoute(@RequestParam Map<String, String> departure, @RequestParam Map<String, String> destination) {
         ResponseObject<List<Vehicle>> vehicleList = vehicleService.getVehicleRoute(departure, destination);

@@ -149,24 +149,42 @@ public ResponseObject<List<Vehicle>> getAllVehicle() {
         return responseObject;
     }
 
-    public ResponseObject<List<Vehicle>> getVehicleByAttributes(Map<String, String> allParams) {
-        ResponseObject<List<Vehicle>> responseObject = new ResponseObject<>();
-        try {
-            List<Vehicle> vehicle = vehicleRepository.getDocumentsByMultipleAttributes("Vehicle", allParams, Vehicle.class);
-            if (vehicle != null && !vehicle.isEmpty()) {
-                responseObject.setStatus("success");
-                responseObject.setMessage("Get vehicle successfully");
-                responseObject.setData(vehicle);
-            } else {
-                responseObject.setStatus("fail");
-                responseObject.setMessage("Loi o day");
-            }
-        } catch (Exception e) {
-            responseObject.setStatus("error");
-//            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
+//    public ResponseObject<List<Vehicle>> getVehicleByAttributes(Map<String, String> allParams) {
+//        ResponseObject<List<Vehicle>> responseObject = new ResponseObject<>();
+//        try {
+//            List<Vehicle> vehicle = vehicleRepository.getDocumentsByMultipleAttributes("Vehicle", allParams, Vehicle.class);
+//            if (vehicle != null && !vehicle.isEmpty()) {
+//                responseObject.setStatus("success");
+//                responseObject.setMessage("Get vehicle successfully");
+//                responseObject.setData(vehicle);
+//            } else {
+//                responseObject.setStatus("fail");
+//                responseObject.setMessage("Loi o day");
+//            }
+//        } catch (Exception e) {
+//            responseObject.setStatus("error");
+////            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
+//        }
+//        return responseObject;
+//    }
+public ResponseObject<List<Vehicle>> getVehicleByAttributes(Vehicle vehicle) {
+    ResponseObject<List<Vehicle>> responseObject = new ResponseObject<>();
+    try {
+        List<Vehicle> listVehicle = vehicleRepository.getVehicleByAttributes(vehicle);
+        if (listVehicle != null && !listVehicle.isEmpty()) {
+            responseObject.setStatus("success");
+            responseObject.setMessage("Get vehicle successfully");
+            responseObject.setData(listVehicle);
+        } else {
+            responseObject.setStatus("fail");
+            responseObject.setMessage("Loi o day");
         }
-        return responseObject;
+    } catch (Exception e) {
+        responseObject.setStatus("error");
+//            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
     }
+    return responseObject;
+}
 
     public ResponseObject<List<Vehicle>> getVehicleRoute(Map<String, String> departure, Map<String, String> destination) {
         ResponseObject<List<Vehicle>> responseObject = new ResponseObject<>();

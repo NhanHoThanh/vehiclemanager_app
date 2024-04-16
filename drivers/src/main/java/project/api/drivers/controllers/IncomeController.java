@@ -7,10 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-import project.api.drivers.models.Coach;
-import project.api.drivers.models.Income;
-import project.api.drivers.models.Passenger;
-import project.api.drivers.models.Route;
+import project.api.drivers.models.*;
 import project.api.drivers.services.IncomeService;
 import project.api.drivers.ultis.ResponseObject;
 
@@ -218,8 +215,8 @@ public ResponseEntity<ResponseObject<Coach>> calculateIncomeFromSpecificCoach(@P
         return responseRoute;
     }
 
-    @GetMapping("/calculate/{idVehicle}")
-    public ResponseEntity<ResponseObject<Income>> calculateIncomeFormVehicle (@PathVariable String idVehicle ) throws ExecutionException, InterruptedException {
+    @GetMapping("/getIncomeCoach/{idVehicle}")
+    public ResponseEntity<ResponseObject<Income>> calculateIncomeFormCoach (@PathVariable String idVehicle  ) throws ExecutionException, InterruptedException {
         ResponseEntity<ResponseObject<List<Passenger>>> responseEntityPassenger = restTemplate.exchange(
                 "/api/coach/listPassenger/{idVehicle}",
                 HttpMethod.GET,
@@ -253,14 +250,65 @@ public ResponseEntity<ResponseObject<Coach>> calculateIncomeFromSpecificCoach(@P
         );
         //
         ResponseObject<Route> responseRouteEntity = responseRoute.getBody();
+        assert responseRouteEntity != null;
         Route routeData = (Route) responseRouteEntity.getData();
 
-        ResponseEntity.ok(passengerArray);
-        //
-                ResponseObject<Income> income = incomeService.calculateIncomeFromSpecificCoach(ResponseEntity.ok(passengerArray),routeData);
 
-        if (income != null) {
-            return ResponseEntity.ok(income);
+        //
+        ResponseObject<Income> incomeResponse  = incomeService.calculateIncomeFromSpecificCoach( passengerArray ,routeData);
+
+        if ( incomeResponse  != null) {
+            return ResponseEntity.ok( incomeResponse );
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+
+    }
+    @GetMapping("/getIncomeContainer/{idVehicle}")
+    public ResponseEntity<ResponseObject<Income>> calculateIncomeFormContainer (@PathVariable String idVehicle  ) throws ExecutionException, InterruptedException {
+        ResponseEntity<ResponseObject<List<Cargo>>> responseEntityPassenger = restTemplate.exchange(
+                "/api/container/listCargo/{idVehicle}",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<ResponseObject<List<Cargo>>>() {
+                },
+                idVehicle
+        );
+        ResponseObject<List<Cargo>> responseCargo = responseEntityPassenger.getBody();
+        List<Cargo> cargoList = (List<Cargo>) responseCargo.getData();
+        // Chuyển List<Passenger> thành Passenger[]
+        Cargo[] cargoArray = cargoList.toArray(new Cargo[0]);
+        ResponseEntity<ResponseObject<Container>> responseEntityCoach = restTemplate.exchange(
+                "/api/container/{idVehicle}",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<ResponseObject<Container>>() {
+                },
+                idVehicle
+        );
+        ResponseObject<Container> coachResponseObject = responseEntityCoach.getBody();
+        Container container = (Container) coachResponseObject.getData();
+        String  route = container.getRoute();
+        ResponseEntity<ResponseObject<Route>> responseRoute = restTemplate.exchange(
+                "/api/route/{route}",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<ResponseObject<Route>>() {
+                },
+                route
+        );
+        //
+        ResponseObject<Route> responseRouteEntity = responseRoute.getBody();
+        assert responseRouteEntity != null;
+        Route routeData = (Route) responseRouteEntity.getData();
+
+
+        //
+        ResponseObject<Income> incomeResponse  = incomeService.calculateIncomeFromSpecificContainer(cargoArray, routeData);
+
+        if ( incomeResponse  != null) {
+            return ResponseEntity.ok( incomeResponse );
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }

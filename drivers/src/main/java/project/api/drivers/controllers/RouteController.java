@@ -1,15 +1,21 @@
 package project.api.drivers.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+import project.api.drivers.models.Coach;
 import project.api.drivers.models.Passenger;
 import project.api.drivers.models.Route;
+import project.api.drivers.models.Vehicle;
 import project.api.drivers.services.RouteService;
 import project.api.drivers.ultis.ResponseObject;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 @RestController
 @RequestMapping("/api/route")
@@ -45,6 +51,8 @@ public class RouteController {
 //    public void deleteRouteById(@PathVariable int id) throws ExecutionException, InterruptedException {
 //        routeService.deleteRouteById(id);
 //    }
+    @Autowired
+    private RestTemplate restTemplate;
     @Autowired
     private RouteService routeService;
     @GetMapping("/{id}")
@@ -90,6 +98,58 @@ public class RouteController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseObject);
         }
         return ResponseEntity.ok(responseObject);
+    }
+    @GetMapping("checkRoute/{idVehicle}")
+    public boolean checkRoute (@PathVariable String idVehicle, @RequestParam Map<String, String> data ){
+        ResponseEntity<ResponseObject<Vehicle>> responseEntityVehicle = restTemplate.exchange(
+                "/api/coach/{idVehicle}",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<ResponseObject<Vehicle>>() {
+                },
+                idVehicle
+        );
+        ResponseObject<Vehicle>  responseVehicle =  responseEntityVehicle.getBody();
+        Vehicle vehicle =  (Vehicle )responseVehicle.getData();
+        String route = vehicle.getRoute();
+        ResponseEntity<ResponseObject<Route>> responseRoute = restTemplate.exchange(
+                "/api/route/{route}",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<ResponseObject<Route>>() {
+                },
+                route
+        );
+        //
+        ResponseObject<Route> responseRouteEntity = responseRoute.getBody();
+        assert responseRouteEntity != null;
+        Route routeData = (Route) responseRouteEntity.getData();
+        List<String> listIdRoute= routeData.getStation();
+
+
+        for( String IDRoute : listIdRoute ){
+
+            ResponseEntity<ResponseObject<Route>> responseRouteInList = restTemplate.exchange(
+                    "/api/route/{IDRoute}",
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<ResponseObject<Route>>() {
+                    },
+                    IDRoute
+            );
+            ResponseObject<Route> responseRouteEntityInList = responseRouteInList.getBody();
+            assert responseRouteEntityInList  != null;
+            Route routeDataInList = (Route) responseRouteEntityInList.getData();
+
+            if(routeDataInList.getDeparture().equals(data.get("departure")) && routeDataInList.getDestination().equals(data.get("destination")) ){
+                return true;
+            }
+
+        }
+        return false;
+
+
+
     }
 
 }

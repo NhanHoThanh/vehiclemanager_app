@@ -1,27 +1,26 @@
 package project.api.drivers.repositories;
 
 import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.DocumentSnapshot;
-import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.WriteResult;
+import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.stereotype.Repository;
 import project.api.drivers.models.Coach;
-import project.api.drivers.models.CoachVehicle;
+import project.api.drivers.models.Coach;
 import project.api.drivers.models.Vehicle;
+import project.api.drivers.ultis.ResponseObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 @Repository
 public class CoachRepository extends GenericRepositoryImpl {
 
-    public CoachVehicle createCoach(CoachVehicle coachVehicle) throws ExecutionException, InterruptedException {
+    public Coach createCoach(Coach coachVehicle) throws ExecutionException, InterruptedException {
         Coach coach = new Coach(coachVehicle.getNumberOfSeats(), coachVehicle.getNumberOfPassenger(), coachVehicle.getPreviousMaintenanceDate(), coachVehicle.getNextMaintenanceDate(), coachVehicle.getEmptySeat(), coachVehicle.getPassengerList());
         Vehicle vehicle = new Vehicle(coachVehicle.getIdVehicle(), coachVehicle.getDriverList(), coachVehicle.getCapacity(), coachVehicle.getFuelType(), coachVehicle.getStatus(), coachVehicle.getRoute(), coachVehicle.getVehicleType(), coachVehicle.getTimeStart(), coachVehicle.getTimeEnd(), coachVehicle.getDestination(), coachVehicle.getDeparture());
-        createDocument("Coach", coachVehicle.getIdVehicle(), coach);
-        createDocument("Vehicle", coach.getIdVehicle(), vehicle);
+        createDocument("Vehicle", coachVehicle.getIdVehicle(), vehicle);
+        createDocument("Coach", coachVehicle.getIdVehicle(), coachVehicle);
         return coachVehicle;
     }
 
@@ -108,5 +107,32 @@ public class CoachRepository extends GenericRepositoryImpl {
             );
             updateFuture.get();
         }
+    }
+    public List<Coach> getCoachByAttributes(Coach coach) throws ExecutionException, InterruptedException {
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference collectionRef = db.collection("Coach");
+
+        List<Coach> coaches = new ArrayList<>();
+
+        Query query = collectionRef;
+
+        if (coach != null) {
+            if (coach.getDeparture() != null) {
+                query = query.whereEqualTo("departure", coach.getDeparture());
+            }
+            if (coach.getDestination() != null) {
+                query = query.whereEqualTo("destination", coach.getDestination());
+            }
+            if (coach.getTimeStart() != null) {
+                query = query.whereEqualTo("timeStart", coach.getTimeStart());
+            }
+        }
+
+        ApiFuture<QuerySnapshot> querySnapshot = query.get();
+        for (DocumentSnapshot document : querySnapshot.get().getDocuments()) {
+            Coach retrievedCoach = document.toObject(Coach.class);
+            coaches.add(retrievedCoach);
+        }
+        return coaches;
     }
 }

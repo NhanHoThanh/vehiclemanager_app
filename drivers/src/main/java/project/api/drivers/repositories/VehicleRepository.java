@@ -4,16 +4,19 @@ import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.stereotype.Repository;
+import project.api.drivers.models.Coach;
 import project.api.drivers.models.Vehicle;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
+import java.util.UUID;
 @Repository
 public class VehicleRepository extends GenericRepositoryImpl {
 
     public Vehicle createVehicle(Vehicle vehicle) throws ExecutionException, InterruptedException {
+        vehicle.setIdVehicle(UUID.randomUUID().toString());
         createDocument("Vehicle", vehicle.getIdVehicle(), vehicle);
         return vehicle;
     }
@@ -109,5 +112,32 @@ public class VehicleRepository extends GenericRepositoryImpl {
 
     public void deleteVehicleById(String id) throws ExecutionException, InterruptedException {
         deleteDocument("Vehicle", id);
+    }
+    public List<Vehicle> getVehicleByAttributes(Vehicle vehicle) throws ExecutionException, InterruptedException {
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference collectionRef = db.collection("Coach");
+
+        List<Vehicle> listVehicle = new ArrayList<>();
+
+        Query query = collectionRef;
+
+        if (vehicle != null) {
+            if (vehicle.getDeparture() != null) {
+                query = query.whereEqualTo("departure", vehicle.getDeparture());
+            }
+            if (vehicle.getDestination() != null) {
+                query = query.whereEqualTo("destination", vehicle.getDestination());
+            }
+            if (vehicle.getTimeStart() != null) {
+                query = query.whereEqualTo("timeStart", vehicle.getTimeStart());
+            }
+        }
+
+        ApiFuture<QuerySnapshot> querySnapshot = query.get();
+        for (DocumentSnapshot document : querySnapshot.get().getDocuments()) {
+            Vehicle retrievedVehicle = document.toObject(Vehicle.class);
+            listVehicle.add(retrievedVehicle);
+        }
+        return listVehicle;
     }
 }

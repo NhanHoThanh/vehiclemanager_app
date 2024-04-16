@@ -70,10 +70,10 @@ public class CoachService {
         return responseObject;
     }
 
-    public ResponseObject<CoachVehicle> createCoach(CoachVehicle coachVehicle) {
-        ResponseObject<CoachVehicle> responseObject = new ResponseObject<>();
+    public ResponseObject<Coach> createCoach(Coach coachVehicle) {
+        ResponseObject<Coach> responseObject = new ResponseObject<>();
         try {
-            CoachVehicle newCoach = coachRepository.createCoach(coachVehicle);
+            Coach newCoach = coachRepository.createCoach(coachVehicle);
             responseObject.setStatus("success");
             responseObject.setMessage("Create coach successfully");
             responseObject.setData(newCoach);
@@ -188,6 +188,23 @@ public class CoachService {
         return responseObject;
     }
 
+//    public ResponseObject<List<Coach>> getCoachByAttributes(Coach coach) {
+//        ResponseObject<List<Coach>> responseObject = new ResponseObject<>();
+//        try {
+//            List<Coach> listCoach = coachRepository.getCoachByAttributes(coach);
+//            if (listCoach != null && !listCoach.isEmpty()) {
+//                responseObject.setStatus("success");
+//                responseObject.setMessage("Get coach successfully");
+//                responseObject.setData(listCoach);
+//            } else {
+//                responseObject.setStatus("fail");
+//                responseObject.setMessage("Loi o day");
+//            }
+//        } catch (Exception e) {
+//            responseObject.setStatus("error");
+//        }
+//        return responseObject;
+//    }
     public ResponseObject<List<Coach>> getCoachByAttributes(Map<String, String> allParams) {
         ResponseObject<List<Coach>> responseObject = new ResponseObject<>();
         try {

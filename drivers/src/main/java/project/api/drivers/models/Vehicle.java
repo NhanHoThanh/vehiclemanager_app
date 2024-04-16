@@ -10,7 +10,7 @@ public class Vehicle {
     private String fuelType;
     private String status;
     private String route;
-    private String vehicleType;
+    private String vehicleType; // chỉ có 2 giá trị coach và container
     private Date timeStart;
     private Date timeEnd;
     private  String destination;

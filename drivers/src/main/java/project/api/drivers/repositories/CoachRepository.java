@@ -72,7 +72,7 @@ public class CoachRepository extends GenericRepositoryImpl {
             updateFuture.get();
         }
     }
-    public void addPassenger(String idVehicle, String idPassenger) throws ExecutionException, InterruptedException, IllegalAccessException {
+    public void addPassenger(String idVehicle, String idPassenger, Boolean responseRoute) throws ExecutionException, InterruptedException, IllegalAccessException {
         Firestore db = FirestoreClient.getFirestore();
         DocumentReference coachDocRef = db.collection("Coach").document(idVehicle);
         DocumentReference passengerDocRef = db.collection("Passenger").document(idPassenger);
@@ -80,7 +80,7 @@ public class CoachRepository extends GenericRepositoryImpl {
         ApiFuture<DocumentSnapshot> passengerFuture = passengerDocRef.get();
         DocumentSnapshot document = coachFuture.get();
         DocumentSnapshot passengerDocument = passengerFuture.get();
-        if (passengerDocument.exists() && document.exists()) {
+        if (passengerDocument.exists() && document.exists() && responseRoute) {
             String seatingPosition = passengerDocument.getString("seatingPosition");
             List<String> passengerList = (List<String>) document.get("passengerList");
             List<String> emptySeat = (List<String>) document.get("emptySeat");

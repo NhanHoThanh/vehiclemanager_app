@@ -1,10 +1,15 @@
 package project.api.drivers.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import project.api.drivers.models.Cargo;
 import project.api.drivers.models.Container;
+import project.api.drivers.models.Passenger;
 import project.api.drivers.services.CargoService;
 import project.api.drivers.services.ContainerService;
 import project.api.drivers.ultis.ResponseObject;
@@ -17,6 +22,8 @@ import java.util.concurrent.ExecutionException;
 @RestController
 @RequestMapping("/api/container")
 public class ContainerController {
+    @Autowired
+    private RestTemplate restTemplate;
     public ContainerService containerService;
     public CargoService cargoService;
 
@@ -104,7 +111,34 @@ public class ContainerController {
 
     @PostMapping("/addCargo/{idVehicle}/{idCargo}")
     public ResponseEntity<ResponseObject> addCargo(@PathVariable String idVehicle, @PathVariable String idCargo) {
-        ResponseObject responseObject = containerService.addCargo(idVehicle, idCargo);
+        ResponseEntity<ResponseObject<Cargo>> responseEntityCargo = restTemplate.exchange(
+                "/api/cargo/{idCargo}",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<ResponseObject<Cargo>>() {
+                },
+                idCargo
+        );
+        ResponseObject<Cargo>  responseCargo =  responseEntityCargo.getBody();
+        Cargo cargo =  (Cargo)responseCargo.getData();
+        String routeDeparture = cargo.getSendingPlace();
+        String routeDestination = cargo.getReceivingPlace();
+        String url = "/api/route/checkRoute/" + idVehicle + "?departure=" + routeDeparture + "&destination=" + routeDestination;
+        System.out.println(url);
+//        System.out.println("http://localhost:8080/api/route/checkRoute/Coach7?departure=Ho Chi Minh&destination=Dak Lak");
+        ResponseEntity<ResponseObject<Boolean>> response = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<ResponseObject<Boolean>>() {},
+                idVehicle
+        );
+        System.out.println("alo");
+        ResponseObject<Boolean> responseBoolean = response.getBody();
+        Boolean BooleanData = (Boolean) responseBoolean.getData();
+//        Boolean responseRoute =  responseEntityBoolean.getBody();
+        System.out.println(BooleanData);
+        ResponseObject responseObject = containerService.addCargo(idVehicle, idCargo, BooleanData);
         if ("error".equals(responseObject.getStatus())) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseObject);
         }

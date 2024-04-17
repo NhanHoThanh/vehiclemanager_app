@@ -100,7 +100,7 @@ public class RouteController {
         return ResponseEntity.ok(responseObject);
     }
     @GetMapping("checkRoute/{idVehicle}")
-    public boolean checkRoute (@PathVariable String idVehicle, @RequestParam Map<String, String> data ){
+    public ResponseEntity<ResponseObject<Boolean>> checkRoute (@PathVariable String idVehicle, @RequestParam Map<String, String> data ){
         ResponseEntity<ResponseObject<Vehicle>> responseEntityVehicle = restTemplate.exchange(
                 "/api/coach/{idVehicle}",
                 HttpMethod.GET,
@@ -142,14 +142,21 @@ public class RouteController {
             Route routeDataInList = (Route) responseRouteEntityInList.getData();
 
             if(routeDataInList.getDeparture().equals(data.get("departure")) && routeDataInList.getDestination().equals(data.get("destination")) ){
-                return true;
+                ResponseObject<Boolean> responseObject = new ResponseObject<>();
+
+                responseObject.setStatus("success");
+                responseObject.setMessage("Check successfully");
+                responseObject.setData(true);
+                return ResponseEntity.ok(responseObject);
             }
 
         }
-        return false;
+        ResponseObject<Boolean> responseObjectCaseFalse = new ResponseObject<>();
 
-
+        responseObjectCaseFalse.setStatus("success");
+        responseObjectCaseFalse.setMessage("Check successfully");
+        responseObjectCaseFalse.setData(true);
+        return ResponseEntity.ok(responseObjectCaseFalse );
 
     }
-
 }

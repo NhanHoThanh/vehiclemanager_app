@@ -48,9 +48,9 @@ public class CoachService {
 
     public ResponseObject<Coach> getCoachById(String id) {
         ResponseObject<Coach> responseObject = new ResponseObject<>();
-        System.out.println("service1");
+//        System.out.println("service1");
         try {
-            System.out.println("service2");
+//            System.out.println("service2");
             Coach coach = coachRepository.getCoachById(id);
             Vehicle vehicle = vehicleRepository.getVehicleById(id);
             if (coach != null && vehicle != null) {
@@ -130,12 +130,13 @@ public class CoachService {
         return responseObject;
     }
 
-    public ResponseObject<Coach> addPassenger(String idVehicle,String idPassenger) {
+    public ResponseObject<Coach> addPassenger(String idVehicle,String idPassenger, Boolean responseRoute) {
+        System.out.println("service");
         ResponseObject<Coach> responseObject = new ResponseObject<>();
         try {
             Coach coachUpdate = coachRepository.getCoachById(idVehicle);
             if (coachUpdate != null) {
-                coachRepository.addPassenger(idVehicle,idPassenger);
+                coachRepository.addPassenger(idVehicle,idPassenger, responseRoute);
                 responseObject.setStatus("success");
                 responseObject.setMessage("addPassenger successfully");
                 responseObject.setData(coachUpdate);

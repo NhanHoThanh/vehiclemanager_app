@@ -1,11 +1,12 @@
 package project.api.drivers.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import project.api.drivers.models.Coach;
-import project.api.drivers.models.CoachVehicle;
-import project.api.drivers.models.Passenger;
+import project.api.drivers.models.*;
 import project.api.drivers.services.CoachService;
 import project.api.drivers.services.PassengerService;
 import project.api.drivers.ultis.ResponseObject;
@@ -13,10 +14,12 @@ import project.api.drivers.ultis.ResponseObject;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
-
+import org.springframework.web.client.RestTemplate;
 @RestController
 @RequestMapping("/api/coach")
 public class CoachController {
+    @Autowired
+    private RestTemplate restTemplate;
     public CoachService coachService;
     public PassengerService passengerService;
 
@@ -100,9 +103,37 @@ public class CoachController {
 
     @PostMapping("/addPassenger/{idVehicle}/{idPassenger}")
     public ResponseEntity<ResponseObject> addPassenger(@PathVariable String idVehicle, @PathVariable String idPassenger) {
-        System.out.println("add");
+        ResponseEntity<ResponseObject<Passenger>> responseEntityPassenger = restTemplate.exchange(
+                "/api/passenger/{idPassenger}",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<ResponseObject<Passenger>>() {
+                },
+                idPassenger
+        );
+        ResponseObject<Passenger>  responsePassenger =  responseEntityPassenger.getBody();
+        Passenger passenger =  (Passenger)responsePassenger.getData();
+        String routeDeparture = passenger.getDeparture();
+        String routeDestination = passenger.getDestination();
+        String url = "/api/route/checkRoute/" + idVehicle + "?departure=" + routeDeparture + "&destination=" + routeDestination;
+        System.out.println(url);
+//        System.out.println("http://localhost:8080/api/route/checkRoute/Coach7?departure=Ho Chi Minh&destination=Dak Lak");
+        ResponseEntity<ResponseObject<Boolean>> response = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<ResponseObject<Boolean>>() {},
+                idVehicle
 
-        ResponseObject responseObject = coachService.addPassenger(idVehicle, idPassenger);
+
+        );
+        System.out.println("alo");
+        ResponseObject<Boolean> responseBoolean = response.getBody();
+        Boolean BooleanData = (Boolean) responseBoolean.getData();
+//        Boolean responseRoute =  responseEntityBoolean.getBody();
+        System.out.println(BooleanData);
+
+        ResponseObject responseObject = coachService.addPassenger(idVehicle, idPassenger, BooleanData);
         if ("error".equals(responseObject.getStatus())) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseObject);
         }

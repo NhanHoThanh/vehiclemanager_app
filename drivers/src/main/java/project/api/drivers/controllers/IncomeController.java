@@ -342,21 +342,29 @@ public ResponseEntity<ResponseObject<Coach>> calculateIncomeFromSpecificCoach(@P
 //           return totalRenevue;
 //      }
  @GetMapping("/add/IncomeCoach/{idVehicle}")
-public String addCoachIncome (@PathVariable String idVehicle) throws ExecutionException, InterruptedException {
+public ResponseEntity<ResponseObject<String>> addCoachIncome (@PathVariable String idVehicle) throws ExecutionException, InterruptedException {
     ResponseEntity<ResponseObject<Income>> responseIncome= calculateIncomeFormCoach(idVehicle);
      ResponseObject<Income> incomeResponseObject = responseIncome.getBody();
      Income incomeObject = (Income) incomeResponseObject.getData();
      String  idIncome = incomeObject.getIdIncome();
-     return idIncome;
+     ResponseObject<String> responseObject = new ResponseObject<>();
+     responseObject.setData(idIncome);
+     return ResponseEntity.ok(responseObject);
+
 }
     @GetMapping("/add/IncomeContainer/{idVehicle}")
-    public String addContainerIncome (@PathVariable String idVehicle) throws ExecutionException, InterruptedException {
+    public ResponseEntity<ResponseObject<String>> addContainerIncome (@PathVariable String idVehicle) throws ExecutionException, InterruptedException {
         ResponseEntity<ResponseObject<Income>> responseIncome= calculateIncomeFormContainer(idVehicle);
         ResponseObject<Income> incomeResponseObject = responseIncome.getBody();
         Income incomeObject = (Income) incomeResponseObject.getData();
         String  idIncome = incomeObject.getIdIncome();
-        return idIncome;
+        ResponseObject<String> responseObject = new ResponseObject<>();
+        responseObject.setData(idIncome);
+        return ResponseEntity.ok(responseObject);
     }
+
+
+
 
 }
 

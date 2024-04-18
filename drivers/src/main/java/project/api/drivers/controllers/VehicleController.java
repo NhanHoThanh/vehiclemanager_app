@@ -14,15 +14,12 @@ import org.springframework.web.bind.annotation.*;
 //=======
 import org.springframework.web.client.RestTemplate;
 //import project.api.drivers.models.Driver;
-import project.api.drivers.models.Passenger;
+import project.api.drivers.models.*;
 
-import project.api.drivers.models.Vehicle;
 import project.api.drivers.services.VehicleService;
 import project.api.drivers.ultis.ResponseObject;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 @RestController
@@ -130,6 +127,98 @@ public class VehicleController {
         }
         return ResponseEntity.ok(responseObject);
     }
+    @PutMapping("/totalRevenue/{idVehicle}")
+    public ResponseEntity<ResponseObject>  calculateTotalRevenueCostProfit (@PathVariable String idVehicle ) throws ExecutionException, InterruptedException {
+        ResponseEntity<ResponseObject<Vehicle>> responseEntityVehicle =getVehicle(idVehicle );
+        ResponseObject<Vehicle> vehicleResponseObject = responseEntityVehicle.getBody();
+        Vehicle vehicle = (Vehicle) vehicleResponseObject.getData();
+        Double toTalRevenue=0.0;
+        Double toTalProfit=0.0;
+        Double toTalCost=0.0;
+
+        List<String> listIdIncome= vehicle.getHistoryIncomeList();
+        for(String idIncome : listIdIncome){
+            ResponseEntity<ResponseObject<Income>> responseIncome= restTemplate.exchange(
+                    "/api/income/{idIncome}",
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<ResponseObject<Income>>() {
+                    },
+                    idIncome
+            );
+            //
+            ResponseObject<Income> responseIncomeEntity = responseIncome.getBody();
+            assert responseIncomeEntity != null;
+            Income routeData = (Income) responseIncomeEntity.getData();
+            toTalRevenue+=routeData.getRevenue();
+            toTalProfit=routeData.getProfit();
+            toTalCost=routeData.getCost();
+        }
+
+        Vehicle vehicleBoby = new Vehicle(toTalRevenue,toTalProfit,toTalCost);
+        return  updateVehicle(idVehicle,vehicleBoby);
+
+
+
+
+    }
+    @PutMapping("updateRoute/{idVehicle}")
+    public ResponseEntity<ResponseObject> updateRouteAndCalculateIncome (@PathVariable String  idVehicle ,@RequestBody Vehicle vehicle) throws ExecutionException, InterruptedException {
+
+        String idIncome="";
+        ResponseEntity<ResponseObject<Vehicle>> responseVehicle = getVehicle( idVehicle );
+
+        //
+        ResponseObject<Vehicle> responseVehicleEntity = responseVehicle.getBody();
+        assert responseVehicleEntity != null;
+        Vehicle vehicleData = (Vehicle) responseVehicleEntity.getData();
+
+        if( vehicleData.getVehicleType().equals("coach")){
+            ResponseEntity<ResponseObject<String>> responseId = restTemplate.exchange(
+                    "/api/income/add/IncomeCoach/{idVehicle}",
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<ResponseObject<String>>() {
+                    },
+                    idVehicle
+            );
+            //
+            ResponseObject<String> responseIdEntity =responseId .getBody();
+            assert  responseIdEntity!= null;
+            idIncome = (String) responseIdEntity.getData();
+        }
+        else {
+            ResponseEntity<ResponseObject<String>> responseId = restTemplate.exchange(
+                    "/api/income/add/IncomeContainer/{idVehicle}",
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<ResponseObject<String>>() {
+                    },
+                    idVehicle
+            );
+            //
+            ResponseObject<String> responseIdEntity =responseId .getBody();
+            assert  responseIdEntity!= null;
+            idIncome = (String) responseIdEntity.getData();
+
+        }
+        List<String> listIdIncomeUpdate = vehicleData.getHistoryIncomeList(); // 1
+        listIdIncomeUpdate.add(idIncome);
+        List<String> listIdRouteUpdate =vehicleData.getHistoryRouteList();
+        listIdRouteUpdate.add(vehicle.getRoute()); // 2
+         List<Date> timeStartListUpdate =    vehicle.getTimeStartList() ;
+        timeStartListUpdate.add(vehicle.getTimeStart()); // 3
+          List<Date>  timeEndListUpdate = vehicle.getTimeEndList();
+        timeEndListUpdate.add(vehicle.getTimeEnd()); // 4
+        // goi api coach hoac cargo de reset lai
+         Vehicle newVehicleUpdate = new Vehicle(listIdRouteUpdate,listIdIncomeUpdate,timeStartListUpdate,timeEndListUpdate);
+        return  updateVehicle(idVehicle,newVehicleUpdate);
+
+
+    }
+
+
+
 
 
 }

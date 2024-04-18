@@ -7,10 +7,15 @@ public class Vehicle {
     private String idVehicle;
     private List<String> driverList;
 
-    private List<String> hisRouteList;
-    private List<String> hisIncomeList;
+    private List<String> historyRouteList;
+    private List<String> historyIncomeList;
     private List<Date> timeStartList;
     private List<Date> timeEndList;
+    private Double toTalRevenue;
+    private Double toTalProfit;
+    private Double toTalCost;
+
+
 
     private int capacity;
     private String fuelType;
@@ -25,11 +30,25 @@ public class Vehicle {
     public Vehicle() {
     }
 
+
+    public Vehicle(Double toTalRevenue, Double toTalProfit, Double toTalCost) {
+        this.toTalRevenue = toTalRevenue;
+        this.toTalProfit = toTalProfit;
+        this.toTalCost = toTalCost;
+    }
+
+    public Vehicle(List<String> historyRouteList, List<String> historyIncomeList, List<Date> timeStartList, List<Date> timeEndList) {
+        this.historyRouteList = historyRouteList;
+        this.historyIncomeList = historyIncomeList;
+        this.timeStartList = timeStartList;
+        this.timeEndList = timeEndList;
+    }
+
     public Vehicle(String idVehicle, List<String> driverList, List<String> hisRouteList, List<String> hisIncomeList, List<Date> timeStartList, List<Date> timeEndList, int capacity, String fuelType, String status, String route, String vehicleType, Date timeStart, Date timeEnd, String destination, String departure) {
         this.idVehicle = idVehicle;
         this.driverList = driverList;
-        this.hisRouteList = hisRouteList;
-        this.hisIncomeList = hisIncomeList;
+        this.historyRouteList = hisRouteList;
+        this.historyIncomeList = hisIncomeList;
         this.timeStartList = timeStartList;
         this.timeEndList = timeEndList;
         this.capacity = capacity;
@@ -42,13 +61,44 @@ public class Vehicle {
         this.destination = destination;
         this.departure = departure;
     }
-
-    public List<String> getHisIncomeList() {
-        return hisIncomeList;
+    public Double getToTalRevenue() {
+        return toTalRevenue;
     }
 
-    public void setHisIncomeList(List<String> hisIncomeList) {
-        this.hisIncomeList = hisIncomeList;
+    public void setToTalRevenue(Double toTalRevenue) {
+        this.toTalRevenue = toTalRevenue;
+    }
+
+    public Double getToTalProfit() {
+        return toTalProfit;
+    }
+
+    public void setToTalProfit(Double toTalProfit) {
+        this.toTalProfit = toTalProfit;
+    }
+
+    public Double getToTalCost() {
+        return toTalCost;
+    }
+
+    public void setToTalCost(Double toTalCost) {
+        this.toTalCost = toTalCost;
+    }
+
+    public List<String> getHistoryRouteList() {
+        return historyRouteList;
+    }
+
+    public void setHistoryRouteList(List<String> historyRouteList) {
+        this.historyRouteList = historyRouteList;
+    }
+
+    public List<String> getHistoryIncomeList() {
+        return historyIncomeList;
+    }
+
+    public void setHistoryIncomeList(List<String> historyIncomeList) {
+        this.historyIncomeList = historyIncomeList;
     }
 
     public List<Date> getTimeStartList() {
@@ -67,21 +117,7 @@ public class Vehicle {
         this.timeEndList = timeEndList;
     }
 
-    public List<String> getHisRouteList() {
-        return hisRouteList;
-    }
-    public void addRoute(String id) {
-        this.hisRouteList.add(id);
-    }
-    public void addTimeStartList(Date date) {
-        this.timeStartList.add(date);
-    }
-    public void addTimeEndtList(Date date) {
-        this.timeEndList.add(date);
-    }
-    public void setHisRouteList(List<String> hisRouteList) {
-        this.hisRouteList = hisRouteList;
-    }
+
 
     public String getDestination() {
         return destination;

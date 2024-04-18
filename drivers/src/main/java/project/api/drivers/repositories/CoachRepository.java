@@ -14,10 +14,7 @@ import java.util.concurrent.ExecutionException;
 public class CoachRepository extends GenericRepositoryImpl {
 
     public Coach createCoach(Coach coach) throws ExecutionException, InterruptedException {
-        coach.addRoute(coach.getRoute());
-        coach.addTimeStartList(coach.getTimeStart());
-        coach.addTimeEndtList(coach.getTimeEnd());
-        Vehicle vehicle = new Vehicle(coach.getIdVehicle(), coach.getDriverList(), coach.getHisRouteList(), coach.getHisIncomeList(), coach.getTimeStartList(), coach.getTimeEndList(), coach.getCapacity(), coach.getFuelType(), coach.getStatus(), coach.getRoute(), coach.getVehicleType(), coach.getTimeStart(), coach.getTimeEnd(), coach.getDestination(), coach.getDeparture());
+        Vehicle vehicle = new Vehicle(coach.getIdVehicle(), coach.getDriverList(), coach.getHistoryRouteList(), coach.getHistoryIncomeList(), coach.getTimeStartList(), coach.getTimeEndList(), coach.getCapacity(), coach.getFuelType(), coach.getStatus(), coach.getRoute(), coach.getVehicleType(), coach.getTimeStart(), coach.getTimeEnd(), coach.getDestination(), coach.getDeparture());
         createDocument("Vehicle", coach.getIdVehicle(), vehicle);
         createDocument("Coach", coach.getIdVehicle(), coach);
         return coach;
@@ -28,13 +25,6 @@ public class CoachRepository extends GenericRepositoryImpl {
     }
 
     public void updateCoach(String id, Coach coach) throws ExecutionException, InterruptedException, IllegalAccessException {
-        if(coach.getTimeStart() != null && coach.getTimeEnd() != null){
-            coach.addTimeEndtList(coach.getTimeEnd());
-            coach.addTimeStartList(coach.getTimeStart());
-            updateDocument("Coach", id, coach);
-        }
-        coach.addTimeEndtList(coach.getTimeEnd());
-        coach.addTimeStartList(coach.getTimeStart());
         updateDocument("Coach", id, coach);
     }
 

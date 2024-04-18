@@ -53,7 +53,7 @@ public class VehicleController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<ResponseObject<List<Vehicle>>> getCoachByAttributes(@RequestBody Vehicle vehicle) {
+    public ResponseEntity<ResponseObject<List<Vehicle>>> getVehicleByAttributes(@RequestBody Vehicle vehicle) {
         ResponseObject<List<Vehicle>> vehicleList = vehicleService.getVehicleByAttributes(vehicle);
         if (vehicleList != null) {
             return ResponseEntity.ok(vehicleList);
@@ -123,6 +123,4 @@ public class VehicleController {
         }
         return ResponseEntity.ok(responseObject);
     }
-
-    //get truyền vào idVehicle => [[route1, time start, time end], [route2, time start, time end]]
 }

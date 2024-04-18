@@ -48,7 +48,6 @@ public class CargoController {
     }
 
     @PostMapping
-
     public ResponseEntity<ResponseObject<Cargo>> createCargo(@RequestBody Cargo cargo) {
         ResponseObject<Cargo> responseObject = cargoService.createCargo(cargo);
         if ("error".equals(responseObject.getStatus())) {

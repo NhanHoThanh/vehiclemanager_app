@@ -68,15 +68,7 @@ public class Vehicle {
     public List<String> getHisRouteList() {
         return hisRouteList;
     }
-    public void addRoute(String id) {
-        this.hisRouteList.add(id);
-    }
-    public void addTimeStartList(Date date) {
-        this.timeStartList.add(date);
-    }
-    public void addTimeEndtList(Date date) {
-        this.timeEndList.add(date);
-    }
+
     public void setHisRouteList(List<String> hisRouteList) {
         this.hisRouteList = hisRouteList;
     }

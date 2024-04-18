@@ -74,7 +74,8 @@ public class VehicleService {
         try {
             Vehicle vehicleUpdate = vehicleRepository.getVehicleById(id);
             if (vehicleUpdate != null) {
-                vehicleRepository.updateVehicle(vehicle);
+                vehicleRepository.updateVehicle(id, vehicle);
+
                 responseObject.setStatus("success");
                 responseObject.setMessage("Update vehicle successfully");
                 responseObject.setData(vehicleUpdate);

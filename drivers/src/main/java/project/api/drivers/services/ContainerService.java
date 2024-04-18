@@ -21,28 +21,28 @@ public class ContainerService {
     @Autowired
     private CargoRepository cargoRepository;
 
-public ResponseObject<List<Container>> getAllContainer() {
-    ResponseObject<List<Container>> responseObject = new ResponseObject<>();
-    try {
-        List<Container> container = containerRepository.getAllDocuments("Container", Container.class);
-        List<Vehicle> vehicle = vehicleRepository.getAllDocuments("Vehicle", Vehicle.class);
-        if (container.isEmpty() || vehicle.isEmpty()) {
+    public ResponseObject<List<Container>> getAllContainer() {
+        ResponseObject<List<Container>> responseObject = new ResponseObject<>();
+        try {
+            List<Container> container = containerRepository.getAllDocuments("Container", Container.class);
+            List<Vehicle> vehicle = vehicleRepository.getAllDocuments("Vehicle", Vehicle.class);
+            if (container.isEmpty() || vehicle.isEmpty()) {
+                responseObject.setStatus("success");
+                responseObject.setMessage("No container found");
+                return responseObject;
+            }
+            for(int i = 0; i < container.size(); i++) {
+                container.get(i).setVehicle(vehicle.get(i));
+            }
             responseObject.setStatus("success");
-            responseObject.setMessage("No container found");
-            return responseObject;
-        }
-        for(int i = 0; i < container.size(); i++) {
-            container.get(i).setVehicle(vehicle.get(i));
-        }
-        responseObject.setStatus("success");
-        responseObject.setMessage("Get all container successfully");
-        responseObject.setData(container);
-    } catch (Exception e) {
-        responseObject.setStatus("error");
+            responseObject.setMessage("Get all container successfully");
+            responseObject.setData(container);
+        } catch (Exception e) {
+            responseObject.setStatus("error");
 //            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
+        }
+        return responseObject;
     }
-    return responseObject;
-}
 
     public ResponseObject<Container> getContainerById(String id) {
         ResponseObject<Container> responseObject = new ResponseObject<>();
@@ -85,7 +85,7 @@ public ResponseObject<List<Container>> getAllContainer() {
             Container containerUpdate = containerRepository.getContainerById(id);
             if (containerUpdate != null) {
                 // BeanUtils.copyProperties(containerUpdate, container);
-                containerRepository.updateContainer(container);
+                containerRepository.updateContainer(id, container);
                 responseObject.setStatus("success");
                 responseObject.setMessage("Update container successfully");
                 responseObject.setData(containerUpdate);

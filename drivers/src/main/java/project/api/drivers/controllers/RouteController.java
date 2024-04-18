@@ -155,7 +155,7 @@ public class RouteController {
 
         responseObjectCaseFalse.setStatus("success");
         responseObjectCaseFalse.setMessage("Check successfully");
-        responseObjectCaseFalse.setData(true);
+        responseObjectCaseFalse.setData(false);
         return ResponseEntity.ok(responseObjectCaseFalse );
 
     }

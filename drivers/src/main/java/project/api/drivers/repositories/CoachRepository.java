@@ -5,23 +5,22 @@ import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.stereotype.Repository;
 import project.api.drivers.models.Coach;
-import project.api.drivers.models.Coach;
 import project.api.drivers.models.Vehicle;
-import project.api.drivers.ultis.ResponseObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 @Repository
 public class CoachRepository extends GenericRepositoryImpl {
 
-    public Coach createCoach(Coach coachVehicle) throws ExecutionException, InterruptedException {
-        Coach coach = new Coach(coachVehicle.getNumberOfSeats(), coachVehicle.getNumberOfPassenger(), coachVehicle.getPreviousMaintenanceDate(), coachVehicle.getNextMaintenanceDate(), coachVehicle.getEmptySeat(), coachVehicle.getPassengerList());
-        Vehicle vehicle = new Vehicle(coachVehicle.getIdVehicle(), coachVehicle.getDriverList(), coachVehicle.getCapacity(), coachVehicle.getFuelType(), coachVehicle.getStatus(), coachVehicle.getRoute(), coachVehicle.getVehicleType(), coachVehicle.getTimeStart(), coachVehicle.getTimeEnd(), coachVehicle.getDestination(), coachVehicle.getDeparture());
-        createDocument("Vehicle", coachVehicle.getIdVehicle(), vehicle);
-        createDocument("Coach", coachVehicle.getIdVehicle(), coachVehicle);
-        return coachVehicle;
+    public Coach createCoach(Coach coach) throws ExecutionException, InterruptedException {
+        coach.addRoute(coach.getRoute());
+        coach.addTimeStartList(coach.getTimeStart());
+        coach.addTimeEndtList(coach.getTimeEnd());
+        Vehicle vehicle = new Vehicle(coach.getIdVehicle(), coach.getDriverList(), coach.getHisRouteList(), coach.getHisIncomeList(), coach.getTimeStartList(), coach.getTimeEndList(), coach.getCapacity(), coach.getFuelType(), coach.getStatus(), coach.getRoute(), coach.getVehicleType(), coach.getTimeStart(), coach.getTimeEnd(), coach.getDestination(), coach.getDeparture());
+        createDocument("Vehicle", coach.getIdVehicle(), vehicle);
+        createDocument("Coach", coach.getIdVehicle(), coach);
+        return coach;
     }
 
     public Coach getCoachById(String id) throws ExecutionException, InterruptedException {
@@ -29,6 +28,13 @@ public class CoachRepository extends GenericRepositoryImpl {
     }
 
     public void updateCoach(String id, Coach coach) throws ExecutionException, InterruptedException, IllegalAccessException {
+        if(coach.getTimeStart() != null && coach.getTimeEnd() != null){
+            coach.addTimeEndtList(coach.getTimeEnd());
+            coach.addTimeStartList(coach.getTimeStart());
+            updateDocument("Coach", id, coach);
+        }
+        coach.addTimeEndtList(coach.getTimeEnd());
+        coach.addTimeStartList(coach.getTimeStart());
         updateDocument("Coach", id, coach);
     }
 
@@ -80,7 +86,7 @@ public class CoachRepository extends GenericRepositoryImpl {
         ApiFuture<DocumentSnapshot> passengerFuture = passengerDocRef.get();
         DocumentSnapshot document = coachFuture.get();
         DocumentSnapshot passengerDocument = passengerFuture.get();
-        if (passengerDocument.exists() && document.exists() && responseRoute) {
+        if (passengerDocument.exists() && document.exists()) {
             String seatingPosition = passengerDocument.getString("seatingPosition");
             List<String> passengerList = (List<String>) document.get("passengerList");
             List<String> emptySeat = (List<String>) document.get("emptySeat");
@@ -92,7 +98,7 @@ public class CoachRepository extends GenericRepositoryImpl {
                 System.out.println("ko co ghe trong");
                 return;
             }
-            if(emptySeat.contains(seatingPosition) && !passengerList.contains(idPassenger)){
+            if(emptySeat.contains(seatingPosition) && !passengerList.contains(idPassenger) && responseRoute){
                 passengerList.add(idPassenger);
                 emptySeat.remove(seatingPosition);
                 numberOfPassenger = (long) passengerList.size();

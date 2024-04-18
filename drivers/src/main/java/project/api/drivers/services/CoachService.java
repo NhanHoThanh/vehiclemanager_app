@@ -3,7 +3,6 @@ package project.api.drivers.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import project.api.drivers.models.Coach;
-import project.api.drivers.models.CoachVehicle;
 import project.api.drivers.models.Passenger;
 import project.api.drivers.models.Vehicle;
 import project.api.drivers.repositories.CoachRepository;
@@ -189,14 +188,32 @@ public class CoachService {
         return responseObject;
     }
 
-//    public ResponseObject<List<Coach>> getCoachByAttributes(Coach coach) {
+    public ResponseObject<List<Coach>> getCoachByAttributes(Coach coach) {
+        ResponseObject<List<Coach>> responseObject = new ResponseObject<>();
+        try {
+            List<Coach> listCoach = coachRepository.getCoachByAttributes(coach);
+            if (listCoach != null && !listCoach.isEmpty()) {
+                responseObject.setStatus("success");
+                responseObject.setMessage("Get coach successfully");
+                responseObject.setData(listCoach);
+            } else {
+                responseObject.setStatus("fail");
+                responseObject.setMessage("Loi o day");
+            }
+        } catch (Exception e) {
+            responseObject.setStatus("error");
+        }
+        return responseObject;
+    }
+
+//    public ResponseObject<List<Coach>> getCoachByAttributes(Map<String, String> allParams) {
 //        ResponseObject<List<Coach>> responseObject = new ResponseObject<>();
 //        try {
-//            List<Coach> listCoach = coachRepository.getCoachByAttributes(coach);
-//            if (listCoach != null && !listCoach.isEmpty()) {
+//            List<Coach> coach = coachRepository.getDocumentsByMultipleAttributes("Coach", allParams, Coach.class);
+//            if (coach != null && !coach.isEmpty()) {
 //                responseObject.setStatus("success");
 //                responseObject.setMessage("Get coach successfully");
-//                responseObject.setData(listCoach);
+//                responseObject.setData(coach);
 //            } else {
 //                responseObject.setStatus("fail");
 //                responseObject.setMessage("Loi o day");
@@ -206,22 +223,4 @@ public class CoachService {
 //        }
 //        return responseObject;
 //    }
-    public ResponseObject<List<Coach>> getCoachByAttributes(Map<String, String> allParams) {
-        ResponseObject<List<Coach>> responseObject = new ResponseObject<>();
-        try {
-            List<Coach> coach = coachRepository.getDocumentsByMultipleAttributes("Coach", allParams, Coach.class);
-            if (coach != null && !coach.isEmpty()) {
-                responseObject.setStatus("success");
-                responseObject.setMessage("Get coach successfully");
-                responseObject.setData(coach);
-            } else {
-                responseObject.setStatus("fail");
-                responseObject.setMessage("Loi o day");
-            }
-        } catch (Exception e) {
-            responseObject.setStatus("error");
-//            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
-        }
-        return responseObject;
-    }
 }

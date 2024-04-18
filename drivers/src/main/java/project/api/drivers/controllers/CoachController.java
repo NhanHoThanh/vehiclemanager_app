@@ -61,24 +61,24 @@ public class CoachController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
-//    @GetMapping("/search")
-//    public ResponseEntity<ResponseObject<List<Coach>>> getCoachByAttributes(@RequestBody Coach coach) {
-//        ResponseObject<List<Coach>> coachList = coachService.getCoachByAttributes(coach);
-//        if (coachList != null) {
-//            return ResponseEntity.ok(coachList);
-//        } else {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-//        }
-//    }
     @GetMapping("/search")
-    public ResponseEntity<ResponseObject<List<Coach>>> getCoachByAttributes(@RequestParam Map<String, String> allParams) {
-        ResponseObject<List<Coach>> coachList = coachService.getCoachByAttributes(allParams);
+    public ResponseEntity<ResponseObject<List<Coach>>> getCoachByAttributes(@RequestBody Coach coach) {
+        ResponseObject<List<Coach>> coachList = coachService.getCoachByAttributes(coach);
         if (coachList != null) {
             return ResponseEntity.ok(coachList);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+//    @GetMapping("/search")
+//    public ResponseEntity<ResponseObject<List<Coach>>> getCoachByAttributes(@RequestParam Map<String, String> allParams) {
+//        ResponseObject<List<Coach>> coachList = coachService.getCoachByAttributes(allParams);
+//        if (coachList != null) {
+//            return ResponseEntity.ok(coachList);
+//        } else {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+//        }
+//    }
 
 
     @PostMapping
@@ -124,8 +124,6 @@ public class CoachController {
                 null,
                 new ParameterizedTypeReference<ResponseObject<Boolean>>() {},
                 idVehicle
-
-
         );
         System.out.println("alo");
         ResponseObject<Boolean> responseBoolean = response.getBody();
@@ -147,7 +145,7 @@ public class CoachController {
         }
         return ResponseEntity.ok(responseObject);
     }
-//delete all passenger
+    //delete all passenger
     @DeleteMapping("/{id}")
     public ResponseEntity<ResponseObject<Coach>> deleteCoach(@PathVariable String id) {
         ResponseObject<Coach> responseObject = coachService.deleteCoach(id);
@@ -156,5 +154,4 @@ public class CoachController {
         }
         return ResponseEntity.ok(responseObject);
     }
-
 }

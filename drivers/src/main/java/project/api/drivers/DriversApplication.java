@@ -23,7 +23,7 @@ import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @SpringBootApplication
-@EnableDiscoveryClient
+//@EnableDiscoveryClient
 public class DriversApplication {
 	public DriversApplication() throws IOException {
 	}

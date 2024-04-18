@@ -17,6 +17,7 @@ public class VehicleRepository extends GenericRepositoryImpl {
 
     public Vehicle createVehicle(Vehicle vehicle) throws ExecutionException, InterruptedException {
         vehicle.setIdVehicle(UUID.randomUUID().toString());
+        vehicle.addRoute(vehicle.getRoute());
         createDocument("Vehicle", vehicle.getIdVehicle(), vehicle);
         return vehicle;
     }
@@ -71,7 +72,11 @@ public class VehicleRepository extends GenericRepositoryImpl {
 
 
     public void updateVehicle(Vehicle vehicle) throws ExecutionException, InterruptedException, IllegalAccessException {
-        updateDocument("Vehicle", vehicle.getIdVehicle(), vehicle);
+        if (vehicle.getRoute() != null) {
+            vehicle.addRoute(vehicle.getRoute());
+            updateDocument("Vehicle", vehicle.getIdVehicle(), vehicle);
+        }
+        else{updateDocument("Vehicle", vehicle.getIdVehicle(), vehicle);}
     }
 
     public void removeDriver(String idVehicle, String idDriver, Vehicle vehicle) throws ExecutionException, InterruptedException {

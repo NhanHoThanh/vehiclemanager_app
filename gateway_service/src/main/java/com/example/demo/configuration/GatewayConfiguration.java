@@ -22,9 +22,9 @@ public class GatewayConfiguration {
                             .uri("lb://demo"))
                         .route("auth-service", r -> r.path("/api/v1/auth/**")
                             .uri("lb://auth-service"))
-                        .route("vehicle",r->r.path("/api/vehicle/**")
+                        .route("route",r->r.path("/api/route/**")
                                 .filters(f -> f.filter(filter))
-                                .uri("lb://vehicle"))
+                                .uri("lb://route"))
                         .build();
 
         }

@@ -18,7 +18,9 @@ import java.util.concurrent.ExecutionException;
 public class ContainerRepository extends GenericRepositoryImpl {
 
     public Container createContainer(Container container) throws ExecutionException, InterruptedException {
+
         Vehicle vehicle = new Vehicle(container.getIdVehicle(), container.getDriverList(), container.getHistoryRouteList(), container.getHistoryIncomeList(), container.getTimeStartList(), container.getTimeEndList(), container.getCapacity(), container.getFuelType(), container.getStatus(), container.getRoute(), container.getVehicleType(), container.getTimeStart(), container.getTimeEnd(), container.getDestination(), container.getDeparture());
+
         createDocument("Container", container.getIdVehicle(), container);
         createDocument("Vehicle", container.getIdVehicle(), vehicle);
         return container;
@@ -28,8 +30,10 @@ public class ContainerRepository extends GenericRepositoryImpl {
         return getDocument("Container", id, Container.class);
     }
 
-    public void updateContainer(Container container) throws ExecutionException, InterruptedException, IllegalAccessException {
-        updateDocument("Container", container.getIdVehicle(), container);
+    public void updateContainer(String id, Container container) throws ExecutionException, InterruptedException, IllegalAccessException {
+        Vehicle vehicle = new Vehicle(container.getIdVehicle(), container.getDriverList(), container.getHistoryRouteList(), container.getHistoryIncomeList(), container.getTimeStartList(), container.getTimeEndList(), container.getCapacity(), container.getFuelType(), container.getStatus(), container.getRoute(), container.getVehicleType(), container.getTimeStart(), container.getTimeEnd(), container.getDestination(), container.getDeparture());
+        updateDocument("Vehicle", id, vehicle);
+        updateDocument("Container", id, container);
     }
 
     public void deleteContainerById(String id) throws ExecutionException, InterruptedException {

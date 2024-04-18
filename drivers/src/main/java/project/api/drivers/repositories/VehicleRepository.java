@@ -71,12 +71,10 @@ public class VehicleRepository extends GenericRepositoryImpl {
     }
 
 
-    public void updateVehicle(Vehicle vehicle) throws ExecutionException, InterruptedException, IllegalAccessException {
-        if (vehicle.getRoute() != null) {
 
-            updateDocument("Vehicle", vehicle.getIdVehicle(), vehicle);
-        }
-        else{updateDocument("Vehicle", vehicle.getIdVehicle(), vehicle);}
+    public void updateVehicle(String id, Vehicle vehicle) throws ExecutionException, InterruptedException, IllegalAccessException {
+        updateDocument("Vehicle", id, vehicle);
+
     }
 
     public void removeDriver(String idVehicle, String idDriver, Vehicle vehicle) throws ExecutionException, InterruptedException {
@@ -125,7 +123,7 @@ public class VehicleRepository extends GenericRepositoryImpl {
         List<Vehicle> listVehicle = new ArrayList<>();
 
         Query query = collectionRef;
-
+        System.out.println(vehicle != null);
         if (vehicle != null) {
             if (vehicle.getDeparture() != null) {
                 query = query.whereEqualTo("departure", vehicle.getDeparture());
@@ -135,6 +133,9 @@ public class VehicleRepository extends GenericRepositoryImpl {
             }
             if (vehicle.getTimeStart() != null) {
                 query = query.whereEqualTo("timeStart", vehicle.getTimeStart());
+            }
+            if (vehicle.getVehicleType() != null) {
+                query = query.whereEqualTo("vehicleType", vehicle.getVehicleType());
             }
         }
 

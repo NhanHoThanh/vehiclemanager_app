@@ -83,7 +83,6 @@ public class CoachController {
 
     @PostMapping
     public ResponseEntity<ResponseObject<Coach>> createCoach(@RequestBody Coach coachVehicle) {
-        System.out.println("controller");
         ResponseObject<Coach> responseObject = coachService.createCoach(coachVehicle);
         if ("error".equals(responseObject.getStatus())) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseObject);

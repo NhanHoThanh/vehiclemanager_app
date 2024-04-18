@@ -16,6 +16,8 @@ import org.springframework.web.client.RestTemplate;
 //import project.api.drivers.models.Driver;
 import project.api.drivers.models.*;
 
+import project.api.drivers.services.CoachService;
+import project.api.drivers.services.ContainerService;
 import project.api.drivers.services.VehicleService;
 import project.api.drivers.ultis.ResponseObject;
 
@@ -28,6 +30,10 @@ public class VehicleController {
     @Autowired
     private RestTemplate restTemplate;
     public VehicleService vehicleService;
+    @Autowired
+    private CoachService coachService;
+    @Autowired
+    private ContainerService containerService;
 
     public VehicleController(VehicleService vehicleService) {
         this.vehicleService = vehicleService;
@@ -57,7 +63,7 @@ public class VehicleController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<ResponseObject<List<Vehicle>>> getCoachByAttributes(@RequestBody Vehicle vehicle) {
+    public ResponseEntity<ResponseObject<List<Vehicle>>> getVehicleByAttributes(@RequestBody Vehicle vehicle) {
         ResponseObject<List<Vehicle>> vehicleList = vehicleService.getVehicleByAttributes(vehicle);
         if (vehicleList != null) {
             return ResponseEntity.ok(vehicleList);
@@ -127,6 +133,7 @@ public class VehicleController {
         }
         return ResponseEntity.ok(responseObject);
     }
+
     @PutMapping("/totalRevenue/{idVehicle}")
     public ResponseEntity<ResponseObject>  calculateTotalRevenueCostProfit (@PathVariable String idVehicle ) throws ExecutionException, InterruptedException {
         ResponseEntity<ResponseObject<Vehicle>> responseEntityVehicle =getVehicle(idVehicle );
@@ -211,11 +218,43 @@ public class VehicleController {
           List<Date>  timeEndListUpdate = vehicle.getTimeEndList();
         timeEndListUpdate.add(vehicle.getTimeEnd()); // 4
         // goi api coach hoac cargo de reset lai
-         Vehicle newVehicleUpdate = new Vehicle(listIdRouteUpdate,listIdIncomeUpdate,timeStartListUpdate,timeEndListUpdate);
+        if(vehicleData.getVehicleType().equals("coach")) {
+            ResponseObject<Coach> coachResponseObject = coachService.getCoachById(idVehicle);
+            Coach coachData = (Coach) coachResponseObject.getData();
+            int numberOfSeat =coachData.getNumberOfSeats();
+            List<String> emptySeat = new ArrayList<>();
+            for(int i=1;i<=numberOfSeat ;i++){
+                emptySeat.add( String.valueOf(i));
+            }
+            List<String> passengerList = new ArrayList<>();
+
+
+
+
+
+            Coach coach = new Coach(0,emptySeat,passengerList);
+            coachService.updateCoach(idVehicle,coach );
+        }
+        else {
+            ResponseObject<Container> containerResponseObject = containerService.getContainerById(idVehicle);
+            Container containerData = (Container) containerResponseObject.getData();
+
+            List<String> cargoList = new ArrayList<>();
+
+
+
+
+
+            Container container = new Container(0,cargoList);
+            containerService.updateContainer(idVehicle,container );
+        }
+
+         Vehicle newVehicleUpdate = new Vehicle(listIdRouteUpdate,listIdIncomeUpdate,timeStartListUpdate,timeEndListUpdate,vehicle.getRoute());
         return  updateVehicle(idVehicle,newVehicleUpdate);
 
 
     }
+
 
 
 

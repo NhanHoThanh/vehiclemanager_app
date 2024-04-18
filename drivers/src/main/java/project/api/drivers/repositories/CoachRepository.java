@@ -6,7 +6,6 @@ import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.stereotype.Repository;
 import project.api.drivers.models.Coach;
 import project.api.drivers.models.Vehicle;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -14,7 +13,10 @@ import java.util.concurrent.ExecutionException;
 public class CoachRepository extends GenericRepositoryImpl {
 
     public Coach createCoach(Coach coach) throws ExecutionException, InterruptedException {
+
         Vehicle vehicle = new Vehicle(coach.getIdVehicle(), coach.getDriverList(), coach.getHistoryRouteList(), coach.getHistoryIncomeList(), coach.getTimeStartList(), coach.getTimeEndList(), coach.getCapacity(), coach.getFuelType(), coach.getStatus(), coach.getRoute(), coach.getVehicleType(), coach.getTimeStart(), coach.getTimeEnd(), coach.getDestination(), coach.getDeparture());
+
+
         createDocument("Vehicle", coach.getIdVehicle(), vehicle);
         createDocument("Coach", coach.getIdVehicle(), coach);
         return coach;
@@ -25,6 +27,10 @@ public class CoachRepository extends GenericRepositoryImpl {
     }
 
     public void updateCoach(String id, Coach coach) throws ExecutionException, InterruptedException, IllegalAccessException {
+
+        Vehicle vehicle = new Vehicle(coach.getIdVehicle(), coach.getDriverList(), coach.getHistoryRouteList(), coach.getHistoryIncomeList(), coach.getTimeStartList(), coach.getTimeEndList(), coach.getCapacity(), coach.getFuelType(), coach.getStatus(), coach.getRoute(), coach.getVehicleType(), coach.getTimeStart(), coach.getTimeEnd(), coach.getDestination(), coach.getDeparture());
+        updateDocument("Vehicle", id, vehicle);
+
         updateDocument("Coach", id, coach);
     }
 
@@ -121,6 +127,9 @@ public class CoachRepository extends GenericRepositoryImpl {
             }
             if (coach.getTimeStart() != null) {
                 query = query.whereEqualTo("timeStart", coach.getTimeStart());
+            }
+            if (coach.getVehicleType() != null) {
+                query = query.whereEqualTo("vehicleType", coach.getVehicleType());
             }
         }
 

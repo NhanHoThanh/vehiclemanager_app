@@ -19,6 +19,12 @@ public class Coach extends Vehicle{
     public Coach() {
     }
 
+    public Coach(int numberOfPassenger, List<String> emptySeat, List<String> passengerList) {
+        this.numberOfPassenger = numberOfPassenger;
+        this.emptySeat = emptySeat;
+        this.passengerList = passengerList;
+    }
+
     public Coach(int numberOfSeats, int numberOfPassenger, Date previousMaintenanceDate, Date nextMaintenanceDate, List<String> emptySeat, List<String> passengerList) {
         this.numberOfSeats = numberOfSeats;
         this.numberOfPassenger = numberOfPassenger;

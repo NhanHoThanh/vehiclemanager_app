@@ -286,7 +286,7 @@
 
 **Method**: `PUT`
 
-**Return**: cargo
+**Return**: passenger
 
 ### Delete Passenger
 

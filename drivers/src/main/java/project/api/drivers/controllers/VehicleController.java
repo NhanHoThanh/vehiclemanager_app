@@ -1,16 +1,26 @@
 package project.api.drivers.controllers;
 
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import project.api.drivers.models.Driver;
-import project.api.drivers.models.Route;
+//<<<<<<< HEAD
+//import project.api.drivers.models.Driver;
+//import project.api.drivers.models.Route;
+//=======
+import org.springframework.web.client.RestTemplate;
+//import project.api.drivers.models.Driver;
+import project.api.drivers.models.Passenger;
+
 import project.api.drivers.models.Vehicle;
 import project.api.drivers.services.VehicleService;
 import project.api.drivers.ultis.ResponseObject;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -18,6 +28,8 @@ import java.util.concurrent.ExecutionException;
 @RestController
 @RequestMapping("/api/vehicle")
 public class VehicleController {
+    @Autowired
+    private RestTemplate restTemplate;
     public VehicleService vehicleService;
 
     public VehicleController(VehicleService vehicleService) {
@@ -46,15 +58,7 @@ public class VehicleController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
-    @GetMapping("/listDriver/{idVehicle}")
-    public ResponseEntity<ResponseObject<List<Driver>>> getListDriver(@PathVariable String idVehicle) {
-        ResponseObject<List<Driver>> listDriver = vehicleService.getListDriver(idVehicle);
-        if (listDriver != null) {
-            return ResponseEntity.ok(listDriver);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-    }
+
     @GetMapping("/search")
     public ResponseEntity<ResponseObject<List<Vehicle>>> getCoachByAttributes(@RequestBody Vehicle vehicle) {
         ResponseObject<List<Vehicle>> vehicleList = vehicleService.getVehicleByAttributes(vehicle);
@@ -64,7 +68,7 @@ public class VehicleController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
-//    @GetMapping("/search")
+    //    @GetMapping("/search")
 //    public ResponseEntity<ResponseObject<List<Vehicle>>> getVehicleByAttributes(@RequestParam Map<String, String> allParams) {
 //        ResponseObject<List<Vehicle>> vehicleList = vehicleService.getVehicleByAttributes(allParams);
 //        if (vehicleList != null) {
@@ -83,8 +87,6 @@ public class VehicleController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
-
-
     @PostMapping
     public ResponseEntity<ResponseObject<Vehicle>> createVehicle(@RequestBody Vehicle vehicle) {
         ResponseObject<Vehicle> responseObject = vehicleService.createVehicle(vehicle);
@@ -128,5 +130,6 @@ public class VehicleController {
         }
         return ResponseEntity.ok(responseObject);
     }
+
 
 }

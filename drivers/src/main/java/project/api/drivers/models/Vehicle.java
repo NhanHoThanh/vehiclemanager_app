@@ -6,7 +6,12 @@ import java.util.List;
 public class Vehicle {
     private String idVehicle;
     private List<String> driverList;
-//    private List<String> hisRouteList;
+
+    private List<String> hisRouteList;
+    private List<String> hisIncomeList;
+    private List<Date> timeStartList;
+    private List<Date> timeEndList;
+
     private int capacity;
     private String fuelType;
     private String status;
@@ -20,9 +25,13 @@ public class Vehicle {
     public Vehicle() {
     }
 
-    public Vehicle(String idVehicle, List<String> driverList, int capacity, String fuelType, String status, String route, String vehicleType, Date timeStart, Date timeEnd, String destination, String departure) {
+    public Vehicle(String idVehicle, List<String> driverList, List<String> hisRouteList, List<String> hisIncomeList, List<Date> timeStartList, List<Date> timeEndList, int capacity, String fuelType, String status, String route, String vehicleType, Date timeStart, Date timeEnd, String destination, String departure) {
         this.idVehicle = idVehicle;
         this.driverList = driverList;
+        this.hisRouteList = hisRouteList;
+        this.hisIncomeList = hisIncomeList;
+        this.timeStartList = timeStartList;
+        this.timeEndList = timeEndList;
         this.capacity = capacity;
         this.fuelType = fuelType;
         this.status = status;
@@ -32,6 +41,46 @@ public class Vehicle {
         this.timeEnd = timeEnd;
         this.destination = destination;
         this.departure = departure;
+    }
+
+    public List<String> getHisIncomeList() {
+        return hisIncomeList;
+    }
+
+    public void setHisIncomeList(List<String> hisIncomeList) {
+        this.hisIncomeList = hisIncomeList;
+    }
+
+    public List<Date> getTimeStartList() {
+        return timeStartList;
+    }
+
+    public void setTimeStartList(List<Date> timeStartList) {
+        this.timeStartList = timeStartList;
+    }
+
+    public List<Date> getTimeEndList() {
+        return timeEndList;
+    }
+
+    public void setTimeEndList(List<Date> timeEndList) {
+        this.timeEndList = timeEndList;
+    }
+
+    public List<String> getHisRouteList() {
+        return hisRouteList;
+    }
+    public void addRoute(String id) {
+        this.hisRouteList.add(id);
+    }
+    public void addTimeStartList(Date date) {
+        this.timeStartList.add(date);
+    }
+    public void addTimeEndtList(Date date) {
+        this.timeEndList.add(date);
+    }
+    public void setHisRouteList(List<String> hisRouteList) {
+        this.hisRouteList = hisRouteList;
     }
 
     public String getDestination() {

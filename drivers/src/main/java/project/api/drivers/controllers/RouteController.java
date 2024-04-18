@@ -144,11 +144,13 @@ public class RouteController {
             if(routeDataInList.getDeparture().equals(data.get("departure")) && routeDataInList.getDestination().equals(data.get("destination")) ){
                 ResponseObject<Boolean> responseObject = new ResponseObject<>();
 
+
                         responseObject.setStatus("success");
                         responseObject.setMessage("Check successfully");
                         responseObject.setData(true);
                 return ResponseEntity.ok(responseObject);
                 }
+
 
             }
         ResponseObject<Boolean> responseObjectCaseFalse = new ResponseObject<>();
@@ -159,9 +161,6 @@ public class RouteController {
         return ResponseEntity.ok(responseObjectCaseFalse );
 
         }
-
-
-
 
 
 

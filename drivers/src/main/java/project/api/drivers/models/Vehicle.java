@@ -6,6 +6,7 @@ import java.util.List;
 public class Vehicle {
     private String idVehicle;
     private List<String> driverList;
+    private List<String> hisRouteList;
     private int capacity;
     private String fuelType;
     private String status;

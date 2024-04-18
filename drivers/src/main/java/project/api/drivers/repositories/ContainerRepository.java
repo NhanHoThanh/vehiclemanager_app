@@ -69,7 +69,7 @@ public class ContainerRepository extends GenericRepositoryImpl {
             System.out.println("Không tìm thấy xe với id: " + idVehicle);
         }
     }
-    public void addPassenger(String idVehicle, String idCargo) throws ExecutionException, InterruptedException, IllegalAccessException {
+    public void addCargo(String idVehicle, String idCargo, Boolean BooleanData) throws ExecutionException, InterruptedException, IllegalAccessException {
         System.out.println("1");
         Firestore db = FirestoreClient.getFirestore();
         DocumentReference containerDocRef = db.collection("Container").document(idVehicle);
@@ -78,7 +78,8 @@ public class ContainerRepository extends GenericRepositoryImpl {
         ApiFuture<DocumentSnapshot> cargoFuture = cargoDocRef.get();
         DocumentSnapshot containerDocument = containerFuture.get();
         DocumentSnapshot cargoDocument = cargoFuture.get();
-        if (containerDocument.exists() && cargoDocument.exists()) {
+        System.out.println(BooleanData);
+        if (containerDocument.exists() && cargoDocument.exists() && BooleanData) {
             List<String> cargoList = (List<String>) containerDocument.get("cargoList");
             Double maxLoad = containerDocument.getDouble("maxLoad");
             Double currentLoad = containerDocument.getDouble("currentLoad");

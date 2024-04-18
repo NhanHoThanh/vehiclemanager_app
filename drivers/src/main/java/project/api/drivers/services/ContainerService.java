@@ -78,8 +78,7 @@ public ResponseObject<List<Container>> getAllContainer() {
         }
         return responseObject;
     }
-    //
-//
+
     public ResponseObject<Container> updateContainer(String id, Container container) {
         ResponseObject<Container> responseObject = new ResponseObject<>();
         try {
@@ -117,7 +116,6 @@ public ResponseObject<List<Container>> getAllContainer() {
             }
         } catch (Exception e) {
             responseObject.setStatus("error");
-//            responseObject.setMessage(STR."An error occurred: \{e.getMessage()}");
         }
         return responseObject;
     }
@@ -141,12 +139,12 @@ public ResponseObject<List<Container>> getAllContainer() {
         return responseObject;
     }
 
-    public ResponseObject<Container> addCargo(String idVehicle, String idCargo) {
+    public ResponseObject<Container> addCargo(String idVehicle, String idCargo, Boolean BooleanData) {
         ResponseObject<Container> responseObject = new ResponseObject<>();
         try {
             Container containerUpdate = containerRepository.getContainerById(idVehicle);
             if (containerUpdate != null) {
-                containerRepository.addPassenger(idVehicle,idCargo);
+                containerRepository.addCargo(idVehicle,idCargo, BooleanData);
                 responseObject.setStatus("success");
                 responseObject.setMessage("Update vehicle successfully");
                 responseObject.setData(containerUpdate);

@@ -7,10 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-import project.api.drivers.models.Coach;
-import project.api.drivers.models.Passenger;
-import project.api.drivers.models.Route;
-import project.api.drivers.models.Vehicle;
+import project.api.drivers.models.*;
 import project.api.drivers.services.RouteService;
 import project.api.drivers.ultis.ResponseObject;
 
@@ -161,6 +158,23 @@ public class RouteController {
         return ResponseEntity.ok(responseObjectCaseFalse );
 
         }
+//    @GetMapping("/add/RouteCoach/{idVehicle}/{idRoute}")
+//    public String addCoachIncome (@PathVariable String idVehicle, @PathVariable String idRoute) throws ExecutionException, InterruptedException {
+//        ResponseEntity<ResponseObject<Route>> responseRoute= getRoute(idRoute);
+//        ResponseObject<Route> routeResponseObject = responseRoute.getBody();
+//        Route routeObject = (Route) routeResponseObject.getData();
+//        String  idRoute = routeObject.getIdRoute();
+//        return idRoute;
+//    }
+//    @GetMapping("/add/RouteContainer/{idVehicle}")
+//    public String addContainerIncome (@PathVariable String idVehicle) throws ExecutionException, InterruptedException {
+//        ResponseEntity<ResponseObject<Income>> responseIncome= calculateIncomeFormContainer(idVehicle);
+//        ResponseObject<Income> incomeResponseObject = responseIncome.getBody();
+//        Income incomeObject = (Income) incomeResponseObject.getData();
+//        String  idIncome = incomeObject.getIdIncome();
+//        return idIncome;
+//    }
+//    update
 
 
 

@@ -1,9 +1,12 @@
 package project.api.drivers.controllers;
 
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import project.api.drivers.models.Driver;
+import project.api.drivers.models.Route;
 import project.api.drivers.models.Vehicle;
 import project.api.drivers.services.VehicleService;
 import project.api.drivers.ultis.ResponseObject;
@@ -125,4 +128,5 @@ public class VehicleController {
         }
         return ResponseEntity.ok(responseObject);
     }
+
 }

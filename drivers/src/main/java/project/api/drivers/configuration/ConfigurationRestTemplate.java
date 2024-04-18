@@ -11,7 +11,7 @@ public class ConfigurationRestTemplate {
     public RestTemplate restTemplateInit (){
         RestTemplate restTemplate = new RestTemplate();
         DefaultUriBuilderFactory defaultUriBuilderFactory =
-                new DefaultUriBuilderFactory("http://localhost:8080");
+                new DefaultUriBuilderFactory("http://localhost:8082");
         restTemplate.setUriTemplateHandler(defaultUriBuilderFactory);
         return restTemplate;
     }

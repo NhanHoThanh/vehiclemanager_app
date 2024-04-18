@@ -315,5 +315,48 @@ public ResponseEntity<ResponseObject<Coach>> calculateIncomeFromSpecificCoach(@P
 
 
     }
+//      @GetMapping("getTotalIncome/{idVehicle}")
+//      Double getTotalIncome (@PathVariable String idVehicle ) throws ExecutionException, InterruptedException {
+//          ResponseEntity<ResponseObject<Vehicle>> responseEntityCoach = restTemplate.exchange(
+//                  "/api/coach/{idVehicle}",
+//                  HttpMethod.GET,
+//                  null,
+//                  new ParameterizedTypeReference<ResponseObject<Vehicle>>() {
+//                  },
+//                  idVehicle
+//          );
+//          ResponseObject<Vehicle> coachResponseObject = responseEntityCoach.getBody();
+//          Vehicle vehicle = (Vehicle) coachResponseObject.getData();
+//          List<String> listIdRoute = vehicle;
+//          Double totalRenevue=0.0;
+//           for(String id: listIdRoute ){
+//               ResponseEntity<ResponseObject<Income>> responseIncome = getIncome(id);
+//               ResponseObject<Income> responseRouteEntity = responseIncome.getBody();
+//               assert responseRouteEntity != null;
+//               Income routeIncome = (Income) responseRouteEntity.getData();
+//               totalRenevue+=routeIncome.getRevenue();
+//
+//
+//
+//           }
+//           return totalRenevue;
+//      }
+ @GetMapping("/add/IncomeCoach/{idVehicle}")
+public String addCoachIncome (@PathVariable String idVehicle) throws ExecutionException, InterruptedException {
+    ResponseEntity<ResponseObject<Income>> responseIncome= calculateIncomeFormCoach(idVehicle);
+     ResponseObject<Income> incomeResponseObject = responseIncome.getBody();
+     Income incomeObject = (Income) incomeResponseObject.getData();
+     String  idIncome = incomeObject.getIdIncome();
+     return idIncome;
+}
+    @GetMapping("/add/IncomeContainer/{idVehicle}")
+    public String addContainerIncome (@PathVariable String idVehicle) throws ExecutionException, InterruptedException {
+        ResponseEntity<ResponseObject<Income>> responseIncome= calculateIncomeFormContainer(idVehicle);
+        ResponseObject<Income> incomeResponseObject = responseIncome.getBody();
+        Income incomeObject = (Income) incomeResponseObject.getData();
+        String  idIncome = incomeObject.getIdIncome();
+        return idIncome;
+    }
+
 }
 

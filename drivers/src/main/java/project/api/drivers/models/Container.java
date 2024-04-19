@@ -19,6 +19,20 @@ public class Container extends Vehicle{
         this.cargoList = cargoList;
     }
 
+    public Container(String idVehicle, List<String> driverList, List<String> historyRouteList, List<String> historyIncomeList,
+                     List<Date> timeStartList, List<Date> timeEndList, Double toTalRevenue, Double toTalProfit, Double toTalCost,
+                     int capacity, String fuelType, String status, String route, String vehicleType, Date timeStart, Date timeEnd,
+                     String destination, String departure, String cargoType, Date previousMaintenanceDate, Date nextMaintenanceDate,
+                     int currentLoad, int maxLoad, List<String> cargoList) {
+        super(idVehicle, driverList, historyRouteList, historyIncomeList, timeStartList, timeEndList, toTalRevenue, toTalProfit, toTalCost, capacity, fuelType, status, route, vehicleType, timeStart, timeEnd, destination, departure);
+        this.cargoType = cargoType;
+        this.previousMaintenanceDate = previousMaintenanceDate;
+        this.nextMaintenanceDate = nextMaintenanceDate;
+        this.currentLoad = currentLoad;
+        this.maxLoad = maxLoad;
+        this.cargoList = cargoList;
+    }
+
     public Container(String idVehicle, List<String> driverList, List<String> hisRouteList, List<String> hisIncomeList, List<Date> timeStartList, List<Date> timeEndList, int capacity, String fuelType, String status, String route, String vehicleType, Date timeStart, Date timeEnd, String destination, String departure, String cargoType, Date previousMaintenanceDate, Date nextMaintenanceDate, int currentLoad, int maxLoad, List<String> cargoList) {
         super(idVehicle, driverList, hisRouteList, hisIncomeList, timeStartList, timeEndList, capacity, fuelType, status, route, vehicleType, timeStart, timeEnd, destination, departure);
         this.cargoType = cargoType;
@@ -88,5 +102,12 @@ public class Container extends Vehicle{
         this.setVehicleType(vehicle.getVehicleType());
         this.setTimeStart(vehicle.getTimeStart());
         this.setTimeEnd(vehicle.getTimeEnd());
+        this.setHistoryRouteList(vehicle.getHistoryRouteList());
+        this.setHistoryIncomeList(vehicle.getHistoryIncomeList());
+        this.setToTalRevenue(vehicle.getToTalRevenue());
+        this.setToTalCost(vehicle.getToTalCost());
+        this.setToTalProfit(vehicle.getToTalProfit());
+        this.setTimeStartList(vehicle.getTimeStartList());
+        this.setTimeEndList(vehicle.getTimeEndList());
     }
 }

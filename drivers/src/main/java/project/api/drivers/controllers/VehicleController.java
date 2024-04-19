@@ -213,26 +213,53 @@ public class VehicleController {
         listIdIncomeUpdate.add(idIncome);
         List<String> listIdRouteUpdate =vehicleData.getHistoryRouteList();
         listIdRouteUpdate.add(vehicle.getRoute()); // 2
+//        List<Date> timeStartListUpdate = new ArrayList<>();
+//         if( vehicle.getTimeStartList()==null) {
+//
+//
+//             vehicle.setTimeStartList(timeStartListUpdate);
+//
+//         }
+////         else {
+////             timeStartListUpdate =    vehicle.getTimeStartList() ;
+////             timeStartListUpdate.add(vehicle.getTimeStart());
+////         }
+////         List<Date> timeStartListUpdate =    vehicle.getTimeStartList() ;
+////        timeStartListUpdate.add(vehicle.getTimeStart()); // 3
+//        List<Date> timeEndListUpdate = new ArrayList<>();
+//        if( vehicle.getTimeEndList()==null){
+//
+//
+//            vehicle.setTimeEndList(timeEndListUpdate );
+//        }
+////        else {
+////            timeEndListUpdate =    vehicle.getTimeEndList() ;
+////            timeEndListUpdate.add(vehicle.getTimeEnd());
+////        }
+////          List<Date>  timeEndListUpdate = vehicle.getTimeEndList();
+////        timeEndListUpdate.add(vehicle.getTimeEnd()); // 4
+//        List<Date> timeStartListUpdateHandler = vehicle.getTimeStartList();
+//        timeStartListUpdateHandler.add(vehicle.getTimeStart());
+//        List<Date> timeEndListUpdateHandler = vehicle.getTimeEndList();
+//        timeEndListUpdateHandler.add(vehicle.getTimeEnd());
+//        vehicle.setTimeStartList(timeStartListUpdateHandler);
+//        vehicle.setTimeEndList(timeEndListUpdateHandler);
         List<Date> timeStartListUpdate = new ArrayList<>();
-         if( vehicle.getTimeStartList()!=null){
-             timeStartListUpdate =    vehicle.getTimeStartList() ;
-             timeStartListUpdate.add(vehicle.getTimeStart());
-         }
-         else {
-             timeStartListUpdate.add(vehicle.getTimeStart());
-         }
-//         List<Date> timeStartListUpdate =    vehicle.getTimeStartList() ;
-//        timeStartListUpdate.add(vehicle.getTimeStart()); // 3
         List<Date> timeEndListUpdate = new ArrayList<>();
-        if( vehicle.getTimeEndList()!=null){
-            timeEndListUpdate =    vehicle.getTimeEndList() ;
-            timeEndListUpdate.add(vehicle.getTimeEnd());
+        if(vehicleData.getTimeStartList()!=null){
+            timeStartListUpdate=vehicleData.getTimeStartList();
         }
-        else {
-            timeEndListUpdate.add(vehicle.getTimeEnd());
+        if(vehicleData.getTimeEndList()!=null){
+            timeEndListUpdate=vehicleData.getTimeEndList();
         }
-//          List<Date>  timeEndListUpdate = vehicle.getTimeEndList();
-//        timeEndListUpdate.add(vehicle.getTimeEnd()); // 4
+        timeStartListUpdate.add(vehicle.getTimeStart());
+        timeEndListUpdate.add(vehicle.getTimeEnd());
+
+
+
+
+
+
         // goi api coach hoac cargo de reset lai
         if(vehicleData.getVehicleType().equals("coach")) {
             ResponseObject<Coach> coachResponseObject = coachService.getCoachById(idVehicle);
@@ -264,6 +291,7 @@ public class VehicleController {
             Container container = new Container(0,cargoList);
             containerService.updateContainer(idVehicle,container );
         }
+
 
          Vehicle newVehicleUpdate = new Vehicle(listIdRouteUpdate,listIdIncomeUpdate,timeStartListUpdate,timeEndListUpdate,vehicle.getRoute(),vehicle.getTimeStart(),vehicle.getTimeEnd());
         return  updateVehicle(idVehicle,newVehicleUpdate);

@@ -37,7 +37,30 @@ public class Vehicle {
         this.toTalCost = toTalCost;
     }
 
-    public Vehicle(List<String> historyRouteList, List<String> historyIncomeList, List<Date> timeStartList, List<Date> timeEndList,String route ,Date timeStart, Date timeEnd  ) {
+    public Vehicle(String idVehicle, List<String> driverList, List<String> historyRouteList, List<String> historyIncomeList, List<Date> timeStartList,
+                   List<Date> timeEndList, Double toTalRevenue, Double toTalProfit, Double toTalCost, int capacity, String fuelType,
+                   String status, String route, String vehicleType, Date timeStart, Date timeEnd, String destination, String departure) {
+        this.idVehicle = idVehicle;
+        this.driverList = driverList;
+        this.historyRouteList = historyRouteList;
+        this.historyIncomeList = historyIncomeList;
+        this.timeStartList = timeStartList;
+        this.timeEndList = timeEndList;
+        this.toTalRevenue = toTalRevenue;
+        this.toTalProfit = toTalProfit;
+        this.toTalCost = toTalCost;
+        this.capacity = capacity;
+        this.fuelType = fuelType;
+        this.status = status;
+        this.route = route;
+        this.vehicleType = vehicleType;
+        this.timeStart = timeStart;
+        this.timeEnd = timeEnd;
+        this.destination = destination;
+        this.departure = departure;
+    }
+
+    public Vehicle(List<String> historyRouteList, List<String> historyIncomeList, List<Date> timeStartList, List<Date> timeEndList, String route , Date timeStart, Date timeEnd  ) {
         this.historyRouteList = historyRouteList;
         this.historyIncomeList = historyIncomeList;
         this.timeStartList = timeStartList;
@@ -119,8 +142,6 @@ public class Vehicle {
     public void setTimeEndList(List<Date> timeEndList) {
         this.timeEndList = timeEndList;
     }
-
-
 
     public String getDestination() {
         return destination;
@@ -215,4 +236,6 @@ public class Vehicle {
     public void setTimeEnd(Date timeEnd) {
         this.timeEnd = timeEnd;
     }
+
+
 }

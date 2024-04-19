@@ -37,12 +37,14 @@ public class Vehicle {
         this.toTalCost = toTalCost;
     }
 
-    public Vehicle(List<String> historyRouteList, List<String> historyIncomeList, List<Date> timeStartList, List<Date> timeEndList,String route ) {
+    public Vehicle(List<String> historyRouteList, List<String> historyIncomeList, List<Date> timeStartList, List<Date> timeEndList,String route ,Date timeStart, Date timeEnd  ) {
         this.historyRouteList = historyRouteList;
         this.historyIncomeList = historyIncomeList;
         this.timeStartList = timeStartList;
         this.timeEndList = timeEndList;
         this.route=route;
+        this.timeStart=timeStart;
+        this.timeEnd=timeEnd;
     }
 
     public Vehicle(String idVehicle, List<String> driverList, List<String> hisRouteList, List<String> hisIncomeList, List<Date> timeStartList, List<Date> timeEndList, int capacity, String fuelType, String status, String route, String vehicleType, Date timeStart, Date timeEnd, String destination, String departure) {

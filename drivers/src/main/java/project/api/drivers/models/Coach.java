@@ -103,5 +103,12 @@ public class Coach extends Vehicle{
         this.setVehicleType(vehicle.getVehicleType());
         this.setTimeStart(vehicle.getTimeStart());
         this.setTimeEnd(vehicle.getTimeEnd());
+        this.setHistoryRouteList(vehicle.getHistoryRouteList());
+        this.setHistoryIncomeList(vehicle.getHistoryIncomeList());
+        this.setToTalRevenue(vehicle.getToTalRevenue());
+        this.setToTalCost(vehicle.getToTalCost());
+        this.setToTalProfit(vehicle.getToTalProfit());
+        this.setTimeStartList(vehicle.getTimeStartList());
+        this.setTimeEndList(vehicle.getTimeEndList());
     }
 }

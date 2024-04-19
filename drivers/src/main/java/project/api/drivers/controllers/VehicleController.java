@@ -158,8 +158,8 @@ public class VehicleController {
             assert responseIncomeEntity != null;
             Income routeData = (Income) responseIncomeEntity.getData();
             toTalRevenue+=routeData.getRevenue();
-            toTalProfit=routeData.getProfit();
-            toTalCost=routeData.getCost();
+            toTalProfit+=routeData.getProfit();
+            toTalCost+=routeData.getCost();
         }
 
         Vehicle vehicleBoby = new Vehicle(toTalRevenue,toTalProfit,toTalCost);
@@ -171,7 +171,7 @@ public class VehicleController {
     }
     @PutMapping("updateRoute/{idVehicle}")
     public ResponseEntity<ResponseObject> updateRouteAndCalculateIncome (@PathVariable String  idVehicle ,@RequestBody Vehicle vehicle) throws ExecutionException, InterruptedException {
-
+        calculateTotalRevenueCostProfit(idVehicle);
         String idIncome="";
         ResponseEntity<ResponseObject<Vehicle>> responseVehicle = getVehicle( idVehicle );
 
@@ -213,10 +213,26 @@ public class VehicleController {
         listIdIncomeUpdate.add(idIncome);
         List<String> listIdRouteUpdate =vehicleData.getHistoryRouteList();
         listIdRouteUpdate.add(vehicle.getRoute()); // 2
-         List<Date> timeStartListUpdate =    vehicle.getTimeStartList() ;
-        timeStartListUpdate.add(vehicle.getTimeStart()); // 3
-          List<Date>  timeEndListUpdate = vehicle.getTimeEndList();
-        timeEndListUpdate.add(vehicle.getTimeEnd()); // 4
+        List<Date> timeStartListUpdate = new ArrayList<>();
+         if( vehicle.getTimeStartList()!=null){
+             timeStartListUpdate =    vehicle.getTimeStartList() ;
+             timeStartListUpdate.add(vehicle.getTimeStart());
+         }
+         else {
+             timeStartListUpdate.add(vehicle.getTimeStart());
+         }
+//         List<Date> timeStartListUpdate =    vehicle.getTimeStartList() ;
+//        timeStartListUpdate.add(vehicle.getTimeStart()); // 3
+        List<Date> timeEndListUpdate = new ArrayList<>();
+        if( vehicle.getTimeEndList()!=null){
+            timeEndListUpdate =    vehicle.getTimeEndList() ;
+            timeEndListUpdate.add(vehicle.getTimeEnd());
+        }
+        else {
+            timeEndListUpdate.add(vehicle.getTimeEnd());
+        }
+//          List<Date>  timeEndListUpdate = vehicle.getTimeEndList();
+//        timeEndListUpdate.add(vehicle.getTimeEnd()); // 4
         // goi api coach hoac cargo de reset lai
         if(vehicleData.getVehicleType().equals("coach")) {
             ResponseObject<Coach> coachResponseObject = coachService.getCoachById(idVehicle);
@@ -249,11 +265,74 @@ public class VehicleController {
             containerService.updateContainer(idVehicle,container );
         }
 
-         Vehicle newVehicleUpdate = new Vehicle(listIdRouteUpdate,listIdIncomeUpdate,timeStartListUpdate,timeEndListUpdate,vehicle.getRoute());
+         Vehicle newVehicleUpdate = new Vehicle(listIdRouteUpdate,listIdIncomeUpdate,timeStartListUpdate,timeEndListUpdate,vehicle.getRoute(),vehicle.getTimeStart(),vehicle.getTimeEnd());
         return  updateVehicle(idVehicle,newVehicleUpdate);
 
 
     }
+    @GetMapping("/history/route/{idVehicle}")
+    public ResponseEntity<ResponseObject<List<Route>>>  getListRouteHistory (@PathVariable String idVehicle ) throws ExecutionException, InterruptedException {
+        ResponseEntity<ResponseObject<Vehicle>> responseVehicle = getVehicle(idVehicle);
+
+        ResponseObject<Vehicle> responseVehicleEntity = responseVehicle.getBody();
+        assert responseVehicleEntity != null;
+        Vehicle vehicleData = (Vehicle) responseVehicleEntity.getData();
+        List<String> historyRouteList = vehicleData.getHistoryRouteList();
+        List<Route> listRoute = new ArrayList<>();
+        for (String idRoute : historyRouteList  ) {
+            ResponseEntity<ResponseObject<Route>> responseRoute = restTemplate.exchange(
+                    "/api/route/{idRoute}",
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<ResponseObject<Route>>() {
+                    },
+                    idRoute
+            );
+            //
+            ResponseObject<Route> responseRouteEntity = responseRoute.getBody();
+            assert responseRouteEntity != null;
+            Route routeData = (Route) responseRouteEntity.getData();
+            listRoute.add(routeData);
+        }
+        ResponseObject<List<Route>> responseObject = new ResponseObject<>();
+        responseObject.setStatus("success");
+        responseObject.setMessage("Get all Route successfully");
+        responseObject.setData(listRoute );
+        return ResponseEntity.ok(responseObject);
+
+    }
+    @GetMapping("/history/Income/{idVehicle}")
+    public ResponseEntity<ResponseObject<List<Income>>>  getListIncomeHistory (@PathVariable String idVehicle ) throws ExecutionException, InterruptedException {
+        ResponseEntity<ResponseObject<Vehicle>> responseVehicle = getVehicle(idVehicle);
+
+        ResponseObject<Vehicle> responseVehicleEntity = responseVehicle.getBody();
+        assert responseVehicleEntity != null;
+        Vehicle vehicleData = (Vehicle) responseVehicleEntity.getData();
+        List<String> historyIncomeList = vehicleData.getHistoryIncomeList();
+        List<Income> listIncome = new ArrayList<>();
+        for (String idIncome : historyIncomeList  ) {
+            ResponseEntity<ResponseObject<Income>> responseIncome = restTemplate.exchange(
+                    "/api/income/{idIncome}",
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<ResponseObject<Income>>() {
+                    },
+                    idIncome
+            );
+            //
+            ResponseObject<Income> responseIncomeEntity = responseIncome.getBody();
+            assert responseIncomeEntity != null;
+            Income IncomeData = (Income) responseIncomeEntity.getData();
+            listIncome.add(IncomeData);
+        }
+        ResponseObject<List<Income>> responseObject = new ResponseObject<>();
+        responseObject.setStatus("success");
+        responseObject.setMessage("Get all Income successfully");
+        responseObject.setData(listIncome );
+        return ResponseEntity.ok(responseObject);
+
+    }
+
 
 
 

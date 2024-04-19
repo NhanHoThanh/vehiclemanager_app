@@ -1,297 +1,140 @@
-# Vehicle API
-## Vehicle
-### Get vehicle by id
+# Route_Income API
+## Route
+### Get route by id
 
-**URL**: `http://localhost:8080/api/vehicle/{id}`
-
-**Method**: `GET`
-
-**Return**: vehicle
-
-### Get all vehicle
-
-**URL**: `http://localhost:8080/api/vehicle`
+**URL**: `http://localhost:8082/api/route/{id}`
 
 **Method**: `GET`
 
-**Return**: list vehicle
+**Return**: route
 
-### Get vehicle by departure || destination || timeStart || vehicleType
+### Get all route
 
-**URL**: `http://localhost:8080/api/vehicle/search`
-
-**Method**: `GET`
-
-**Return**: list vehicle
-
-### Get vehicle by departure && destination
-
-**URL**: `http://localhost:8081/api/vehicle/searchroute?departure=HoChiMinh&&destination=VungTau`
+**URL**: `http://localhost:8082/api/route`
 
 **Method**: `GET`
 
-**Return**: list vehicle
+**Return**: list route
 
-### Update vehicle
 
-**URL**: `http://localhost:8081/api/vehicle/{idVehicle}`
+### Update route
+
+**URL**: `http://localhost:8082/api/route/{idRoute}`
 
 **Method**: `Put`
 
-**Return**: vehicle
+**Return**: route
 
-### Add driver to vehicle
+### Create route
 
-**URL**: `http://localhost:8081/api/vehicle/addDriver/{idVehicle}/{idDriver}`
+**URL**: `http://localhost:8082/api/route`
 
 **Method**: `Post`
 
-**Return**: vehicle
+**Return**: route
 
-### Remove driver vehicle
+### Check route
 
-**URL**: `http://localhost:8081/api/vehicle/removeDriver/{idVehicle}/{idDriver}`
+**URL**: `http://localhost:8082/api/route/checkRoute/{idVehicle}`
 
-**Method**: `Delete`
+**Method**: `Get`
 
-**Return**: vehicle
+**Return**: Boolean
 
-## Coach
+## Income
 
-### Get coach by id
+### Get income by id
 
-**URL**: `http://localhost:8080/api/coach/{idCoach}`
-
-**Method**: `GET`
-
-**Return**: coach
-
-### Get all coach
-
-**URL**: `http://localhost:8080/api/coach/{idCoach}`
+**URL**: `http://localhost:8082/api/income/{idIncome}`
 
 **Method**: `GET`
 
-**Return**: list coach
+**Return**: income
 
-### Get list passenger
+### Get all income
 
-**URL**: `http://localhost:8080/api/coach/listPassenger/{idVehicle}`
-
-**Method**: `GET`
-
-**Return**: list passenger
-
-### Get coach by departure || destination || timeStart || vehicleType
-
-**URL**: `http://localhost:8080/api/coach/search`
+**URL**: `http://localhost:8082/api/income/{idIncome}`
 
 **Method**: `GET`
 
-**Return**: list coach
+**Return**: list income
 
-### Create coach
+### Create income
 
-**URL**: `http://localhost:8080/api/coach`
+**URL**: `http://localhost:8082/api/income`
 
 **Method**: `POST`
 
-**Return**: coach
+**Return**: income
 
-### Update coach
+### Update income
 
-**URL**: `http://localhost:8080/api/coach/{idCoach}`
+**URL**: `http://localhost:8082/api/income/{idIncome}`
 
 **Method**: `PUT`
 
+**Return**: income
+
+### Delete
+
+**URL**: `http://localhost:8082/api/income/{idIncome}`
+
+**Method**: `DELETE`
+
+**Return**: income
+
+### Calculate Income Form Specific Coach Test Method
+
+**URL**: `http://localhost:8082/api/income/getIncome/test/{idVehicle}`
+
+**Method**: `GET`
+
+**Return**: income
+
+### Calculate Income From Specific Coach
+
+**URL**: `http://localhost:8082/api/income/getIncome/{idVehicle}`
+
+**Method**: `GET`
+
 **Return**: coach
 
-### Add passenger
+### Get Route Form Income
 
-**URL**: `http://localhost:8080/api/coach/addPassenger/{idVehicle}/{idPassenger}`
-
-**Method**: `POST`
-
-**Return**: coach
-
-### Remove passenger
-
-**URL**: `http://localhost:8080/api/coach/removePassenger/{idVehicle}/{idPassenger}`
-
-**Method**: `DELETE`
-
-**Return**: coach
-
-## Container
-
-### Get container by id
-
-**URL**: `http://localhost:8080/api/container/{idContainer}`
+**URL**: `http://localhost:8082/api/income/getIncome/route/{idVehicle}`
 
 **Method**: `GET`
 
-**Return**: container
+**Return**: route
 
-### Get all container
+### Ccalculate Income Form Coach
 
-**URL**: `http://localhost:8080/api/container`
-
-**Method**: `GET`
-
-**Return**: list container
-
-### Get all cargo
-
-**URL**: `http://localhost:8080/api/container/cargo`
+**URL**: `http://localhost:8082/api/income/getIncomeCoach/{idVehicle}`
 
 **Method**: `GET`
 
-**Return**: list cargo
+**Return**: Income
 
-### Get list cargo in container
+### Calculate Income Form Container
 
-**URL**: `http://localhost:8080/api/container/listCargo/{idVehicle}`
-
-**Method**: `GET`
-
-**Return**: list cargo
-
-### Get list container by attributes
-
-**URL**: `http://localhost:8080/api/container/listCargo/{idVehicle}`
+**URL**: `http://localhost:8082/api/income/getIncomeContainer/{idVehicle}`
 
 **Method**: `GET`
 
-**Return**: list container
+**Return**: income
 
-### Create container
+### Add Coach Income
 
-**URL**: `http://localhost:8080/api/container`
-
-**Method**: `POST`
-
-**Return**: container
-
-### Update container
-
-**URL**: `http://localhost:8080/api/container/{idContainer}`
-
-**Method**: `PUT`
-
-**Return**: container
-
-### Add Cargo
-
-**URL**: `http://localhost:8080/api/container/addCargo/{idVehicle}/{idCargo}`
-
-**Method**: `POST`
-
-**Return**: cargo
-
-### Remove Cargo
-
-**URL**: `http://localhost:8080/api/container/removeCargo/{idVehicle}/{idCargo}`
-
-**Method**: `DELETE`
-
-**Return**: cargo
-
-## Cargo
-
-### Get cargo by id
-
-**URL**: `http://localhost:8080/api/cargo/{idCargo}`
+**URL**: `http://localhost:8082/api/income/add/IncomeCoach/{idVehicle}`
 
 **Method**: `GET`
 
-**Return**: cargo
+**Return**: String
 
-### Get all cargo
+### Add Container Income
 
-**URL**: `http://localhost:8080/api/cargo`
-
-**Method**: `GET`
-
-**Return**: list cargo
-
-### Get cargo by attribute
-
-**URL**: `http://localhost:8080/api/cargo/search`
+**URL**: `http://localhost:8082/api/income/add/IncomeContainer/{idVehicle}`
 
 **Method**: `GET`
 
-**Return**: list cargo
-
-### Create cargo
-
-**URL**: `http://localhost:8080/api/cargo`
-
-**Method**: `POST`
-
-**Return**: container
-
-### Update cargo
-
-**URL**: `http://localhost:8080/api/cargo/{idCargo}`
-
-**Method**: `PUT`
-
-**Return**: cargo
-
-### Delete cargo
-
-**URL**: `http://localhost:8080/api/cargo/{idCargo}`
-
-**Method**: `DELETE`
-
-**Return**: cargo
-
-## Passenger
-
-### Get Passenger by id
-
-**URL**: `http://localhost:8080/api/passenger/{idPassenger}`
-
-**Method**: `GET`
-
-**Return**: passenger
-
-### Get all Passenger
-
-**URL**: `http://localhost:8080/api/passenger`
-
-**Method**: `GET`
-
-**Return**: list passenger
-
-### Get passenger by attribute
-
-**URL**: `http://localhost:8080/api/assenger/search`
-
-**Method**: `GET`
-
-**Return**: list passenger
-
-### Create passenger
-
-**URL**: `http://localhost:8080/api/passenger`
-
-**Method**: `POST`
-
-**Return**: passenger
-
-### Update passenger
-
-**URL**: `http://localhost:8080/api/passenger/{idPassenger}`
-
-**Method**: `PUT`
-
-**Return**: passenger
-
-### Delete Passenger
-
-**URL**: `http://localhost:8080/api/passenger/{idPassenger}`
-
-**Method**: `DELETE`
-
-**Return**: passenger
+**Return**: String

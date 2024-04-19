@@ -56,6 +56,46 @@
 
 **Return**: vehicle
 
+### Remove vehicle
+
+**URL**: `http://localhost:8081/api/vehicle/{idDriver}`
+
+**Method**: `Delete`
+
+**Return**: vehicle
+
+### Calculate Total Revenue Cost Profit
+
+**URL**: `http://localhost:8081/api/vehicle/totalRevenue/{idVehicle}`
+
+**Method**: `PUT`
+
+**Return**: vehicle
+
+### Update Route And Calculate Income
+
+**URL**: `http://localhost:8081/api/vehicle/updateRoute/{idVehicle}`
+
+**Method**: `PUT`
+
+**Return**: vehicle
+
+### Get List Route History
+
+**URL**: `http://localhost:8081/api/vehicle/history/route/{idVehicle}`
+
+**Method**: `GET`
+
+**Return**: list route
+
+### Get List Income History
+
+**URL**: `http://localhost:8081/api/vehicle/history/Income/{idVehicle}`
+
+**Method**: `GET`
+
+**Return**: list income
+
 ## Coach
 
 ### Get coach by id

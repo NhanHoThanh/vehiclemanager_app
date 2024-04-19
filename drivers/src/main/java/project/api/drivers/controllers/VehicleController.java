@@ -169,7 +169,7 @@ public class VehicleController {
 
 
     }
-    @PutMapping("updateRoute/{idVehicle}")
+    @PutMapping("/updateRoute/{idVehicle}")
     public ResponseEntity<ResponseObject> updateRouteAndCalculateIncome (@PathVariable String  idVehicle ,@RequestBody Vehicle vehicle) throws ExecutionException, InterruptedException {
         calculateTotalRevenueCostProfit(idVehicle);
         String idIncome="";

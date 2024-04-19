@@ -14,9 +14,6 @@ public class Vehicle {
     private Double toTalRevenue;
     private Double toTalProfit;
     private Double toTalCost;
-
-
-
     private int capacity;
     private String fuelType;
     private String status;
@@ -236,6 +233,4 @@ public class Vehicle {
     public void setTimeEnd(Date timeEnd) {
         this.timeEnd = timeEnd;
     }
-
-
 }

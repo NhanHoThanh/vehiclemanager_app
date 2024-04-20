@@ -40,6 +40,14 @@
 
 **Return**: vehicle
 
+### Create vehicle
+
+**URL**: `http://localhost:8081/api/vehicle`
+
+**Method**: `Post`
+
+**Return**: vehicle
+
 ### Add driver to vehicle
 
 **URL**: `http://localhost:8081/api/vehicle/addDriver/{idVehicle}/{idDriver}`

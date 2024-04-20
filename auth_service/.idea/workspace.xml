@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="7d0a1d2d-d6a2-4d9b-b1b0-fd8db709100c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/auth_service/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_service/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/auth_service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_service/src/main/java/com/example/demo/DemoApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth_service/src/main/java/com/example/demo/DemoApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_service/src/main/java/com/example/demo/configuration/CustomLogoutHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth_service/src/main/java/com/example/demo/configuration/CustomLogoutHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_service/src/main/java/com/example/demo/configuration/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth_service/src/main/java/com/example/demo/configuration/SecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_service/src/main/java/com/example/demo/controllers/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth_service/src/main/java/com/example/demo/controllers/AuthenticationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_service/src/main/java/com/example/demo/filter/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth_service/src/main/java/com/example/demo/filter/JwtAuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_service/src/main/java/com/example/demo/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth_service/src/main/java/com/example/demo/models/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_service/src/main/java/com/example/demo/repositories/TokenRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth_service/src/main/java/com/example/demo/repositories/TokenRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_service/src/main/java/com/example/demo/repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth_service/src/main/java/com/example/demo/repositories/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_service/src/main/java/com/example/demo/services/AuthenticationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth_service/src/main/java/com/example/demo/services/AuthenticationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_service/src/main/java/com/example/demo/services/JwtService.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth_service/src/main/java/com/example/demo/services/JwtService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_service/src/main/java/com/example/demo/services/UserDetailsServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth_service/src/main/java/com/example/demo/services/UserDetailsServiceImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/auth_service/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../drivers/src/main/java/project/api/drivers/controllers/DriverController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../drivers/src/main/java/project/api/drivers/controllers/IncomeController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../drivers/src/main/java/project/api/drivers/controllers/RouteController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../drivers/src/main/java/project/api/drivers/models/Driver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../drivers/src/main/java/project/api/drivers/repositories/DriverRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../drivers/src/main/java/project/api/drivers/repositories/IncomeRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../drivers/src/main/java/project/api/drivers/repositories/RouteRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../drivers/src/main/java/project/api/drivers/services/DriverService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../drivers/src/main/java/project/api/drivers/services/IncomeService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../drivers/src/main/java/project/api/drivers/services/RouteService.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 5
+}]]></component>
+  <component name="ProjectId" id="2fN04p98EPfnY8uQE8fmMs3EP12" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "vehicle__microservice",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7d0a1d2d-d6a2-4d9b-b1b0-fd8db709100c" name="Changes" comment="" />
+      <created>1713626039671</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1713626039671</updated>
+      <workItem from="1713626040754" duration="8000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

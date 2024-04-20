@@ -6,21 +6,29 @@ public class Passenger {
     private String destination;
     private String departure;
     private String name;
+    private int age;
     private String seatingPosition;
     private double cosPassenger;
 
     public Passenger() {
     }
 
-    public Passenger(String idPassenger, String destination, String departure, String name, String seatingPosition, double cosPassenger) {
+    public Passenger(String idPassenger, String destination, String departure, String name, int age, String seatingPosition, double cosPassenger) {
         this.idPassenger = idPassenger;
         this.destination = destination;
         this.departure = departure;
         this.name = name;
+        this.age = age;
         this.seatingPosition = seatingPosition;
         this.cosPassenger = cosPassenger;
     }
+    public int getAge() {
+        return age;
+    }
 
+    public void setAge(int age) {
+        this.age = age;
+    }
     public String getIdPassenger() {
         return idPassenger;
     }

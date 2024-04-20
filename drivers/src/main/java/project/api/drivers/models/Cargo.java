@@ -9,13 +9,14 @@ public class Cargo{
     private String receivingPlace;
     private String phoneNumber;
     private String nameCargo;
+    private String cargoType;
     private double size;
     private double costCargo;
 
     public Cargo() {
     }
 
-    public Cargo(String idCargo, double mass, String receiver, String sender, String sendingPlace, String receivingPlace, String phoneNumber, String nameCargo, double size, double costCargo) {
+    public Cargo(String idCargo, double mass, String receiver, String sender, String sendingPlace, String receivingPlace, String phoneNumber, String nameCargo, String cargoType, double size, double costCargo) {
         this.idCargo = idCargo;
         this.mass = mass;
         this.receiver = receiver;
@@ -24,8 +25,17 @@ public class Cargo{
         this.receivingPlace = receivingPlace;
         this.phoneNumber = phoneNumber;
         this.nameCargo = nameCargo;
+        this.cargoType = cargoType;
         this.size = size;
         this.costCargo = costCargo;
+    }
+
+    public String getCargoType() {
+        return cargoType;
+    }
+
+    public void setCargoType(String cargoType) {
+        this.cargoType = cargoType;
     }
 
     public String getIdCargo() {

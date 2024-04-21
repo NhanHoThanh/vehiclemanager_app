@@ -25,15 +25,15 @@ import java.util.concurrent.ExecutionException;
 @SpringBootApplication
 
 public class DriversApplication {
-	public DriversApplication() throws IOException {
+	public DriversApplication() {
 	}
 
     @SuppressWarnings("deprecation")
-	public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
+	public static void main(String[] args) throws IOException {
 
 
 		FileInputStream serviceAccount =
-				new FileInputStream("D:\\Code\\drivers\\drivers\\src\\main\\resources\\serviceAccount.json");
+				new FileInputStream("drivers/src/main/resources/serviceAccount.json");
 
 		FirebaseOptions options = new FirebaseOptions.Builder()
 				.setCredentials(GoogleCredentials.fromStream(serviceAccount))

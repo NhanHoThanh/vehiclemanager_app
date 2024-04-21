@@ -7,6 +7,9 @@ import java.util.concurrent.ExecutionException;
 
 @Repository
 public class DriverRepository extends GenericRepositoryImpl {
+    public boolean checkDriverValueExists(String attributeName, String attributeValue) throws ExecutionException, InterruptedException {
+        return checkValueExits("Drivers", attributeName, attributeValue);
+    }
 
     public Driver createDriver(Driver driver) throws ExecutionException, InterruptedException {
         createDocument("Drivers", driver.getId(), driver);

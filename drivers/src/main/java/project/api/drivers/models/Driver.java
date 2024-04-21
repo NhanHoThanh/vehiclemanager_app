@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import org.checkerframework.common.value.qual.StringVal;
 import org.jetbrains.annotations.NotNull;
 
-@Entity
 public class Driver {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,41 +25,16 @@ public class Driver {
 
     private String status;
 
-    private int age;
-
-
-    private String vehicleId;// Vehicle 1
-
+    private String vehicleId;
     private String vehicleType;
     private String email;
-
-    public Driver(String id, String name, String address, String phone_number, String license, String cccd, String routeId, String status, int age, String vehicleId, String vehicleType, String email) {
-        this.id = id;
-        this.name = name;
-        this.address = address;
-        this.phone_number = phone_number;
-        this.license = license;
-        this.cccd = cccd;
-        this.routeId = routeId;
-        this.status = status;
-        this.age = age;
-        this.vehicleId = vehicleId;
-        this.vehicleType = vehicleType;
-        this.email = email;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
+    private String createdAt;
+    private String yearOfBirth;
+    private String gender;
     public Driver() {
     }
 
-    public Driver(String id, String name, String address, String phone_number, String license, String cccd, String routeId, String status, String vehicleId, String vehicleType, String email){
+    public Driver(String id, String name, String address, String phone_number, String license, String cccd, String routeId, String status, String vehicleId, String vehicleType, String email,String gender,String yearOfBirth, String createdAt){
         this.id=id;
         this.name = name;
         this.address = address;
@@ -72,6 +46,33 @@ public class Driver {
         this.vehicleId = vehicleId;
         this.vehicleType = vehicleType;
         this.email = email;
+        this.yearOfBirth = yearOfBirth;
+        this.gender = gender;
+        this.createdAt = createdAt;
+    }
+
+    public String getYearOfBirth() {
+        return yearOfBirth;
+    }
+
+    public void setYearOfBirth(String yearOfBirth) {
+        this.yearOfBirth = yearOfBirth;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
     public String getVehicleType() {

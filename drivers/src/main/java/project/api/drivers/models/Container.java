@@ -8,7 +8,7 @@ public class Container extends Vehicle{
     private Date previousMaintenanceDate;
     private Date nextMaintenanceDate;
     private int currentLoad;
-    private int maxLoad;
+    private Double maxLoad;
     private List<String> cargoList;
 
     public Container() {
@@ -23,7 +23,7 @@ public class Container extends Vehicle{
                      List<Date> timeStartList, List<Date> timeEndList, Double toTalRevenue, Double toTalProfit, Double toTalCost,
                      int capacity, String fuelType, String status, String route, String vehicleType, Date timeStart, Date timeEnd,
                      String destination, String departure, String cargoType, Date previousMaintenanceDate, Date nextMaintenanceDate,
-                     int currentLoad, int maxLoad, List<String> cargoList) {
+                     int currentLoad, Double maxLoad, List<String> cargoList) {
         super(idVehicle, driverList, historyRouteList, historyIncomeList, timeStartList, timeEndList, toTalRevenue, toTalProfit, toTalCost, capacity, fuelType, status, route, vehicleType, timeStart, timeEnd, destination, departure);
         this.cargoType = cargoType;
         this.previousMaintenanceDate = previousMaintenanceDate;
@@ -33,7 +33,7 @@ public class Container extends Vehicle{
         this.cargoList = cargoList;
     }
 
-    public Container(String idVehicle, List<String> driverList, List<String> hisRouteList, List<String> hisIncomeList, List<Date> timeStartList, List<Date> timeEndList, int capacity, String fuelType, String status, String route, String vehicleType, Date timeStart, Date timeEnd, String destination, String departure, String cargoType, Date previousMaintenanceDate, Date nextMaintenanceDate, int currentLoad, int maxLoad, List<String> cargoList) {
+    public Container(String idVehicle, List<String> driverList, List<String> hisRouteList, List<String> hisIncomeList, List<Date> timeStartList, List<Date> timeEndList, int capacity, String fuelType, String status, String route, String vehicleType, Date timeStart, Date timeEnd, String destination, String departure, String cargoType, Date previousMaintenanceDate, Date nextMaintenanceDate, int currentLoad, Double maxLoad, List<String> cargoList) {
         super(idVehicle, driverList, hisRouteList, hisIncomeList, timeStartList, timeEndList, capacity, fuelType, status, route, vehicleType, timeStart, timeEnd, destination, departure);
         this.cargoType = cargoType;
         this.previousMaintenanceDate = previousMaintenanceDate;
@@ -75,11 +75,11 @@ public class Container extends Vehicle{
         this.currentLoad = currentLoad;
     }
 
-    public int getMaxLoad() {
+    public Double getMaxLoad() {
         return maxLoad;
     }
 
-    public void setMaxLoad(int maxLoad) {
+    public void setMaxLoad(Double maxLoad) {
         this.maxLoad = maxLoad;
     }
 

@@ -7,14 +7,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-import project.api.drivers.models.Cargo;
+import project.api.drivers.models.*;
 import project.api.drivers.models.Container;
-import project.api.drivers.models.Passenger;
 import project.api.drivers.services.CargoService;
 import project.api.drivers.services.ContainerService;
 import project.api.drivers.ultis.ResponseObject;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -151,5 +151,67 @@ public class ContainerController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseObject);
         }
         return ResponseEntity.ok(responseObject);
+    }
+    @GetMapping("/setContainer/{idDriver}")
+    public ResponseEntity<ResponseObject<List<Container>>> getContainerByLicense (@PathVariable String idDriver ){
+        //        B1,B2,C,D,E,F
+        ResponseEntity<ResponseObject<Driver>> responseDriver = restTemplate.exchange(
+                "/api/drivers/{idDriver}",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<ResponseObject<Driver>>() {
+                },
+                idDriver
+        );
+        //
+        ResponseObject<Driver> responseDriverEntity = responseDriver.getBody();
+        assert responseDriverEntity != null;
+        Driver driverData = (Driver) responseDriverEntity.getData();
+        String license= driverData.getLicense();
+
+
+        Double minLoad=-1.0;
+        Double maxLoad =-1.0;
+        if(license.equals("B1")){
+            minLoad=0.0;
+            maxLoad =3.5;
+
+        }
+        else if( license.equals("B2")){
+            minLoad=0.0;
+            maxLoad =3.5;
+        }
+        else if( license.equals("C")){
+            minLoad=3.5;
+            maxLoad =200.0;
+        }
+        else if( license.equals("D")){
+            minLoad=0.0;
+            maxLoad =200.0;
+        }
+        else if( license.equals("E")){
+            minLoad=0.0;
+            maxLoad =200.0;
+        }
+        else if( license.equals("F")){
+            minLoad=0.0;
+            maxLoad =200.0;
+        }
+
+        ResponseEntity<ResponseObject<List<Container>>> responseEntityContainer =  getAllContainer();
+        ResponseObject<List<Container>> ContainerResponseObject = responseEntityContainer.getBody();
+        List<Container> listContainer = (List<Container>) ContainerResponseObject.getData();
+        List<Container> listContainerFilter = new ArrayList<>();
+        for(Container Container : listContainer){
+            Double load = Container.getMaxLoad();
+            if(load<=maxLoad&&load>=minLoad){
+                listContainerFilter.add(Container);
+            }
+        }
+        ResponseObject<List<Container>> newResponseListContainer = new ResponseObject<>();
+        newResponseListContainer.setData(listContainerFilter);
+        return ResponseEntity.ok(newResponseListContainer);
+
+
     }
 }

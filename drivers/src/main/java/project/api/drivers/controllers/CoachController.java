@@ -11,6 +11,7 @@ import project.api.drivers.services.CoachService;
 import project.api.drivers.services.PassengerService;
 import project.api.drivers.ultis.ResponseObject;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -155,6 +156,65 @@ public class CoachController {
         }
         return ResponseEntity.ok(responseObject);
     }
+    @GetMapping("/setCoach/{idDriver}")
+    public ResponseEntity<ResponseObject<List<Coach>>> getCoachByLicense (@PathVariable String idDriver ){
+        //        B1,B2,C,D,E,F
+        ResponseEntity<ResponseObject<Driver>> responseDriver = restTemplate.exchange(
+                "/api/drivers/{idDriver}",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<ResponseObject<Driver>>() {
+                },
+                idDriver
+        );
+        //
+        ResponseObject<Driver> responseDriverEntity = responseDriver.getBody();
+        assert responseDriverEntity != null;
+        Driver driverData = (Driver) responseDriverEntity.getData();
+        String license= driverData.getLicense();
+
+
+        int floorNumberOfSeat=-1;
+        int ceilNumberOfSeat =-1;
+        if(license.equals("B1")){
+            floorNumberOfSeat=0;
+            ceilNumberOfSeat =9;
+
+        }
+        else if( license.equals("B2")){
+            floorNumberOfSeat=4;
+            ceilNumberOfSeat =9;
+        }
+        else if( license.equals("C")){
+            floorNumberOfSeat=4;
+            ceilNumberOfSeat =9;
+        }
+        else if( license.equals("D")){
+            floorNumberOfSeat=10;
+            ceilNumberOfSeat =30;
+        }
+        else if( license.equals("E")){
+            floorNumberOfSeat=30;
+            ceilNumberOfSeat =100;
+        }
+
+        ResponseEntity<ResponseObject<List<Coach>>> responseEntityCoach =  getAllCoach();
+        ResponseObject<List<Coach>> coachResponseObject = responseEntityCoach.getBody();
+        List<Coach> listCoach = (List<Coach>) coachResponseObject.getData();
+        List<Coach> listCoachFilter = new ArrayList<>();
+        for(Coach coach : listCoach){
+             int maxSeat = coach.getNumberOfSeats();
+             if(maxSeat<=ceilNumberOfSeat&&maxSeat>=floorNumberOfSeat){
+                 listCoachFilter.add(coach);
+             }
+        }
+        ResponseObject<List<Coach>> newResponseListCoach = new ResponseObject<>();
+        newResponseListCoach.setData(listCoachFilter);
+        return ResponseEntity.ok(newResponseListCoach);
+
+
+    }
+
 
 
 }

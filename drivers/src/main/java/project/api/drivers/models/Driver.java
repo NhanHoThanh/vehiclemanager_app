@@ -31,10 +31,12 @@ public class Driver {
     private String vehicleType;
     private String email;
     private String createdAt;
+    private String yearOfBirth;
+    private String gender;
     public Driver() {
     }
 
-    public Driver(String id, String name, String address, String phone_number, String license, String cccd, String routeId, String status, String vehicleId, String vehicleType, String email, String createdAt){
+    public Driver(String id, String name, String address, String phone_number, String license, String cccd, String routeId, String status, String vehicleId, String vehicleType, String email,String gender,String yearOfBirth, String createdAt){
         this.id=id;
         this.name = name;
         this.address = address;
@@ -46,7 +48,25 @@ public class Driver {
         this.vehicleId = vehicleId;
         this.vehicleType = vehicleType;
         this.email = email;
+        this.yearOfBirth = yearOfBirth;
+        this.gender = gender;
         this.createdAt = createdAt;
+    }
+
+    public String getYearOfBirth() {
+        return yearOfBirth;
+    }
+
+    public void setYearOfBirth(String yearOfBirth) {
+        this.yearOfBirth = yearOfBirth;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public String getCreatedAt() {

@@ -18,10 +18,29 @@ Content-Type: application/json
     "status":"available",
     "vehicleId":"1",
     "vehicleType":"Truck",
-    "email":"hotanhhanhot@gmail.com"
+    "email":"hotanhhanhot@gmail.com",
+    "yearOfBirth":"1995",
+    "gender":"Nam"
 }
 ###
-PUT  http://localhost:8080/api/drivers/20240410230323
+PUT http://localhost:8080/api/drivers/20240421151446/vehicle
+Content-Type: application/json
+
+{
+    "vehicleId":"2",
+    "vehicleType":"Truck"
+}
+
+
+###
+PUT http://localhost:8080/api/drivers/20240421151446/route
+Content-Type: application/json
+
+{
+    "routeId":"TP.HCM - BaRiaVungTau"
+}
+###
+PUT  http://localhost:8080/api/drivers/20240421151446
 Content-Type: application/json
 
 {
@@ -33,6 +52,8 @@ Content-Type: application/json
 ### 
 DELETE   http://localhost:8080/api/drivers/20240410230323
 Content-Type: application/json
+
+
 
 
 

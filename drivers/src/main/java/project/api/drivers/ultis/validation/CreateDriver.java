@@ -29,16 +29,42 @@ public class CreateDriver{
     @Email(message = "Email is invalid")
     private String email;
 
+    @NotBlank(message = "Year Of Birth is required")
+    @Pattern(regexp = "^\\d{4}$", message = "Year of Birth must be exactly 4 digits")
+    private String yearOfBirth;
+
+    @NotBlank(message = "Gender is required")
+    @Pattern(regexp = "^(Nam|Nu)$")
+    private String gender;
+
     public CreateDriver() {
     }
 
-    public CreateDriver(String address, String cccd, String license, String name, String phone_number, String email) {
+    public CreateDriver(String yearOfBirth,String gender,String address, String cccd, String license, String name, String phone_number, String email) {
         this.address = address;
         this.cccd = cccd;
         this.license = license;
         this.name = name;
         this.phone_number = phone_number;
         this.email = email;
+        this.gender = gender;
+        this.yearOfBirth = yearOfBirth;
+    }
+
+    public String getYearOfBirth() {
+        return yearOfBirth;
+    }
+
+    public void setYearOfBirth(String yearOfBirth) {
+        this.yearOfBirth = yearOfBirth;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public String getAddress() {

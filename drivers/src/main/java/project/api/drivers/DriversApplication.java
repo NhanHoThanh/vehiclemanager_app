@@ -33,7 +33,7 @@ public class DriversApplication {
 
 
 		FileInputStream serviceAccount =
-				new FileInputStream("/app/resources/serviceAccount.json");
+				new FileInputStream("drivers/src/main/resources/serviceAccount.json");
 
 		FirebaseOptions options = new FirebaseOptions.Builder()
 				.setCredentials(GoogleCredentials.fromStream(serviceAccount))

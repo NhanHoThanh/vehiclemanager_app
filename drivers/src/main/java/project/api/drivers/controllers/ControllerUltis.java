@@ -28,6 +28,12 @@ public class ControllerUltis {
         if (updateDriver.getEmail() != null) {
             driver.setEmail(updateDriver.getEmail());
         }
+        if(updateDriver.getGender() != null){
+            driver.setGender(updateDriver.getGender());
+        }
+        if(updateDriver.getYearOfBirth() != null){
+            driver.setYearOfBirth(updateDriver.getYearOfBirth());
+        }
         return driver;
     }
     @NotNull
@@ -51,6 +57,12 @@ public class ControllerUltis {
         }
         if (createDriver.getEmail() != null) {
             driver.setEmail(createDriver.getEmail());
+        }
+        if(createDriver.getGender() != null){
+            driver.setGender(createDriver.getGender());
+        }
+        if(createDriver.getYearOfBirth() != null){
+            driver.setYearOfBirth(createDriver.getYearOfBirth());
         }
         return driver;
     }

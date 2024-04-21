@@ -94,16 +94,25 @@ public class DriverController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ResponseObject<Driver>> updateDriver(@PathVariable("id")  String id, @RequestBody UpdateDriver updateDriver) {
+
         if (!id.matches("\\d{14}")) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseObject<>("error", "ID must be exactly 14 digits", null));
         }
-        if(driverService.checkDriverValueExists("cccd", updateDriver.getCccd())){
+        ResponseObject<Driver> checkObject = driverService.getDriverById(id);
+        if (driverService.getDriverById(id).getStatus() == "fail") {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject<>("error", "ID does not exist", null));
+        }
+        if ("error".equals(checkObject.getStatus())) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(checkObject);
+        }
+        Driver driverToUpdate = (Driver) checkObject.getData();
+        if(driverService.checkDriverValueExists("cccd", updateDriver.getCccd()) && !updateDriver.getCccd().equals(driverToUpdate.getCccd())){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseObject<>("error", "CCCD already exists", null));
         }
-        if(driverService.checkDriverValueExists("phone_number", updateDriver.getPhone_number())){
+        if(driverService.checkDriverValueExists("phone_number", updateDriver.getPhone_number()) && !updateDriver.getPhone_number().equals(driverToUpdate.getPhone_number())){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseObject<>("error", "Phone number already exists", null));
         }
-        if(driverService.checkDriverValueExists("email", updateDriver.getEmail())){
+        if(driverService.checkDriverValueExists("email", updateDriver.getEmail()) && !updateDriver.getEmail().equals(driverToUpdate.getEmail())){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseObject<>("error", "Email already exists", null));
         }
         Driver driver = ControllerUltis.getDriver(updateDriver);

@@ -1,34 +1,51 @@
 package project.api.drivers.models;
 
 
+import java.util.List;
+
 public class Passenger {
     private String idPassenger;
     private String destination;
     private String departure;
     private String name;
-    private int age;
+
     private String seatingPosition;
     private double cosPassenger;
+    private List<String> listVehicle;
+
+
 
     public Passenger() {
     }
 
-    public Passenger(String idPassenger, String destination, String departure, String name, int age, String seatingPosition, double cosPassenger) {
+    public Passenger(String idPassenger, String destination, String departure, String name,  String seatingPosition, double cosPassenger) {
         this.idPassenger = idPassenger;
         this.destination = destination;
         this.departure = departure;
         this.name = name;
-        this.age = age;
+
         this.seatingPosition = seatingPosition;
         this.cosPassenger = cosPassenger;
     }
-    public int getAge() {
-        return age;
+
+    public Passenger(String idPassenger, String destination, String departure, String name, String seatingPosition, double cosPassenger, List<String> listVehicle) {
+        this.idPassenger = idPassenger;
+        this.destination = destination;
+        this.departure = departure;
+        this.name = name;
+        this.seatingPosition = seatingPosition;
+        this.cosPassenger = cosPassenger;
+        this.listVehicle = listVehicle;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public List<String> getListVehicle() {
+        return listVehicle;
     }
+
+    public void setListVehicle(List<String> listVehicle) {
+        this.listVehicle = listVehicle;
+    }
+
     public String getIdPassenger() {
         return idPassenger;
     }

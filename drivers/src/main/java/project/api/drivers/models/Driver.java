@@ -26,11 +26,37 @@ public class Driver {
 
     private String status;
 
+    private int age;
+
 
     private String vehicleId;// Vehicle 1
 
     private String vehicleType;
     private String email;
+
+    public Driver(String id, String name, String address, String phone_number, String license, String cccd, String routeId, String status, int age, String vehicleId, String vehicleType, String email) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.phone_number = phone_number;
+        this.license = license;
+        this.cccd = cccd;
+        this.routeId = routeId;
+        this.status = status;
+        this.age = age;
+        this.vehicleId = vehicleId;
+        this.vehicleType = vehicleType;
+        this.email = email;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
     public Driver() {
     }
 

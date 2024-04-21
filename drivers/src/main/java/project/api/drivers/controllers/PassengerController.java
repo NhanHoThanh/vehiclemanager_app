@@ -3,6 +3,7 @@ package project.api.drivers.controllers;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import project.api.drivers.models.Coach;
 import project.api.drivers.models.Passenger;
 import project.api.drivers.services.CargoService;
 import project.api.drivers.services.PassengerService;
@@ -74,5 +75,16 @@ public class PassengerController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseObject);
         }
         return ResponseEntity.ok(responseObject);
+    }
+    @PutMapping("registerVehicle/{idVehicle}/{idPassenger}")
+    public ResponseEntity<ResponseObject> registerVehicle(@PathVariable String idVehicle, @PathVariable String idPassenger ) throws ExecutionException, InterruptedException {
+        ResponseEntity<ResponseObject<Passenger>> passengerResponseEntity =  getPassenger(idPassenger);
+        ResponseObject<Passenger> passengerResponseObject = passengerResponseEntity.getBody();
+        Passenger passenger = (Passenger) passengerResponseObject.getData();
+        List<String> listVehicle = passenger.getListVehicle();
+        listVehicle.add(idVehicle);
+        passenger.setListVehicle(listVehicle);
+        return updatePassenger(idPassenger,passenger);
+
     }
 }

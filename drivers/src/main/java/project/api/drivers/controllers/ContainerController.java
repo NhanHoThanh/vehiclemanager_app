@@ -152,22 +152,22 @@ public class ContainerController {
         }
         return ResponseEntity.ok(responseObject);
     }
-    @GetMapping("/setContainer/{idDriver}")
-    public ResponseEntity<ResponseObject<List<Container>>> getContainerByLicense (@PathVariable String idDriver ){
+    @GetMapping("/setContainer/{license}")
+    public ResponseEntity<ResponseObject<List<Container>>> getContainerByLicense (@PathVariable String license ){
         //        B1,B2,C,D,E,F
-        ResponseEntity<ResponseObject<Driver>> responseDriver = restTemplate.exchange(
-                "/api/drivers/{idDriver}",
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<ResponseObject<Driver>>() {
-                },
-                idDriver
-        );
-        //
-        ResponseObject<Driver> responseDriverEntity = responseDriver.getBody();
-        assert responseDriverEntity != null;
-        Driver driverData = (Driver) responseDriverEntity.getData();
-        String license= driverData.getLicense();
+//        ResponseEntity<ResponseObject<Driver>> responseDriver = restTemplate.exchange(
+//                "/api/drivers/{idDriver}",
+//                HttpMethod.GET,
+//                null,
+//                new ParameterizedTypeReference<ResponseObject<Driver>>() {
+//                },
+//                idDriver
+//        );
+//        //
+//        ResponseObject<Driver> responseDriverEntity = responseDriver.getBody();
+//        assert responseDriverEntity != null;
+//        Driver driverData = (Driver) responseDriverEntity.getData();
+//        String license= driverData.getLicense();
 
 
         Double minLoad=-1.0;

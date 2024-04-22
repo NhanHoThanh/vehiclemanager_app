@@ -156,22 +156,22 @@ public class CoachController {
         }
         return ResponseEntity.ok(responseObject);
     }
-    @GetMapping("/setCoach/{idDriver}")
-    public ResponseEntity<ResponseObject<List<Coach>>> getCoachByLicense (@PathVariable String idDriver ){
+    @GetMapping("/setCoach/{license}")
+    public ResponseEntity<ResponseObject<List<Coach>>> getCoachByLicense (@PathVariable String license ){
         //        B1,B2,C,D,E,F
-        ResponseEntity<ResponseObject<Driver>> responseDriver = restTemplate.exchange(
-                "/api/drivers/{idDriver}",
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<ResponseObject<Driver>>() {
-                },
-                idDriver
-        );
-        //
-        ResponseObject<Driver> responseDriverEntity = responseDriver.getBody();
-        assert responseDriverEntity != null;
-        Driver driverData = (Driver) responseDriverEntity.getData();
-        String license= driverData.getLicense();
+//        ResponseEntity<ResponseObject<Driver>> responseDriver = restTemplate.exchange(
+//                "/api/drivers/{idDriver}",
+//                HttpMethod.GET,
+//                null,
+//                new ParameterizedTypeReference<ResponseObject<Driver>>() {
+//                },
+//                idDriver
+//        );
+//        //
+//        ResponseObject<Driver> responseDriverEntity = responseDriver.getBody();
+//        assert responseDriverEntity != null;
+//        Driver driverData = (Driver) responseDriverEntity.getData();
+//        String license= driverData.getLicense();
 
 
         int floorNumberOfSeat=-1;

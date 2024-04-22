@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/passenger")
 public class PassengerController {
     public PassengerService passengerService;

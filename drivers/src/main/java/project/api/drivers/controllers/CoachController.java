@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import org.springframework.web.client.RestTemplate;
 @RestController
+@CrossOrigin
 @RequestMapping("/api/coach")
 public class CoachController {
     @Autowired

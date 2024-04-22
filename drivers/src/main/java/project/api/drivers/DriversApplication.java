@@ -23,7 +23,7 @@ import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @SpringBootApplication
-//@EnableDiscoveryClient
+@EnableDiscoveryClient
 public class DriversApplication {
 	public DriversApplication() throws IOException {
 	}
@@ -42,21 +42,6 @@ public class DriversApplication {
 		if (FirebaseApp.getApps().isEmpty()) {
 			FirebaseApp.initializeApp(options);
 		}
-		Firestore db = FirestoreClient.getFirestore();
-		DocumentReference docRef = db.collection("Drivers").document("rYxQ1ytPcrNXVbMKj6lF");
-		ApiFuture<DocumentSnapshot> future = docRef.get();
-		DocumentSnapshot document = future.get();
-		if (document.exists()) {
-//			System.out.println(STR."Document data: \{document.getData()}");
-//<<<<<<< HEAD
-//=======
-//			System.out.println("test"); // them vo de test
-//>>>>>>> route_income_update
-		} else {
-			System.out.println("No such document!");
-		}
-//		System.out.println(STR."FirebaseOptions: \{options}");
-		System.out.println(FirebaseApp.getApps());
 		SpringApplication.run(DriversApplication.class, args);
 	}
 

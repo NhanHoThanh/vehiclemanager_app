@@ -26,6 +26,7 @@ import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/vehicle")
 public class VehicleController {
     @Autowired

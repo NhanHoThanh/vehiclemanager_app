@@ -15,7 +15,7 @@ public class CreateDriver{
     private String cccd;
 
     @NotBlank(message = "License is required")
-    @Pattern(regexp = "^(A1|A2|B1|B2|C1|C2)$", message = "License must be one of the following: A1, A2, B1, B2, C1, C2")
+    @Pattern(regexp = "^(A1|A2|B1|B2|C1|C2|C|D|E|F|)$", message = "License must be one of the following: A1, A2, B1, B2, C1, C2")
     private String license;
 
     @NotBlank(message = "Name is required")

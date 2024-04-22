@@ -11,7 +11,7 @@ public class UpdateDriver {
     @Pattern(regexp = "\\d{12}", message = "CCCD must be exactly 12 digits")
     private String cccd;
 
-    @Pattern(regexp = "^(A1|A2|B1|B2|C1|C2)$", message = "License must be one of the following: A1, A2, B1, B2, C1, C2")
+    @Pattern(regexp = "^(A1|A2|B1|B2|C1|C2|C|D|E|F)$", message = "License must be one of the following: A1, A2, B1, B2, C1, C2")
     private String license;
 
     private String name;

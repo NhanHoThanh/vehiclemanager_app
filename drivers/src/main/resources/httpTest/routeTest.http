@@ -1,0 +1,9 @@
+###
+GET http://localhost:8082/api/vehicle/history/route/Coach7
+Content-Type: application/json
+
+###
+PUT http://localhost:8082/api/vehicle/totalRevenue/Coach7
+Content-Type: application/json
+
+###

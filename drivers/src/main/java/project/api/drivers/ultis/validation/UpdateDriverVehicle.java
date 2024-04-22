@@ -7,7 +7,7 @@ public class UpdateDriverVehicle {
     @NotBlank(message = "Vehicle ID is required")
     private String vehicleId;
     @NotBlank(message = "Vehicle Type is required")
-    @Pattern(regexp = "^(Container|Coach)$", message = "Vehicle Type must be either 'Truck' or 'Coach'")
+    @Pattern(regexp = "^(Container|Coach)$", message = "Vehicle Type must be either 'Container' or 'Coach'")
     private String vehicleType;
 
     public UpdateDriverVehicle(String vehicleId) {

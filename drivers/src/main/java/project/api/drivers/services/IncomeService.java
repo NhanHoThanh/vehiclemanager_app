@@ -122,14 +122,14 @@ public class IncomeService {
 //    }
 
     private double calculateCost(double distance) {
-        double consumption = 20; // Giả sử mức tiêu thụ nhiên liệu là 10 lít/100km
+        double consumption = 17; // Giả sử mức tiêu thụ nhiên liệu là 10 lít/100km
         double costExtend = generateRandomCost(distance); // Tạo chi phí phát sinh ngẫu nhiên
         return (distance / 100) * consumption + costExtend;
     }
     private double generateRandomCost(double distance) {
 
-        double minCostPerKm = 500000;
-        double maxCostPerKm = 5000000;
+        double minCostPerKm = 50000;
+        double maxCostPerKm = 500000;
 
 
         double costPerKm = (maxCostPerKm - minCostPerKm) * new Random().nextDouble() + minCostPerKm;

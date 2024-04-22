@@ -345,17 +345,35 @@ public class VehicleController {
 //                vehicle.getRoute(),vehicle.getTimeStart(),vehicle.getTimeEnd(),newUpdateDeparture,newUpdateDestination);
 //
 //        ResponseEntity<ResponseObject> updateVehicleReturn = updateVehicle(idVehicle,newVehicleUpdate);
+
+
+      if(vehicleData.getVehicleType().equals("coach")){
         Coach newCoachUpdate = new Coach(listIdRouteUpdate,listIdIncomeUpdate,timeStartListUpdate,timeEndListUpdate,
                vehicle.getRoute(),vehicle.getTimeStart(),vehicle.getTimeEnd(),newUpdateDeparture,newUpdateDestination);
-        ResponseEntity<ResponseObject> responseCoach  = restTemplate.exchange(
+          ResponseEntity<ResponseObject> responseCoach  = restTemplate.exchange(
                 "/api/coach/{idVehicle}",
                 HttpMethod.PUT, // Use PUT method for updating data
                 new HttpEntity<>(newCoachUpdate ), // Pass newDriverUpdate as request body
                 new ParameterizedTypeReference<ResponseObject>() {},
                 idVehicle// Pass id as a path variable
         );
-        calculateTotalRevenueCostProfit(idVehicle);
-        return responseCoach;
+          calculateTotalRevenueCostProfit(idVehicle);
+          return responseCoach;
+      }
+      else {
+          Container newContainerUpdate = new Container(listIdRouteUpdate,listIdIncomeUpdate,timeStartListUpdate,timeEndListUpdate,
+                  vehicle.getRoute(),vehicle.getTimeStart(),vehicle.getTimeEnd(),newUpdateDeparture,newUpdateDestination);
+          ResponseEntity<ResponseObject> responseContainer  = restTemplate.exchange(
+                  "/api/container/{idVehicle}",
+                  HttpMethod.PUT, // Use PUT method for updating data
+                  new HttpEntity<>(newContainerUpdate ), // Pass newDriverUpdate as request body
+                  new ParameterizedTypeReference<ResponseObject>() {},
+                  idVehicle// Pass id as a path variable
+          );
+          calculateTotalRevenueCostProfit(idVehicle);
+          return responseContainer;
+      }
+
 
 
     }

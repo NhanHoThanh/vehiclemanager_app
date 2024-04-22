@@ -57,7 +57,8 @@ public class Vehicle {
         this.departure = departure;
     }
 
-    public Vehicle(List<String> historyRouteList, List<String> historyIncomeList, List<Date> timeStartList, List<Date> timeEndList, String route , Date timeStart, Date timeEnd  ) {
+    public Vehicle(List<String> historyRouteList, List<String> historyIncomeList, List<Date> timeStartList, List<Date> timeEndList,
+                   String route , Date timeStart, Date timeEnd  , String departure, String destination) {
         this.historyRouteList = historyRouteList;
         this.historyIncomeList = historyIncomeList;
         this.timeStartList = timeStartList;
@@ -65,6 +66,8 @@ public class Vehicle {
         this.route=route;
         this.timeStart=timeStart;
         this.timeEnd=timeEnd;
+        this.departure=departure;
+        this.destination=destination;
     }
 
     public Vehicle(String idVehicle, List<String> driverList, List<String> hisRouteList, List<String> hisIncomeList, List<Date> timeStartList, List<Date> timeEndList, int capacity, String fuelType, String status, String route, String vehicleType, Date timeStart, Date timeEnd, String destination, String departure) {

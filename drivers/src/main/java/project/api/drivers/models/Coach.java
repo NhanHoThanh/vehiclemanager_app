@@ -19,6 +19,10 @@ public class Coach extends Vehicle{
     public Coach() {
     }
 
+    public Coach(List<String> historyRouteList, List<String> historyIncomeList, List<Date> timeStartList, List<Date> timeEndList, String route, Date timeStart, Date timeEnd, String departure, String destination) {
+        super(historyRouteList, historyIncomeList, timeStartList, timeEndList, route, timeStart, timeEnd, departure, destination);
+    }
+
     public Coach(int numberOfPassenger, List<String> emptySeat, List<String> passengerList) {
         this.numberOfPassenger = numberOfPassenger;
         this.emptySeat = emptySeat;
@@ -124,5 +128,7 @@ public class Coach extends Vehicle{
         this.setToTalProfit(vehicle.getToTalProfit());
         this.setTimeStartList(vehicle.getTimeStartList());
         this.setTimeEndList(vehicle.getTimeEndList());
+        this.setDeparture(vehicle.getDeparture());
+        this.setDestination(vehicle.getDestination());
     }
 }

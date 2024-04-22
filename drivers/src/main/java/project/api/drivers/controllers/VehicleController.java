@@ -4,6 +4,7 @@ package project.api.drivers.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -169,9 +170,23 @@ public class VehicleController {
 
 
     }
-    @PutMapping("/updateRoute/{idVehicle}")
-    public ResponseEntity<ResponseObject> updateRouteAndCalculateIncome (@PathVariable String  idVehicle ,@RequestBody Vehicle vehicle) throws ExecutionException, InterruptedException {
-        calculateTotalRevenueCostProfit(idVehicle);
+    @PutMapping("/updateRoute/{idDriver}")
+    public ResponseEntity<ResponseObject> updateRouteAndCalculateIncome ( @PathVariable String idDriver  ,@RequestBody Vehicle vehicle ) throws ExecutionException, InterruptedException {
+
+        ResponseEntity<ResponseObject<Driver>> responseDriver = restTemplate.exchange(
+                "/api/drivers/{idDriver}",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<ResponseObject<Driver>>() {
+                },
+                idDriver
+        );
+        //
+        ResponseObject<Driver> responseDriverEntity = responseDriver.getBody();
+        assert responseDriverEntity != null;
+        Driver driverData = (Driver) responseDriverEntity.getData();
+        String idVehicle = driverData.getVehicleId();
+
         String idIncome="";
         ResponseEntity<ResponseObject<Vehicle>> responseVehicle = getVehicle( idVehicle );
 
@@ -293,8 +308,54 @@ public class VehicleController {
         }
 
 
-         Vehicle newVehicleUpdate = new Vehicle(listIdRouteUpdate,listIdIncomeUpdate,timeStartListUpdate,timeEndListUpdate,vehicle.getRoute(),vehicle.getTimeStart(),vehicle.getTimeEnd());
-        return  updateVehicle(idVehicle,newVehicleUpdate);
+         Driver newDriverUpdate = new Driver();
+        newDriverUpdate.setRouteId(vehicle.getRoute());
+        ResponseEntity<ResponseObject<Driver>> responseId = restTemplate.exchange(
+                "/api/drivers/{idDriver}",
+                HttpMethod.PUT, // Use PUT method for updating data
+                new HttpEntity<>(newDriverUpdate), // Pass newDriverUpdate as request body
+                new ParameterizedTypeReference<ResponseObject<Driver>>() {},
+                idDriver// Pass id as a path variable
+        );
+
+        //
+//        ResponseObject<String> responseIdEntity =responseId .getBody();
+//        assert  responseIdEntity!= null;
+//        idIncome = (String) responseIdEntity.getData();
+        String idRoute = vehicle.getRoute();
+        ResponseEntity<ResponseObject<Route>> responseRoute = restTemplate.exchange(
+                "/api/route/{idRoute}",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<ResponseObject<Route>>() {
+                },
+                idRoute
+        );
+        //
+        ResponseObject<Route> responseRouteEntity = responseRoute.getBody();
+        assert responseRouteEntity != null;
+        Route routeData = (Route) responseRouteEntity.getData();
+        String newUpdateDeparture = routeData.getDeparture();
+        String newUpdateDestination =  routeData.getDestination();
+        System.out.println(newUpdateDeparture );
+        System.out.println(newUpdateDestination);
+
+
+//        Vehicle newVehicleUpdate = new Vehicle(listIdRouteUpdate,listIdIncomeUpdate,timeStartListUpdate,timeEndListUpdate,
+//                vehicle.getRoute(),vehicle.getTimeStart(),vehicle.getTimeEnd(),newUpdateDeparture,newUpdateDestination);
+//
+//        ResponseEntity<ResponseObject> updateVehicleReturn = updateVehicle(idVehicle,newVehicleUpdate);
+        Coach newCoachUpdate = new Coach(listIdRouteUpdate,listIdIncomeUpdate,timeStartListUpdate,timeEndListUpdate,
+               vehicle.getRoute(),vehicle.getTimeStart(),vehicle.getTimeEnd(),newUpdateDeparture,newUpdateDestination);
+        ResponseEntity<ResponseObject> responseCoach  = restTemplate.exchange(
+                "/api/coach/{idVehicle}",
+                HttpMethod.PUT, // Use PUT method for updating data
+                new HttpEntity<>(newCoachUpdate ), // Pass newDriverUpdate as request body
+                new ParameterizedTypeReference<ResponseObject>() {},
+                idVehicle// Pass id as a path variable
+        );
+        calculateTotalRevenueCostProfit(idVehicle);
+        return responseCoach;
 
 
     }
@@ -329,7 +390,7 @@ public class VehicleController {
         return ResponseEntity.ok(responseObject);
 
     }
-    @GetMapping("/history/Income/{idVehicle}")
+    @GetMapping("/history/income/{idVehicle}")
     public ResponseEntity<ResponseObject<List<Income>>>  getListIncomeHistory (@PathVariable String idVehicle ) throws ExecutionException, InterruptedException {
         ResponseEntity<ResponseObject<Vehicle>> responseVehicle = getVehicle(idVehicle);
 

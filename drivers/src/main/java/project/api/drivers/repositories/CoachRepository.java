@@ -13,11 +13,22 @@ import java.util.concurrent.ExecutionException;
 public class CoachRepository extends GenericRepositoryImpl {
 
     public Coach createCoach(Coach coach) throws ExecutionException, InterruptedException {
+        int maxSeat = coach.getNumberOfSeats();
+        List<String> emptySeat = new ArrayList<>();
+        for(int i=1;i<=maxSeat ;i++){
+            emptySeat.add( String.valueOf(i));
+        }
+        coach.setEmptySeat(emptySeat);
 
-        Vehicle vehicle = new Vehicle(coach.getIdVehicle(), coach.getDriverList(), coach.getHistoryRouteList(), coach.getHistoryIncomeList(), coach.getTimeStartList(), coach.getTimeEndList(), coach.getCapacity(), coach.getFuelType(), coach.getStatus(), coach.getRoute(), coach.getVehicleType(), coach.getTimeStart(), coach.getTimeEnd(), coach.getDestination(), coach.getDeparture());
+
+        Vehicle vehicle = new Vehicle(coach.getIdVehicle(), coach.getDriverList(), coach.getHistoryRouteList(), coach.getHistoryIncomeList(),
+                coach.getTimeStartList(), coach.getTimeEndList(), coach.getCapacity(), coach.getFuelType(), coach.getStatus(), coach.getRoute(),
+                coach.getVehicleType(), coach.getTimeStart(), coach.getTimeEnd(), coach.getDestination(), coach.getDeparture());
+
 
 
         createDocument("Vehicle", coach.getIdVehicle(), vehicle);
+        coach.setVehicle( vehicle);
         createDocument("Coach", coach.getIdVehicle(), coach);
         return coach;
     }

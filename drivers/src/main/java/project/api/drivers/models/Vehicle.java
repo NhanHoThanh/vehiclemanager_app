@@ -87,6 +87,7 @@ public class Vehicle {
         this.destination = destination;
         this.departure = departure;
     }
+
     public Double getToTalRevenue() {
         return toTalRevenue;
     }
